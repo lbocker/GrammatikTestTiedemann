@@ -6,6 +6,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { ReactiveFormsModule } from "@angular/forms";
 import { debounceTime, distinctUntilChanged, Observable, Subject, switchMap } from "rxjs";
+import { CourseServiceService } from "../../services/course/course-service.service";
 
 @Component({
   selector: 'app-courses-search',
@@ -18,7 +19,7 @@ export class CoursesSearchComponent implements OnInit {
   courses$!: Observable<Course[]>;
   private searchTerm = new Subject<string>();
 
-  constructor(private heroService: HeroService) { }
+  constructor(private courseService: CourseServiceService) { }
 
   search(term: string): void {
     this.searchTerm.next(term);
@@ -30,7 +31,7 @@ export class CoursesSearchComponent implements OnInit {
 
       distinctUntilChanged(),
 
-      switchMap((term: string) => this.heroService.searchHeroes(term)),
+      switchMap((term: string) => this.courseService.searchCourse(term)),
 
     );
   }
