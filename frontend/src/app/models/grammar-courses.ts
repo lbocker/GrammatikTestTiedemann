@@ -5,4 +5,5 @@ export interface GrammarCourses {
   image: string;
   availableUnits: number;
   description: string;
+  status: string;
 }

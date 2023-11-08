@@ -5,7 +5,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
-import { NgIf } from "@angular/common";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: 'app-root',
@@ -18,7 +18,7 @@ import { NgIf } from "@angular/common";
     MatIconModule,
     FormsModule,
     MatButtonModule,
-    NgIf
+    CommonModule
   ],
 
   styleUrls: ['./app.component.less']
