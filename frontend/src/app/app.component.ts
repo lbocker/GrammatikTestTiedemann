@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CardComponent } from "./components/card/card.component";
-import { RouterLink } from "@angular/router";
+import {RouterLink, RouterOutlet} from "@angular/router";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { FormsModule } from "@angular/forms";
@@ -18,7 +18,8 @@ import { CommonModule } from "@angular/common";
     MatIconModule,
     FormsModule,
     MatButtonModule,
-    CommonModule
+    CommonModule,
+    RouterOutlet
   ],
 
   styleUrls: ['./app.component.less']
