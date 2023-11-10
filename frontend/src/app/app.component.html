@@ -1,13 +1,10 @@
-<header class="headerContainer">
-    <nav class="headerNavigation">
-      <a routerLink="/">Home</a>
-      <a routerLink="/about">About</a>
-    </nav>
-
-    <aside *ngIf="!user" class="headerLogin">
-      <a routerLink="/login">Login</a>
-      <a routerLink="/register">Register</a>
-    </aside>
-</header>
+<div class="header">
+  <span class="material-icons" (click)="toogleSidebar()">menu</span>
+  <h1>Grammatik Test</h1>
+  <a routerLink="login" *ngIf="!user">Login/Register</a>
+  <p-avatar label="P" styleClass="mr-2" size="xlarge" *ngIf="!!user"></p-avatar>
+</div>
+<p-sidebar [(visible)]="sidebar" position="left">
+  <h3>Left Sidebar</h3>
+</p-sidebar>
 <router-outlet></router-outlet>
-<app-card></app-card>

@@ -7,3 +7,9 @@ export interface GrammarCourses {
   description: string;
   status: 'Fertig' | 'In Bearbeitung' | 'Offen';
 }
+
+export interface User {
+  username: string;
+  password: string;
+  image: string;
+}
