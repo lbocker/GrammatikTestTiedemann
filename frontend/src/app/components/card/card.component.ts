@@ -19,7 +19,8 @@ export class CardComponent implements OnInit {
       assignment: 'Chicago',
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 4,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.'
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
+      status: "Fertig"
     },
     {
       id: 1,
@@ -27,7 +28,8 @@ export class CardComponent implements OnInit {
       assignment: 'Santa Monica',
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 0,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.'
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
+      status: "Fertig"
     },
     {
       id: 2,
@@ -35,7 +37,8 @@ export class CardComponent implements OnInit {
       assignment: 'Juneau',
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 1,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.'
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
+      status: "Fertig"
     },
     {
       id: 3,
@@ -43,7 +46,8 @@ export class CardComponent implements OnInit {
       assignment: 'Chicago',
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 1,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.'
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
+      status: "Fertig"
     },
     {
       id: 4,
@@ -51,7 +55,8 @@ export class CardComponent implements OnInit {
       assignment: 'Gary',
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 1,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.'
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
+      status: "Fertig"
     },
     {
       id: 5,
@@ -59,7 +64,8 @@ export class CardComponent implements OnInit {
       assignment: 'Oakland',
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 2,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.'
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
+      status: "Fertig"
     },
     {
       id: 6,
@@ -67,7 +73,8 @@ export class CardComponent implements OnInit {
       assignment: 'Oakland',
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 5,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.'
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
+      status: "Fertig"
     },
     {
       id: 7,
@@ -75,7 +82,8 @@ export class CardComponent implements OnInit {
       assignment: 'Oakland',
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 2,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.'
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
+      status: "Fertig"
     },
     {
       id: 8,
@@ -83,7 +91,8 @@ export class CardComponent implements OnInit {
       assignment: 'Oakland',
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 10,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.'
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
+      status: "Fertig"
     },
     {
       id: 9,
@@ -91,7 +100,8 @@ export class CardComponent implements OnInit {
       assignment: 'Portland',
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 6,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.'
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
+      status: "Fertig"
     }
   ];
 
