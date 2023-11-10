@@ -1,50 +1,69 @@
-import { Component } from '@angular/core';
-import { CardComponent } from "./components/card/card.component";
-import {RouterLink, RouterOutlet} from "@angular/router";
-import { MatInputModule } from "@angular/material/input";
-import { MatIconModule } from "@angular/material/icon";
-import { FormsModule } from "@angular/forms";
-import { MatButtonModule } from "@angular/material/button";
+import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
 import { CommonModule } from "@angular/common";
-import { TabMenuModule } from "primeng/tabmenu";
-import { MenuItem } from "primeng/api";
-import { ButtonModule } from "primeng/button";
-import { SidebarModule } from "primeng/sidebar";
+import {MenuItem, MessageService} from "primeng/api";
 import { User } from "./models/grammar-courses";
-import { AvatarModule } from "primeng/avatar";
+import {PRIMENG_BARREL} from "./barrel/primeng.barrel";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   imports: [
-    CardComponent,
-    RouterLink,
-    MatInputModule,
-    MatIconModule,
-    FormsModule,
-    MatButtonModule,
     CommonModule,
-    RouterOutlet,
-    CommonModule,
-    TabMenuModule,
-    ButtonModule,
-    SidebarModule,
-    AvatarModule
+    PRIMENG_BARREL
   ],
-
+  providers: [MessageService],
   styleUrls: ['./app.component.less']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   value = '';
-  protected navigations: MenuItem[] = [
-    {label: 'Home', icon: 'pi pi-fw pi-home'},
-    {label: 'Login/Register', icon: 'pi pi-fw pi-user', routerLink: 'login'},
-  ]
-  protected user: false | User = false;
+  protected user: false | User = {
+    name: 'Lennard Ortmeyer',
+    password: '!Ich bin der Beste123!',
+    image: 'https://picsum.photos/80/80'
+  };
+  protected userInitials: string = ''
   protected sidebar: boolean = false;
+  protected userMenu: MenuItem[] = [
+    {label: this.user ? this.user.name: '', icon: 'pi pi-user'}
+  ]
+  protected showMenu = false;
 
-  toogleSidebar(): void {
+  constructor(private router: Router) {
+  }
+  ngOnInit(): void {
+    // TODO ausbauen wenn Login implementiert ist
+    var subscription = this.router.events.subscribe(() => {
+      if (this.router.url == '/login') {
+        subscription.unsubscribe()
+
+        this.user = {
+          name: 'Lennard Ortmeyer',
+          password: '!Ich bin der Beste123!',
+          image: 'https://picsum.photos/80/80'
+        }
+        this.userInitials = this.getUserInitials(this.user.name)
+
+        this.router.navigate([''])
+      }
+    })
+  }
+
+
+  toggleSidebar(): void {
     this.sidebar = !this.sidebar;
+  }
+
+  getUserInitials(username: string): string {
+    let usernameSplit = username.trim().split(' ');
+    if (usernameSplit.length == 1) {
+      return usernameSplit[0][0]
+    }
+    return usernameSplit[0][0] + usernameSplit[usernameSplit.length-1][0]
+  }
+
+  toggleMenu() {
+    this.showMenu = !this.showMenu
   }
 }

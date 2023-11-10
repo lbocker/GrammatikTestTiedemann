@@ -9,7 +9,7 @@ export interface GrammarCourses {
 }
 
 export interface User {
-  username: string;
+  name: string;
   password: string;
-  image: string;
+  image?: string;
 }

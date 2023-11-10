@@ -1,10 +1,22 @@
 <div class="header">
-  <span class="material-icons" (click)="toogleSidebar()">menu</span>
+  <span class="material-icons" (click)="toggleSidebar()">menu</span>
   <h1>Grammatik Test</h1>
   <a routerLink="login" *ngIf="!user">Login/Register</a>
-  <p-avatar label="P" styleClass="mr-2" size="xlarge" *ngIf="!!user"></p-avatar>
+  <span *ngIf="!!user" (click)="toggleMenu()" class="avatar">
+    <p-avatar
+      [label]="user.image ? undefined : userInitials"
+      [image]="user.image"
+      size="normal"
+    ></p-avatar>
+    <div class="userMenu">
+      {{user.name}}
+      <hr>
+    </div>
+  </span>
 </div>
+<p-toast></p-toast>
 <p-sidebar [(visible)]="sidebar" position="left">
   <h3>Left Sidebar</h3>
 </p-sidebar>
 <router-outlet></router-outlet>
+

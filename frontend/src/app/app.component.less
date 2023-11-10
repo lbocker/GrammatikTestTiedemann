@@ -13,6 +13,23 @@
   justify-content: center;
 }
 
+.avatar {
+  & .userMenu {
+    display: none;
+    position: absolute;
+    right: 8px;
+    top: 40px;
+    padding: 3px;
+    background: var(--gray-800)
+  }
+
+  &:hover {
+    background: #FFF1;
+    & .userMenu { display: unset }
+  }
+}
+
+
 .headerContainer {
   .defaultFlex();
 
