@@ -1,4 +1,4 @@
-export interface GrammarCourses {
+export interface Course {
   id: number;
   name: string;
   assignment: string;
