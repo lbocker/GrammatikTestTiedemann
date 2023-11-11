@@ -2,16 +2,12 @@
   <span class="material-icons" (click)="toggleSidebar()">menu</span>
   <h1>Grammatik Test</h1>
   <a routerLink="login" *ngIf="!user">Login/Register</a>
-  <span *ngIf="!!user" (click)="toggleMenu()" class="avatar">
+  <span *ngIf="!!user" (click)="op.toggle($event)" class="avatar">
     <p-avatar
       [label]="user.image ? undefined : userInitials"
       [image]="user.image"
       size="normal"
     ></p-avatar>
-    <div class="userMenu">
-      {{user.name}}
-      <hr>
-    </div>
   </span>
 </div>
 <p-toast></p-toast>
@@ -20,3 +16,28 @@
 </p-sidebar>
 <router-outlet></router-outlet>
 
+
+<p-overlayPanel #op>
+  <ng-template pTemplate="content">
+    <ng-container *ngIf="user">
+      {{user.name}}
+      <hr>
+      <p-button
+        label="Profil"
+        [icon]="PrimeIcons.USER"
+        styleClass="p-button-secondary p-button-text p-button-plain UserBTN"
+        type="button"
+      ></p-button>
+      <br>
+      Punkte: <p-badge [value]="user.score.toString()" severity="info"></p-badge>
+      <hr>
+      <p-button
+        label="Ausloggen"
+        [icon]="PrimeIcons.SIGN_OUT"
+        (click)="logOut()"
+        styleClass="p-button-secondary p-button-text p-button-plain UserBTN"
+        type="button"
+      ></p-button>
+    </ng-container>
+  </ng-template>
+</p-overlayPanel>

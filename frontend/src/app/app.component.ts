@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import { CommonModule } from "@angular/common";
-import {MenuItem, MessageService} from "primeng/api";
+import {MenuItem, MessageService, PrimeIcons} from "primeng/api";
 import { User } from "./models/grammar-courses";
 import {PRIMENG_BARREL} from "./barrel/primeng.barrel";
 
@@ -21,7 +21,8 @@ export class AppComponent implements OnInit{
   protected user: false | User = {
     name: 'Lennard Ortmeyer',
     password: '!Ich bin der Beste123!',
-    image: 'https://picsum.photos/80/80'
+    image: 'https://picsum.photos/80/80',
+    score: 250
   };
   protected userInitials: string = ''
   protected sidebar: boolean = false;
@@ -41,7 +42,8 @@ export class AppComponent implements OnInit{
         this.user = {
           name: 'Lennard Ortmeyer',
           password: '!Ich bin der Beste123!',
-          image: 'https://picsum.photos/80/80'
+          image: 'https://picsum.photos/80/80',
+          score: 187
         }
         this.userInitials = this.getUserInitials(this.user.name)
 
@@ -65,5 +67,11 @@ export class AppComponent implements OnInit{
 
   toggleMenu() {
     this.showMenu = !this.showMenu
+  }
+
+  protected readonly PrimeIcons = PrimeIcons;
+
+  logOut() {
+    this.user = false;
   }
 }
