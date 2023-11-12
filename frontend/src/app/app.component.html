@@ -12,7 +12,21 @@
 </div>
 <p-toast></p-toast>
 <p-sidebar [(visible)]="sidebar" position="left">
-  <h3>Left Sidebar</h3>
+  <h3>Kurse</h3>
+  <p-accordion *ngIf="courses.length == 0">
+    <p-accordionTab>
+      <p-header><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></p-header>
+      <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+      <p-skeleton width="8rem" styleClass="mb-2"></p-skeleton>
+      <p-skeleton width="12rem" styleClass="mb-2"></p-skeleton>
+    </p-accordionTab>
+  </p-accordion>
+<!-- Wenn daten da sind wird das angezeigt -->
+  <p-accordion *ngIf="courses.length >= 1">
+    <p-accordionTab *ngFor="let course of courses" [header]="course.name">
+
+    </p-accordionTab>
+  </p-accordion>
 </p-sidebar>
 <router-outlet></router-outlet>
 

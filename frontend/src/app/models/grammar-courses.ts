@@ -14,3 +14,9 @@ export interface User {
   image?: string;
   score: number;
 }
+
+
+export interface CourseGroup {
+  name: string;
+  children: GrammarCourses[]
+}
