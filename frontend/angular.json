@@ -37,6 +37,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/assets/theme.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "@angular/material/prebuilt-themes/purple-green.css",
               "src/styles.less"

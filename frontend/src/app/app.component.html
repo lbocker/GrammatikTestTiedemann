@@ -1,13 +1,57 @@
-<header class="headerContainer">
-    <nav class="headerNavigation">
-      <a routerLink="/">Home</a>
-      <a routerLink="/about">About</a>
-    </nav>
+<div class="header">
+  <span class="material-icons" (click)="toggleSidebar()">menu</span>
+  <h1>Grammatik Test</h1>
+  <a routerLink="login" *ngIf="!user">Login/Register</a>
+  <span *ngIf="!!user" (click)="op.toggle($event)" class="avatar">
+    <p-avatar
+      [label]="user.image ? undefined : userInitials"
+      [image]="user.image"
+      size="normal"
+    ></p-avatar>
+  </span>
+</div>
+<p-toast></p-toast>
+<p-sidebar [(visible)]="sidebar" position="left">
+  <h3>Kurse</h3>
+  <p-accordion *ngIf="courses.length == 0">
+    <p-accordionTab>
+      <p-header><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></p-header>
+      <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+      <p-skeleton width="8rem" styleClass="mb-2"></p-skeleton>
+      <p-skeleton width="12rem" styleClass="mb-2"></p-skeleton>
+    </p-accordionTab>
+  </p-accordion>
+<!-- Wenn daten da sind wird das angezeigt -->
+  <p-accordion *ngIf="courses.length >= 1">
+    <p-accordionTab *ngFor="let course of courses" [header]="course.name">
 
-    <aside *ngIf="!user" class="headerLogin">
-      <a routerLink="/login">Login</a>
-      <a routerLink="/register">Register</a>
-    </aside>
-</header>
+    </p-accordionTab>
+  </p-accordion>
+</p-sidebar>
 <router-outlet></router-outlet>
-<app-card></app-card>
+
+
+<p-overlayPanel #op>
+  <ng-template pTemplate="content">
+    <ng-container *ngIf="user">
+      {{user.name}}
+      <hr>
+      <p-button
+        label="Profil"
+        [icon]="PrimeIcons.USER"
+        styleClass="p-button-secondary p-button-text p-button-plain UserBTN"
+        type="button"
+      ></p-button>
+      <br>
+      Punkte: <p-badge [value]="user.score.toString()" severity="info"></p-badge>
+      <hr>
+      <p-button
+        label="Ausloggen"
+        [icon]="PrimeIcons.SIGN_OUT"
+        (click)="logOut()"
+        styleClass="p-button-secondary p-button-text p-button-plain UserBTN"
+        type="button"
+      ></p-button>
+    </ng-container>
+  </ng-template>
+</p-overlayPanel>
