@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Course } from '../../models/course';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { catchError, Observable, tap } from "rxjs";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +23,9 @@ export class CourseService {
   getCourse(id: Number): Observable<Course> {
     const url = `${ this.coursesUrl }/${ id }`;
     return this.http.get<Course>(url);
+  }
+
+  updateCourseStatus(course: Course): Observable<any> {
+    return this.http.put(this.coursesUrl, course, this.httpOptions);
   }
 }

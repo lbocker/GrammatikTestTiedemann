@@ -4,11 +4,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { GrammarCourses } from '../../models/grammar-courses';
 import { Router } from '@angular/router';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatCardModule, NgOptimizedImage],
+  imports: [CommonModule, MatButtonModule, MatCardModule, NgOptimizedImage, RouterLink],
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.less']
 })
