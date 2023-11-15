@@ -5,6 +5,7 @@ import {MessageService, PrimeIcons} from "primeng/api";
 import {CourseGroup, User} from "./models/grammar-courses";
 import {PRIMENG_BARREL} from "./barrel/primeng.barrel";
 import {CourseServiceService} from "./services/course/course-service.service";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ import {CourseServiceService} from "./services/course/course-service.service";
   templateUrl: './app.component.html',
   imports: [
     CommonModule,
-    PRIMENG_BARREL
+    PRIMENG_BARREL,
+    HttpClientModule
   ],
   providers: [MessageService],
   styleUrls: ['./app.component.less']
@@ -31,6 +33,7 @@ export class AppComponent implements OnInit{
   courses: CourseGroup[] = []
 
   constructor(private router: Router, private courseService: CourseServiceService) {
+    this.courseService.user = this.user?this.user:undefined;
   }
   ngOnInit(): void {
     // TODO ausbauen wenn Login implementiert ist
@@ -45,7 +48,7 @@ export class AppComponent implements OnInit{
           score: 187
         }
         this.userInitials = this.getUserInitials(this.user.name)
-
+        this.courseService.user = this.user;
         this.router.navigate([''])
       }
     })
@@ -79,5 +82,6 @@ export class AppComponent implements OnInit{
 
   logOut() {
     this.user = false;
+    this.courseService.user = undefined
   }
 }
