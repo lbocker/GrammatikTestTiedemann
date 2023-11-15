@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {CourseGroup} from "../../models/grammar-courses";
+import { CourseGroup, User } from "../../models/grammar-courses";
 import {map, Observable, timer} from "rxjs";
 
 
@@ -7,6 +7,7 @@ import {map, Observable, timer} from "rxjs";
   providedIn: 'root'
 })
 export class CourseServiceService {
+  user?: User;
 
   constructor() { }
 
