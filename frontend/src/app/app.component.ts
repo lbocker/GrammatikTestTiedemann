@@ -6,6 +6,7 @@ import { CourseGroup, User } from './models/grammar-courses';
 import { PRIMENG_BARREL } from './barrel/primeng.barrel';
 import { CourseServiceService } from './services/course/course-service.service';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
@@ -35,8 +36,8 @@ export class AppComponent implements OnInit {
 
   protected readonly PrimeIcons = PrimeIcons;
 
-  constructor(private readonly router: Router, private readonly courseService: CourseServiceService) {
-    this.courseService.user = this.user ? this.user : undefined;
+  constructor(private readonly router: Router, private readonlycourseService: CourseServiceService) {
+    this.courseService.user = this.user?this.user:undefined;
   }
 
   ngOnInit(): void {
