@@ -10,8 +10,8 @@ import { RouterLink } from "@angular/router";
   selector: 'app-card',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatCardModule, NgOptimizedImage, RouterLink],
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.less']
+  templateUrl: './cards.component.html',
+  styleUrls: ['./cards.component.less']
 })
 export class CardComponent {
   grammarCourses: GrammarCourses[] = [

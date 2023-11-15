@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
   protected readonly PrimeIcons = PrimeIcons;
 
   constructor(private readonly router: Router, private readonlycourseService: CourseServiceService) {
-    this.courseService.user = this.user?this.user:undefined;
+    this.courseService.user = this.user ? this.user : undefined;
   }
 
   ngOnInit(): void {
