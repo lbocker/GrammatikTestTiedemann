@@ -3,6 +3,7 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { GrammarCourses } from "../../models/grammar-courses";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-card',
@@ -105,11 +106,14 @@ export class CardComponent implements OnInit {
     }
   ];
 
+  constructor(private readonly router: Router) {
+  }
+
   ngOnInit(): void {
 
   }
-
-  getGrammarCourses(id: number) {
-
+  openCourse(course: GrammarCourses) {
+    console.log('aft')
+    this.router.navigate([`course/${course.id}/overview`])
   }
 }
