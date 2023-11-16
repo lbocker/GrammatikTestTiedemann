@@ -1,0 +1,7 @@
+/.github/ @lbocker @hasanmohsen1
+
+# Specify owners for all files in the "frontend" directory
+/frontend/ @lbocker @orty17
+
+# Specify owners for all files in the "backend" directory
+/backend/ @lbocker @SilasHachmann @hasanmohsen1
