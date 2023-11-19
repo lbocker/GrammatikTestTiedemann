@@ -1,0 +1,49 @@
+.wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+
+.item {
+  color: gray;
+  background: lightgray;
+  border-style: solid;
+  border-width: 2px;
+  border-color: gray;
+  border-radius: 15px;
+  width: 30%;
+  height: 150px;
+  text-align: center;
+}
+
+.undraggedItems {
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+
+  & .pickZone {
+    display: flex;
+    justify-content: space-evenly;
+    width: 50%;
+    height: 50px;
+
+    background: lightgray;
+    border-style: solid;
+    border-width: 2px;
+    border-color: gray;
+    border-radius: 15px 15px 0 0;
+  }
+}
+
+.draggableItem {
+  cursor: move;
+  color: black;
+}
+
+.checkBtn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}

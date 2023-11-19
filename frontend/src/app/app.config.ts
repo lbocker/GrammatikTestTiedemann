@@ -13,6 +13,7 @@ import {
   withInterceptors, withInterceptorsFromDi
 } from "@angular/common/http";
 import { URLInterceptor } from "./interceptor/url.interceptor";
+import {DialogService} from "primeng/dynamicdialog";
 
 
 export const appConfig: ApplicationConfig = {
@@ -20,6 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimations(),
     MessageService,
+    DialogService,
     provideHttpClient(
       withInterceptorsFromDi()
     ),

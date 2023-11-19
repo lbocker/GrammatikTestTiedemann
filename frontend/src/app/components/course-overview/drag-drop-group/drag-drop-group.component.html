@@ -1,0 +1,25 @@
+<div class="wrapper" *ngIf="task.type=='DragDropGroup' && editedTask">
+  <span *ngFor="let group of editedTask.group; let i = index" class="item" pDroppable (onDrop)="drop(i)">
+    <h3>{{group.text}}</h3>
+    <div *ngFor="let item of group.items; let n = index">
+      <span
+        class="draggableItem"
+        pDraggable
+        (onDragStart)="dragStart(item, n, i)"
+        (onDragEnd)="dragEnd()"
+      >{{item}}</span>
+    </div>
+  </span>
+</div>
+<div *ngIf="task.type=='DragDropGroup' && editedTask" class="undraggedItems">
+  <div class="pickZone">
+    <span
+      *ngFor="let item of undraggedItems; let i = index;"
+      pDraggable
+      (onDragStart)="dragStart(item, i, 'undragged')"
+      (onDragEnd)="dragEnd()"
+      class="draggableItem"
+    >{{item}}</span>
+  </div>
+</div>
+<button pButton class="p-button-success checkBtn" label="Überprüfen" *ngIf="undraggedItems.length == 0" (click)="check()"></button>

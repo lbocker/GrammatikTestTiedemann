@@ -41,19 +41,19 @@ export class CourseServiceService {
     {
       id: 0,
       name: 'Komma Setzung',
-      description: '',
+      description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
       children: this.tmpChildTasks
     },
     {
       id: 1,
       name: 'Rechtschreibung',
-      description: '',
+      description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
       children: this.tmpChildTasks
     },
     {
       id: 2,
       name: 'Sprachliche mittel',
-      description: '',
+      description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
       children: this.tmpChildTasks
     },
   ]
