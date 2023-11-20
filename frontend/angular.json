@@ -40,7 +40,8 @@
               "src/assets/theme.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "@angular/material/prebuilt-themes/purple-green.css",
-              "src/styles.less"
+              "src/styles.less",
+              "src/variables.less"
             ],
             "scripts": []
           },

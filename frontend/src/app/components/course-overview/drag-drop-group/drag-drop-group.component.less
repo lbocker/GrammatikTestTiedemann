@@ -1,7 +1,10 @@
+@import "~src/variables.less";
+
 .wrapper {
   display: flex;
   justify-content: space-evenly;
   align-items: stretch;
+  flex-wrap: wrap;
 }
 
 .item {
@@ -12,8 +15,19 @@
   border-color: gray;
   border-radius: 15px;
   width: 30%;
-  height: 150px;
+  min-height: 150px;
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex: 0 0 30%;
+  margin: 0.5rem;
+
+  & .groupHeadline {
+    flex: 0 0 100%;
+  }
 }
 
 .undraggedItems {
@@ -26,8 +40,10 @@
   & .pickZone {
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
     width: 50%;
-    height: 50px;
+    min-height: 50px;
 
     background: lightgray;
     border-style: solid;
@@ -38,8 +54,15 @@
 }
 
 .draggableItem {
+  display: block;
   cursor: move;
-  color: black;
+  color: @text-color;
+  background: @secondary-color;
+  width: 150px;
+  border-radius: 1rem;
+  text-align: center;
+  margin: 0.25rem;
+  padding: 0.25rem;
 }
 
 .checkBtn {

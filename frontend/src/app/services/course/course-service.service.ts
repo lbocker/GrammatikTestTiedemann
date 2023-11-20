@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {CourseGroup, Task, User} from "../../models/grammar-courses";
-import {map, Observable, of, timer} from "rxjs";
+import { CourseGroup, Task, User } from "../../models/grammar-courses";
+import { map, Observable, of, timer } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -58,10 +58,11 @@ export class CourseServiceService {
     },
   ]
 
-  constructor() { }
+  constructor() {
+  }
 
   getCourseGroups(): Observable<CourseGroup[]> {
-    return timer(5000).pipe(map(() => this.group ))
+    return timer(5000).pipe(map(() => this.group))
   }
 
   getCourse(id: any): Observable<CourseGroup | undefined> {
