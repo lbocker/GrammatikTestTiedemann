@@ -38,23 +38,24 @@ class QuizController extends AbstractController
     public function create(ManagerRegistry $doctrine, Request $request): JsonResponse
     {
         $entityManager = $doctrine->getManager();
+        $data = json_decode($request->getContent(), true);
 
         $quiz = new Quiz();
-        $quiz->setTitle($request->request->get('title'));
-        $quiz->setDescription($request->request->get('description'));
-        $quiz->setCategory($request->request->get('category'));
+        $quiz->setTitle($data['title']);
+        $quiz->setDescription($data['description']);
+        $quiz->setCategory($data['category']);
 
         $entityManager->persist($quiz);
         $entityManager->flush();
 
-        $data =  [
+        $responseData =  [
             'id' => $quiz->getId(),
             'title' => $quiz->getTitle(),
             'description' => $quiz->getDescription(),
             'category' => $quiz->getCategory(),
         ];
 
-        return $this->json($data);
+        return $this->json($responseData);
     }
 
 
@@ -83,23 +84,25 @@ class QuizController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         $quiz = $entityManager->getRepository(Quiz::class)->find($id);
+        $data = json_decode($request->getContent(), true);
 
         if (!$quiz) {
             return $this->json('No quiz found for id ' . $id, 404);
         }
 
-        $quiz->setTitle($request->request->get('title'));
-        $quiz->setDescription($request->request->get('description'));
+        $quiz->setTitle($data['title']);
+        $quiz->setDescription($data['description']);
+        $quiz->setCategory($data['category']);
         $entityManager->flush();
 
-        $data =  [
+        $responseData =  [
             'id' => $quiz->getId(),
             'title' => $quiz->getTitle(),
             'description' => $quiz->getDescription(),
             'category' => $quiz->getCategory(),
         ];
 
-        return $this->json($data);
+        return $this->json($responseData);
     }
 
     #[Route('/quiz/{id}', name: 'quiz_delete', methods:['delete'] )]
