@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\QuizRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: QuizRepository::class)]
 class Quiz
@@ -23,23 +25,23 @@ class Quiz
     #[ORM\Column(length: 255)]
     private ?string $category = null;
 
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private ?array $options = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
-
     public function getTitle(): ?string
     {
         return $this->title;
     }
-
     public function setTitle(string $title): static
     {
         $this->title = $title;
 
         return $this;
     }
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -60,6 +62,18 @@ class Quiz
     public function setCategory(string $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getOptions(): ?array
+    {
+        return $this->options;
+    }
+
+    public function setOptions(array $options): static
+    {
+        $this->options = $options;
 
         return $this;
     }

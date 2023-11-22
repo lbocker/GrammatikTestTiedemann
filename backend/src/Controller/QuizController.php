@@ -27,12 +27,12 @@ class QuizController extends AbstractController
                 'title' => $quiz->getTitle(),
                 'description' => $quiz->getDescription(),
                 'category' => $quiz->getCategory(),
+                'options' => $quiz->getOptions(),
             ];
         }
 
         return $this->json($data);
     }
-
 
     #[Route('/quiz', name: 'quiz_create', methods:['post'] )]
     public function create(ManagerRegistry $doctrine, Request $request): JsonResponse
@@ -44,20 +44,14 @@ class QuizController extends AbstractController
         $quiz->setTitle($data['title']);
         $quiz->setDescription($data['description']);
         $quiz->setCategory($data['category']);
+        $quiz->setOptions($data['options']);
 
         $entityManager->persist($quiz);
         $entityManager->flush();
 
-        $responseData =  [
-            'id' => $quiz->getId(),
-            'title' => $quiz->getTitle(),
-            'description' => $quiz->getDescription(),
-            'category' => $quiz->getCategory(),
-        ];
 
-        return $this->json($responseData);
+        return $this->json($data);
     }
-
 
     #[Route('/quiz/{id}', name: 'quiz_show', methods:['get'] )]
     public function show(ManagerRegistry $doctrine, int $id): JsonResponse
@@ -65,7 +59,6 @@ class QuizController extends AbstractController
         $quiz = $doctrine->getRepository(Quiz::class)->find($id);
 
         if (!$quiz) {
-
             return $this->json('No quiz found for id ' . $id, 404);
         }
 
@@ -74,6 +67,7 @@ class QuizController extends AbstractController
             'title' => $quiz->getTitle(),
             'description' => $quiz->getDescription(),
             'category' => $quiz->getCategory(),
+            'options' => $quiz->getOptions(),
         ];
 
         return $this->json($data);
@@ -93,16 +87,11 @@ class QuizController extends AbstractController
         $quiz->setTitle($data['title']);
         $quiz->setDescription($data['description']);
         $quiz->setCategory($data['category']);
+        $quiz->setOptions($data['options']);
+
         $entityManager->flush();
 
-        $responseData =  [
-            'id' => $quiz->getId(),
-            'title' => $quiz->getTitle(),
-            'description' => $quiz->getDescription(),
-            'category' => $quiz->getCategory(),
-        ];
-
-        return $this->json($responseData);
+        return $this->json($data);
     }
 
     #[Route('/quiz/{id}', name: 'quiz_delete', methods:['delete'] )]
@@ -112,7 +101,7 @@ class QuizController extends AbstractController
         $quiz = $entityManager->getRepository(Quiz::class)->find($id);
 
         if (!$quiz) {
-            return $this->json('No quiz found for id' . $id, 404);
+            return $this->json('No quiz found for id ' . $id, 404);
         }
 
         $entityManager->remove($quiz);
@@ -121,4 +110,3 @@ class QuizController extends AbstractController
         return $this->json('Deleted a quiz successfully with id ' . $id);
     }
 }
-
