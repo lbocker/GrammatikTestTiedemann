@@ -10,10 +10,9 @@ import { CourseServiceService } from '../services/course/course-service.service'
 
 @Injectable()
 export class URLInterceptor implements HttpInterceptor {
-  public URL = 'http://localhost:8000';
+  static URL: string = 'http://localhost:8000/api';
 
-  constructor(private readonly service: CourseServiceService) {
-  }
+  constructor(private readonly service: CourseService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let header: HttpHeaders = request.headers.set('username', this.service.user?.name ?? 'unset')
@@ -21,7 +20,7 @@ export class URLInterceptor implements HttpInterceptor {
     console.log(header)
     const modifiedRequest = request.clone({
       headers: header,
-      url: this.URL + request.url.startsWith('/')?'':`/${  request.url}`
+      url: URLInterceptor.URL + request.url.startsWith('/') ? '' : `/${  request.url}`
     });
 
     return next.handle(modifiedRequest);
