@@ -30,6 +30,8 @@ export class DragDropGroupComponent implements OnInit{
       this.undraggedItems.push(...group.items)
       group.items = []
     }
+
+    this.undraggedItems = this.shuffle(this.undraggedItems)
   }
 
   drop(groupIndex: number) {
@@ -43,6 +45,10 @@ export class DragDropGroupComponent implements OnInit{
       this.dragingItem = null;
     }
   }
+
+  shuffle (array: string[])  {
+    return array.sort(() => Math.random() - 0.5);
+  };
 
   dragStart(item: string, index: number, origin: number|'undragged') {
     this.dragingItem = {text: item, index: index, origin: origin};

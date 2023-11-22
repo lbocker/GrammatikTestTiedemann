@@ -36,25 +36,28 @@ export class CourseServiceService {
         'amet', 'diam', 'aliquyam', 'accusam'
       ]
     }
-  ]
+  ];
   private group: CourseGroup[] = [
     {
       id: 0,
-      name: 'Komma Setzung',
+      title: 'Komma Setzung',
       description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
-      children: this.tmpChildTasks
+      category: 'Grammatik',
+      options: this.tmpChildTasks
     },
     {
       id: 1,
-      name: 'Rechtschreibung',
+      title: 'Rechtschreibung',
       description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
-      children: this.tmpChildTasks
+      category: 'Grammatik',
+      options: this.tmpChildTasks
     },
     {
       id: 2,
-      name: 'Sprachliche mittel',
+      title: 'Sprachliche mittel',
       description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
-      children: this.tmpChildTasks
+      category: 'Grammatik',
+      options: this.tmpChildTasks
     },
   ]
 

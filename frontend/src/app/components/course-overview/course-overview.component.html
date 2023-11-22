@@ -1,5 +1,5 @@
 <div *ngIf="course">
-  <h1 *ngIf="activeIndex != 0">{{course.name}}</h1>
+  <h1 *ngIf="activeIndex != 0">{{course.title}}</h1>
   <p-steps
     class="task-bar"
     [model]="tasks"
@@ -15,7 +15,7 @@
 </div>
 <div class="wrapper" *ngIf="course && activeIndex == 0">
   <div class="title">
-    <h1>{{course.name}}</h1>
+    <h1>{{course.title}}</h1>
   </div>
   <p-panel header="Beschreibung" class="description">
     {{course.description}}

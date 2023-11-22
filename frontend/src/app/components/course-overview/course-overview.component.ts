@@ -40,7 +40,7 @@ export class CourseOverviewComponent implements OnInit {
       this.tasks = [{
         label: 'Beschreibung'
       }]
-      for (let task of this.course?.children ?? []) {
+      for (let task of this.course?.options ?? []) {
         this.tasks.push({
           label: task.name
         })
@@ -54,7 +54,7 @@ export class CourseOverviewComponent implements OnInit {
       this.activeTask = undefined
       return;
     }
-    this.activeTask = this.course!.children[this.activeIndex-1]
+    this.activeTask = this.course!.options[this.activeIndex-1]
   }
 
   typeOf(activeTask: Task, type: string): DragDropGroup | Task {
