@@ -112,7 +112,6 @@ export const PRIMENG_BARREL: Provider[] = [
   DockModule,
   DragDropModule,
   DropdownModule,
-  DynamicDialogModule,
   FieldsetModule,
   FileUploadModule,
   GalleriaModule,

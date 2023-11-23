@@ -23,7 +23,7 @@
   </p-accordion>
 <!-- Wenn daten da sind wird das angezeigt -->
   <p-accordion *ngIf="courses.length >= 1">
-    <p-accordionTab *ngFor="let course of courses" [header]="course.name">
+    <p-accordionTab *ngFor="let course of courses" [header]="course.title">
 
     </p-accordionTab>
   </p-accordion>

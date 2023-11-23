@@ -1,5 +1,5 @@
 <div class="cardContainer">
-  <mat-card class="card mat-primary" *ngFor="let course of grammarCourses">
+  <mat-card class="card mat-primary" *ngFor="let course of grammarCourses" (click)="openCourse(course)">
     <mat-card-header>
       <mat-card-title>{{ course.name }}</mat-card-title>
       <mat-card-subtitle>{{ course.assignment }}</mat-card-subtitle>
