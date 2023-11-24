@@ -1,0 +1,63 @@
+@import "~src/variables.less";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.defaultFlex() {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.hr {
+  margin-bottom: 3px;
+}
+
+.headerContainer {
+  .defaultFlex();
+
+  & .headerNavigation {
+
+  }
+
+  & .headerLogin {
+
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: auto;
+  background: var(--gray-800);
+  padding: 0 10px;
+  color: var(--gray-50);
+  margin-bottom: 15px;
+
+  & h1 {
+    margin: 4px 0;
+  }
+
+  & .material-icons {
+    cursor: pointer;
+    transform: scale(150%);
+  }
+
+  & a {
+    color: inherit;
+    text-decoration: unset;
+    font-size: larger;
+
+    &:hover {
+      transition: color .1s linear;
+      color: var(--highlight-text-color);
+    }
+  }
+}
