@@ -23,7 +23,7 @@ jobs:
       - name: Setup ESLint
         run: |
           cd frontend
-          npm install eslint@8.10.0
+          npm install eslint@8.54.0
 
       - name: Run ESLint
         run: |
