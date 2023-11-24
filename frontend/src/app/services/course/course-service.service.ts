@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { CourseGroup, Task, User } from "../../models/grammar-courses";
-import { map, Observable, of, timer } from "rxjs";
+import { CourseGroup, Task, User } from '../../models/grammar-courses';
+import { map, Observable, of, timer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseServiceService {
   user?: User;
-  private tmpChildTasks: Task[] = [
+  private readonly tmpChildTasks: Task[] = [
     {
       name: 'Task 1',
       status: 'Offen',
-      type: "MultipleChoice",
+      type: 'MultipleChoice',
       right: ['Test', 'Test2'],
       wrong: ['Test 3', 'Test 4']
     },
@@ -22,7 +22,7 @@ export class CourseServiceService {
       group: [{
         text: 'Option 1',
         items: ['Zu Opt1', 'Zu Opt1 2']
-      },{
+      }, {
         text: 'Option 2',
         items: ['Zu Opt2', 'Zu Opt2 2']
       },]
@@ -37,7 +37,7 @@ export class CourseServiceService {
       ]
     }
   ];
-  private group: CourseGroup[] = [
+  private readonly group: CourseGroup[] = [
     {
       id: 0,
       title: 'Komma Setzung',
@@ -60,9 +60,6 @@ export class CourseServiceService {
       options: this.tmpChildTasks
     },
   ]
-
-  constructor() {
-  }
 
   getCourseGroups(): Observable<CourseGroup[]> {
     return timer(5000).pipe(map(() => this.group))

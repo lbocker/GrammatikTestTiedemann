@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { MatButtonModule } from "@angular/material/button";
-import { MatCardModule } from "@angular/material/card";
-import { GrammarCourses } from "../../models/grammar-courses";
-import {Router} from "@angular/router";
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { GrammarCourses } from '../../models/grammar-courses';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -12,7 +12,7 @@ import {Router} from "@angular/router";
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.less']
 })
-export class CardComponent implements OnInit {
+export class CardComponent {
   grammarCourses: GrammarCourses[] = [
     {
       id: 0,
@@ -21,7 +21,7 @@ export class CardComponent implements OnInit {
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 4,
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
-      status: "Fertig"
+      status: 'Fertig'
     },
     {
       id: 1,
@@ -30,7 +30,7 @@ export class CardComponent implements OnInit {
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 0,
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
-      status: "Fertig"
+      status: 'Fertig'
     },
     {
       id: 2,
@@ -39,7 +39,7 @@ export class CardComponent implements OnInit {
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 1,
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
-      status: "Fertig"
+      status: 'Fertig'
     },
     {
       id: 3,
@@ -48,7 +48,7 @@ export class CardComponent implements OnInit {
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 1,
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
-      status: "Fertig"
+      status: 'Fertig'
     },
     {
       id: 4,
@@ -57,7 +57,7 @@ export class CardComponent implements OnInit {
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 1,
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
-      status: "Fertig"
+      status: 'Fertig'
     },
     {
       id: 5,
@@ -66,7 +66,7 @@ export class CardComponent implements OnInit {
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 2,
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
-      status: "Fertig"
+      status: 'Fertig'
     },
     {
       id: 6,
@@ -75,7 +75,7 @@ export class CardComponent implements OnInit {
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 5,
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
-      status: "Fertig"
+      status: 'Fertig'
     },
     {
       id: 7,
@@ -84,7 +84,7 @@ export class CardComponent implements OnInit {
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 2,
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
-      status: "Fertig"
+      status: 'Fertig'
     },
     {
       id: 8,
@@ -93,7 +93,7 @@ export class CardComponent implements OnInit {
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 10,
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
-      status: "Fertig"
+      status: 'Fertig'
     },
     {
       id: 9,
@@ -102,18 +102,14 @@ export class CardComponent implements OnInit {
       image: 'https://blog.cengage.com/wp-content/uploads/2020/07/How-to-improve-grammar-1110x380.jpg',
       availableUnits: 6,
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.',
-      status: "Fertig"
+      status: 'Fertig'
     }
   ];
 
   constructor(private readonly router: Router) {
   }
 
-  ngOnInit(): void {
-
-  }
-  openCourse(course: GrammarCourses) {
-    console.log('aft')
-    this.router.navigate([`course/${course.id}/overview`])
+  openCourse(course: GrammarCourses): void {
+    this.router.navigate([`course/${ course.id }/overview`])
   }
 }

@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
+import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-drag-group-modal',
@@ -12,9 +12,9 @@ import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 export class DragGroupModalComponent implements OnInit{
   protected successful?: boolean;
 
-  constructor(private ref: DynamicDialogRef, private config: DynamicDialogConfig) {}
+  constructor(private readonly ref: DynamicDialogRef, private readonly config: DynamicDialogConfig) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.successful = this.config.data.successful
   }
 }

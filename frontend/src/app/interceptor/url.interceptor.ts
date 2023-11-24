@@ -6,7 +6,7 @@ import {
   HttpInterceptor, HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CourseServiceService } from "../services/course/course-service.service";
+import { CourseServiceService } from '../services/course/course-service.service';
 
 @Injectable()
 export class URLInterceptor implements HttpInterceptor {
@@ -21,7 +21,7 @@ export class URLInterceptor implements HttpInterceptor {
     console.log(header)
     const modifiedRequest = request.clone({
       headers: header,
-      url: this.URL + request.url.startsWith('/')?'':'/' + request.url
+      url: this.URL + request.url.startsWith('/')?'':`/${  request.url}`
     });
 
     return next.handle(modifiedRequest);
