@@ -12,6 +12,13 @@ jobs:
     environment: production
 
     steps:
+      - name: Debug
+          run: |
+            echo "HOST: ${{ secrets.HOST }}"
+            echo "USERNAME: ${{ secrets.USERNAME }}"
+            echo "KEY: ${{ secrets.KEY }}"
+            echo "PORT: ${{ secrets.PORT }}"
+
       - name: deploy main site
         uses: appleboy/ssh-action@v1.0.0
         with:
