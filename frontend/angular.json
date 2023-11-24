@@ -37,7 +37,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.less"
+              "src/assets/theme.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "@angular/material/prebuilt-themes/purple-green.css",
+              "src/styles.less",
+              "src/variables.less"
             ],
             "scripts": []
           },
@@ -100,6 +104,7 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/purple-green.css",
               "src/styles.less"
             ],
             "scripts": []
@@ -107,5 +112,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
