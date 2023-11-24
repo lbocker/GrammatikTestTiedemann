@@ -1,0 +1,30 @@
+.droppable {
+  display: inline-block;
+  width: 5rem;
+  height: 1rem;
+  background: white;
+  border-radius: 4px;
+  color: black;
+  text-align: center;
+  cursor: pointer;
+}
+
+.dragZone {
+  position: absolute;
+  bottom: 0;
+  left: auto;
+  right: auto;
+
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  & span {
+    cursor: pointer;
+  }
+}
+
+.checkBtn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}

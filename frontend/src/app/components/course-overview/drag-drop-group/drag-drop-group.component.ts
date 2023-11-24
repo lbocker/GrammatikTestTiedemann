@@ -13,7 +13,7 @@ import {DragGroupModalComponent} from "./drag-group-modal/drag-group-modal.compo
   styleUrls: ['./drag-drop-group.component.less']
 })
 export class DragDropGroupComponent implements OnInit{
-  @Input() task!: Task;
+  @Input() _task!: DragDropGroup;
   protected editedTask?: DragDropGroup;
   protected undraggedItems: string[] = [];
   private dragingItem: {index: number; text: string; origin: number | 'undragged'} | null = null;
@@ -21,17 +21,33 @@ export class DragDropGroupComponent implements OnInit{
   constructor(private dialogService: DialogService) {
   }
 
-  ngOnInit() {
-    if (this.task.type !== 'DragDropGroup') {
-      console.error('Type has to be type DragDropGroup')
+  @Input() set task(task: Task) {
+    if (!this.isDragDropGroun(task)) {
+      console.error('Type has to be type DragDropGroup');
+      return;
     }
-    this.editedTask = JSON.parse(JSON.stringify(this.task)) as DragDropGroup;
+    this._task = task;
+  }
+
+  ngOnInit() {
+    if (!this.isDragDropGroun(this.task)) {
+      console.error('Type has to be type DragDropGroup');
+      return;
+    }
+    this.editedTask = this.task;
     for (let group of (this.editedTask as DragDropGroup).group) {
-      this.undraggedItems.push(...group.items)
+      this.undraggedItems.push(...group.items);
       group.items = []
     }
 
     this.undraggedItems = this.shuffle(this.undraggedItems)
+  }
+
+  isDragDropGroun(task: Task): task is DragDropGroup {
+    if (!task) {
+      throw new Error('task undefined');
+    }
+    return task.type === 'DragDropGroup';
   }
 
   drop(groupIndex: number) {

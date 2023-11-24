@@ -34,6 +34,10 @@ export interface DragDropGroup extends taskDefault {
   }[]
 }
 
+// usage Text: Das word was hier fehlt ist das %WORD:0%
+// fillword: wird dann bei %WORD:x% eingesetzt, dabei ist x das index des fillwords
+
+
 export interface DragDropWords extends taskDefault {
   type: 'DragDropWords';
   text: string;

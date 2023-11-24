@@ -8,7 +8,7 @@
     (activeIndexChange)="indexChange($event)"
   ></p-steps>
   <app-drag-drop-group class="task" *ngIf="activeTask && activeTask?.type == 'DragDropGroup'" [task]="activeTask"></app-drag-drop-group>
-  <app-drag-drop-words class="task" *ngIf="activeTask?.type === 'DragDropWords'"></app-drag-drop-words>
+  <app-drag-drop-words class="task" *ngIf="activeTask && activeTask?.type === 'DragDropWords'" [task]="activeTask"></app-drag-drop-words>
   <app-type-missing-words class="task" *ngIf="activeTask?.type === 'TypeMissingWords'"></app-type-missing-words>
   <app-find-wrong-words class="task" *ngIf="activeTask?.type === 'FindWrongWords'"></app-find-wrong-words>
   <app-multiple-choice class="task" *ngIf="activeTask?.type === 'MultipleChoice'"></app-multiple-choice>
