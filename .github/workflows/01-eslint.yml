@@ -21,7 +21,6 @@ jobs:
           node-version: 16
 
       - name: Run ESLint
-        uses: eslint/actions/setup-eslint@v5
         with:
           eslint-version: 8.10.0
         run: |
