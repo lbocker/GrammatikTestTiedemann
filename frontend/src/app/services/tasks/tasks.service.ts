@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class TasksService {
 
-  constructor(private http: HttpClient) { }
+    private readonly tasksUrl = 'api/tasks';
 
-  private tasksUrl = 'api/tasks';
+    constructor(private readonly http: HttpClient) {
+    }
 
-  getTasks(): Observable<any> {
-    return this.http.get(this.tasksUrl);
-  }
+    getTasks(): Observable<any> {
+        return this.http.get(this.tasksUrl);
+    }
 
-  getTask(id: Number): Observable<any> {
-    const url = `${ this.tasksUrl }/${ id }`;
-    return this.http.get(url);
-  }
+    getTask(id: Number): Observable<any> {
+        const url = `${ this.tasksUrl }/${ id }`;
+        return this.http.get(url);
+    }
 }
