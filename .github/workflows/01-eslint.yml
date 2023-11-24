@@ -1,0 +1,29 @@
+name: ESLint
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  eslint:
+    name: Run ESLint scanning
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Run ESLint
+        uses: eslint/actions/setup-eslint@v5
+        with:
+          eslint-version: 8.10.0
+        run: |
+          cd frontend
+          npx eslint . --config .eslintrc.yml --ext .js,.jsx,.ts,.tsx
