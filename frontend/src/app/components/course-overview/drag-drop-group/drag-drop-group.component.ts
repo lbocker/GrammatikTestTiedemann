@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {DragDropGroup, Task} from "../../../models/grammar-courses";
-import {PRIMENG_BARREL} from "../../../barrel/primeng.barrel";
-import {DialogService} from "primeng/dynamicdialog";
-import {DragGroupModalComponent} from "./drag-group-modal/drag-group-modal.component";
+import { DragDropGroup, Task } from '../../../models/grammar-courses';
+import { PRIMENG_BARREL } from '../../../barrel/primeng.barrel';
+import { DialogService } from 'primeng/dynamicdialog';
+import { DragGroupModalComponent } from './drag-group-modal/drag-group-modal.component';
 
 @Component({
   selector: 'app-drag-drop-group',
@@ -12,21 +12,21 @@ import {DragGroupModalComponent} from "./drag-group-modal/drag-group-modal.compo
   templateUrl: './drag-drop-group.component.html',
   styleUrls: ['./drag-drop-group.component.less']
 })
-export class DragDropGroupComponent implements OnInit{
+export class DragDropGroupComponent implements OnInit {
   @Input() task!: Task;
   protected editedTask?: DragDropGroup;
   protected undraggedItems: string[] = [];
-  private dragingItem: {index: number; text: string; origin: number | 'undragged'} | null = null;
+  private dragingItem: { index: number; text: string; origin: number | 'undragged' } | null = null;
 
-  constructor(private dialogService: DialogService) {
+  constructor(private readonly dialogService: DialogService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.task.type !== 'DragDropGroup') {
       console.error('Type has to be type DragDropGroup')
     }
     this.editedTask = JSON.parse(JSON.stringify(this.task)) as DragDropGroup;
-    for (let group of (this.editedTask as DragDropGroup).group) {
+    for (const group of (this.editedTask as DragDropGroup).group) {
       this.undraggedItems.push(...group.items)
       group.items = []
     }
@@ -34,7 +34,7 @@ export class DragDropGroupComponent implements OnInit{
     this.undraggedItems = this.shuffle(this.undraggedItems)
   }
 
-  drop(groupIndex: number) {
+  drop(groupIndex: number): void {
     if (this.dragingItem && this.editedTask) {
       this.editedTask.group[groupIndex].items.push(this.dragingItem!.text)
       if (this.dragingItem.origin == 'undragged') {
@@ -46,26 +46,26 @@ export class DragDropGroupComponent implements OnInit{
     }
   }
 
-  shuffle (array: string[])  {
+  shuffle(array: string[]): string[] {
     return array.sort(() => Math.random() - 0.5);
-  };
+  }
 
-  dragStart(item: string, index: number, origin: number|'undragged') {
+  dragStart(item: string, index: number, origin: number | 'undragged'): void {
     this.dragingItem = {text: item, index: index, origin: origin};
   }
 
-  dragEnd() {
+  dragEnd(): void {
     this.dragingItem = null;
   }
 
   showModal(successful: boolean): void {
     const ref = this.dialogService.open(DragGroupModalComponent, {
-      header: successful?'Gut gemacht!':'Leider Falsch',
+      header: successful ? 'Gut gemacht!' : 'Leider Falsch',
       data: {
         successful: successful
       },
       width: '70%',
-      contentStyle: { overflow: 'auto' },
+      contentStyle: {overflow: 'auto'},
       baseZIndex: 10000,
       maximizable: false
     });
@@ -75,7 +75,7 @@ export class DragDropGroupComponent implements OnInit{
     });
   }
 
-  check() {
+  check(): void {
     if (this.undraggedItems.length > 0 || !this.editedTask) {
       return
     }

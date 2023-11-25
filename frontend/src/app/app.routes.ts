@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { CardComponent } from "./components/card/card.component";
-import {CourseOverviewComponent} from "./components/course-overview/course-overview.component";
+import { CardComponent } from './components/card/card.component';
+import {CourseOverviewComponent} from './components/course-overview/course-overview.component';
 
 export const routes: Routes = [
   { path: '', component: CardComponent, pathMatch: 'full' },

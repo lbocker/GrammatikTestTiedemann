@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import { CommonModule } from "@angular/common";
-import {MessageService, PrimeIcons} from "primeng/api";
-import {CourseGroup, User} from "./models/grammar-courses";
-import {PRIMENG_BARREL} from "./barrel/primeng.barrel";
-import {CourseServiceService} from "./services/course/course-service.service";
-import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MessageService, PrimeIcons } from 'primeng/api';
+import { CourseGroup, User } from './models/grammar-courses';
+import { PRIMENG_BARREL } from './barrel/primeng.barrel';
+import { CourseServiceService } from './services/course/course-service.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +19,10 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
   providers: [MessageService],
   styleUrls: ['./app.component.less']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   value = '';
+  courses: CourseGroup[] = []
+
   protected user: false | User = {
     name: 'Lennard Ortmeyer',
     password: '!Ich bin der Beste123!',
@@ -30,14 +32,16 @@ export class AppComponent implements OnInit{
   protected userInitials: string = ''
   protected sidebar: boolean = false;
   protected showMenu = false;
-  courses: CourseGroup[] = []
 
-  constructor(private router: Router, private courseService: CourseServiceService) {
-    this.courseService.user = this.user?this.user:undefined;
+  protected readonly PrimeIcons = PrimeIcons;
+
+  constructor(private readonly router: Router, private readonly courseService: CourseServiceService) {
+    this.courseService.user = this.user ? this.user : undefined;
   }
+
   ngOnInit(): void {
     // TODO ausbauen wenn Login implementiert ist
-    var subscription = this.router.events.subscribe(() => {
+    const subscription = this.router.events.subscribe(() => {
       if (this.router.url == '/login') {
         subscription.unsubscribe()
 
@@ -67,20 +71,18 @@ export class AppComponent implements OnInit{
   }
 
   getUserInitials(username: string): string {
-    let usernameSplit = username.trim().split(' ');
+    const usernameSplit = username.trim().split(' ');
     if (usernameSplit.length == 1) {
       return usernameSplit[0][0]
     }
-    return usernameSplit[0][0] + usernameSplit[usernameSplit.length-1][0]
+    return usernameSplit[0][0] + usernameSplit[usernameSplit.length - 1][0]
   }
 
-  toggleMenu() {
+  toggleMenu(): void {
     this.showMenu = !this.showMenu
   }
 
-  protected readonly PrimeIcons = PrimeIcons;
-
-  logOut() {
+  logOut(): void {
     this.user = false;
     this.courseService.user = undefined
   }
