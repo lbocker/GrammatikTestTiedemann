@@ -1,4 +1,4 @@
-name: Deployment
+name: Deploy grammerjourney
 
 on:
   push:
@@ -20,6 +20,4 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /var/www/html/grammerjourney.lukas-boecker.de && git pull --no-rebase --autostash
-            cp -R /var/www/html/grammerjourney.lukas-boecker.de/frontend/ /root/grammerjourney.lukas-boecker.de/html/
-            cp -R /var/www/html/grammerjourney.lukas-boecker.de/backend/ /root/api.lukas-boecker.de/html/
+            whoami
