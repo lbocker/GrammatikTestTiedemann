@@ -11,7 +11,7 @@
   <app-drag-drop-words class="task" *ngIf="activeTask?.type === 'DragDropWords'"></app-drag-drop-words>
   <app-type-missing-words class="task" *ngIf="activeTask?.type === 'TypeMissingWords'"></app-type-missing-words>
   <app-find-wrong-words class="task" *ngIf="activeTask?.type === 'FindWrongWords'"></app-find-wrong-words>
-  <app-multiple-choice class="task" *ngIf="activeTask?.type === 'MultipleChoice'"></app-multiple-choice>
+  <app-multiple-choice class="task" *ngIf="activeTask && activeTask?.type === 'MultipleChoice'" [task]="activeTask"></app-multiple-choice>
 </div>
 <div class="wrapper" *ngIf="course && activeIndex == 0">
   <div class="title">
