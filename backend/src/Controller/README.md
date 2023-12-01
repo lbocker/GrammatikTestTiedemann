@@ -397,5 +397,5 @@ The API uses JSON Web Tokens (JWT) for authentication. Only /api/register & /api
 
 ## Note
 - Replace `{id}` in the endpoint with the actual ID of the resource.
-- Ensure to include the JWT token in the `Authorization` header for endpoints that require authentication.
+- Ensure to include the JWT token in the `Authorization` as `Bearer Token` header for endpoints that require authentication.
 - Except for `/api/register` & `/api/login_check`, all API endpoints require authentication
