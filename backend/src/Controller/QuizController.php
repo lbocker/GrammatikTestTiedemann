@@ -38,7 +38,7 @@ class QuizController extends AbstractController
         $requestData = json_decode($request->getContent(), true);
 
         if (!isset($requestData['type']) || !isset($requestData['question']) || !isset($requestData['rightAnswer']) || !isset($requestData['wrongAnswer'])) {
-            return $this->json('Invalid request. Type, question, rightAnswer, and wrongAnswer are required.', 400);
+            return $this->json(['message' => 'Invalid request. Type, question, rightAnswer, and wrongAnswer are required.'], 400);
         }
 
         $quiz = new Quiz();
@@ -59,7 +59,7 @@ class QuizController extends AbstractController
         $quiz = $entityManager->getRepository(Quiz::class)->find($id);
 
         if (!$quiz) {
-            return $this->json('No quiz found for id ' . $id, 404);
+            return $this->json(['message' => 'No quiz found for id ' . $id], 404);
         }
 
         $data = [
@@ -79,13 +79,13 @@ class QuizController extends AbstractController
         $quiz = $entityManager->getRepository(Quiz::class)->find($id);
 
         if (!$quiz) {
-            return $this->json('No quiz found for id ' . $id, 404);
+            return $this->json(['message' => 'No quiz found for id ' . $id], 404);
         }
 
         $requestData = json_decode($request->getContent(), true);
 
         if (!isset($requestData['type']) || !isset($requestData['question']) || !isset($requestData['rightAnswer']) || !isset($requestData['wrongAnswer'])) {
-            return $this->json('Invalid request. Type, question, rightAnswer, and wrongAnswer are required.', 400);
+            return $this->json(['message' => 'Invalid request. Type, question, rightAnswer, and wrongAnswer are required.'], 400);
         }
 
         $quiz->setType($requestData['type']);
@@ -104,7 +104,7 @@ class QuizController extends AbstractController
         $quiz = $entityManager->getRepository(Quiz::class)->find($id);
 
         if (!$quiz) {
-            return $this->json('No quiz found for id ' . $id, 404);
+            return $this->json(['message' => 'No quiz found for id ' . $id], 404);
         }
 
         $entityManager->remove($quiz);

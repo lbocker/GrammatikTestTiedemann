@@ -38,7 +38,7 @@ class CourseController extends AbstractController
         $requestData = json_decode($request->getContent(), true);
 
         if (!isset($requestData['title']) || !isset($requestData['description'])) {
-            return $this->json('Invalid request. Title and description are required.', 400);
+            return $this->json(['message' => 'Invalid request. Title and description are required.'], 400);
         }
 
         $course = new Course();
@@ -57,7 +57,7 @@ class CourseController extends AbstractController
         $course = $entityManager->getRepository(Course::class)->find($id);
 
         if (!$course) {
-            return $this->json('No course found for id ' . $id, 404);
+            return $this->json(['message' => 'No course found for id ' . $id], 404);
         }
 
         $data = [
@@ -76,13 +76,13 @@ class CourseController extends AbstractController
         $course = $entityManager->getRepository(Course::class)->find($id);
 
         if (!$course) {
-            return $this->json('No course found for id ' . $id, 404);
+            return $this->json(['message' => 'No course found for id ' . $id], 404);
         }
 
         $requestData = json_decode($request->getContent(), true);
 
         if (!isset($requestData['title']) || !isset($requestData['description'])) {
-            return $this->json('Invalid request. Title and description are required.', 400);
+            return $this->json(['message' => 'Invalid request. Title and description are required.'], 400);
         }
 
         $course->setTitle($requestData['title']);
@@ -99,7 +99,7 @@ class CourseController extends AbstractController
         $course = $entityManager->getRepository(Course::class)->find($id);
 
         if (!$course) {
-            return $this->json('No course found for id ' . $id, 404);
+            return $this->json(['message' => 'No course found for id ' . $id], 404);
         }
 
         $entityManager->remove($course);
@@ -114,7 +114,7 @@ class CourseController extends AbstractController
         $course = $entityManager->getRepository(Course::class)->find($id);
 
         if (!$course) {
-            return $this->json('No course found for id ' . $id, 404);
+            return $this->json(['message' => 'No course found for id ' . $id], 404);
         }
 
         $quizSets = $this->serializeQuizSets($course->getQuizSets());
@@ -128,13 +128,13 @@ class CourseController extends AbstractController
         $course = $entityManager->getRepository(Course::class)->find($courseId);
 
         if (!$course) {
-            return $this->json('No course found for id ' . $courseId, 404);
+            return $this->json(['message' => 'No course found for id ' . $courseId], 404);
         }
 
         $requestData = json_decode($request->getContent(), true);
 
         if (!isset($requestData['title']) || !isset($requestData['description'])) {
-            return $this->json('Invalid request. Title and description are required.', 400);
+            return $this->json(['message' => 'Invalid request. Title and description are required.'], 400);
         }
 
         $quizSet = new QuizSets();

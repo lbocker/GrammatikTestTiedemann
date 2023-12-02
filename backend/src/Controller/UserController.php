@@ -21,7 +21,7 @@ class UserController extends AbstractController
 
         // Ensure the user is authenticated
         if (!$user) {
-            return $this->json('User not authenticated', 401);
+            return $this->json(['message' => 'User not authenticated'], 401);
         }
 
         // Retrieve all completed course progresses for the user
@@ -50,20 +50,20 @@ class UserController extends AbstractController
 
         // Ensure the user is authenticated
         if (!$user) {
-            return $this->json('User not authenticated', 401);
+            return $this->json(['message' => 'User not authenticated'], 401);
         }
 
         $course = $entityManager->getRepository(Course::class)->find($courseId);
 
         if (!$course) {
-            return $this->json('Course not found', 404);
+            return $this->json(['message' => 'Course not found'], 404);
         }
 
         $progress = $entityManager->getRepository(UserQuizSetProgress::class)
             ->findOneBy(['user' => $user, 'course' => $course]);
 
         if (!$progress) {
-            return $this->json('No progress found for user and course', 404);
+            return $this->json(['message' => 'No progress found for user and course'], 404);
         }
 
         $data = [
@@ -82,13 +82,13 @@ class UserController extends AbstractController
 
         // Ensure the user is authenticated
         if (!$user) {
-            return $this->json('User not authenticated', 401);
+            return $this->json(['message' => 'User not authenticated'], 401);
         }
 
         $course = $entityManager->getRepository(Course::class)->find($courseId);
 
         if (!$course) {
-            return $this->json('Course not found', 404);
+            return $this->json(['message' => 'Course not found'], 404);
         }
 
         $progress = new UserQuizSetProgress();
@@ -110,13 +110,13 @@ class UserController extends AbstractController
 
         // Ensure the user is authenticated
         if (!$user) {
-            return $this->json('User not authenticated', 401);
+            return $this->json(['message' => 'User not authenticated'], 401);
         }
 
         $course = $entityManager->getRepository(Course::class)->find($courseId);
 
         if (!$course) {
-            return $this->json('Course not found', 404);
+            return $this->json(['message' => 'Course not found'], 404);
         }
 
         $quizSets = $course->getQuizSets();
@@ -158,20 +158,20 @@ class UserController extends AbstractController
 
         // Ensure the user is authenticated
         if (!$user) {
-            return $this->json('User not authenticated', 401);
+            return $this->json(['message' => 'User not authenticated'], 401);
         }
 
         $quizSet = $entityManager->getRepository(QuizSets::class)->find($quizSetId);
 
         if (!$quizSet) {
-            return $this->json('Quiz set not found', 404);
+            return $this->json(['message' => 'Quiz set not found'], 404);
         }
 
         $progress = $entityManager->getRepository(UserQuizSetProgress::class)
             ->findOneBy(['user' => $user, 'quizSet' => $quizSet]);
 
         if (!$progress) {
-            return $this->json('No progress found for user and quiz set', 404);
+            return $this->json(['message' => 'No progress found for user and quiz set'], 404);
         }
 
         $data = [
@@ -190,13 +190,13 @@ class UserController extends AbstractController
 
         // Ensure the user is authenticated
         if (!$user) {
-            return $this->json('User not authenticated', 401);
+            return $this->json(['message' => 'User not authenticated'], 401);
         }
 
         $quizSet = $entityManager->getRepository(QuizSets::class)->find($quizSetId);
 
         if (!$quizSet) {
-            return $this->json('Quiz set not found', 404);
+            return $this->json(['message' => 'Quiz set not found'], 404);
         }
 
         $progress = new UserQuizSetProgress();
@@ -218,20 +218,20 @@ class UserController extends AbstractController
 
         // Ensure the user is authenticated
         if (!$user) {
-            return $this->json('User not authenticated', 401);
+            return $this->json(['message' => 'User not authenticated'], 401);
         }
 
         $quizSet = $entityManager->getRepository(QuizSets::class)->find($quizSetId);
 
         if (!$quizSet) {
-            return $this->json('Quiz set not found', 404);
+            return $this->json(['message' => 'Quiz set not found'], 404);
         }
 
         $progress = $entityManager->getRepository(UserQuizSetProgress::class)
             ->findOneBy(['user' => $user, 'quizSet' => $quizSet]);
 
         if (!$progress) {
-            return $this->json('Quiz set not started by the user', 400);
+            return $this->json(['message' => 'Quiz set not started by the user'], 400);
         }
 
         $requestData = json_decode($request->getContent(), true);

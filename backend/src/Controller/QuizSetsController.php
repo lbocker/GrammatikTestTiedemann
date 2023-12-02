@@ -19,7 +19,7 @@ class QuizSetsController extends AbstractController
         $quizSet = $entityManager->getRepository(QuizSets::class)->find($id);
 
         if (!$quizSet) {
-            return $this->json('No quiz set found for id ' . $id, 404);
+            return $this->json(['message' => 'No quiz set found for id ' . $id], 404);
         }
 
         $data = [
@@ -39,13 +39,13 @@ class QuizSetsController extends AbstractController
         $quizSet = $entityManager->getRepository(QuizSets::class)->find($id);
 
         if (!$quizSet) {
-            return $this->json('No quiz set found for id ' . $id, 404);
+            return $this->json(['message' => 'No quiz set found for id ' . $id], 404);
         }
 
         $requestData = json_decode($request->getContent(), true);
 
         if (!isset($requestData['title']) || !isset($requestData['description'])) {
-            return $this->json('Invalid request. Title and description are required.', 400);
+            return $this->json(['message' => 'Invalid request. Title and description are required.'], 400);
         }
 
         $quizSet->setTitle($requestData['title']);
@@ -62,7 +62,7 @@ class QuizSetsController extends AbstractController
         $quizSet = $entityManager->getRepository(QuizSets::class)->find($id);
 
         if (!$quizSet) {
-            return $this->json('No quiz set found for id ' . $id, 404);
+            return $this->json(['message' => 'No quiz set found for id ' . $id], 404);
         }
 
         $entityManager->remove($quizSet);
@@ -77,7 +77,7 @@ class QuizSetsController extends AbstractController
         $quizSet = $entityManager->getRepository(QuizSets::class)->find($id);
 
         if (!$quizSet) {
-            return $this->json('No quiz set found for id ' . $id, 404);
+            return $this->json(['message' => 'No quiz set found for id ' . $id], 404);
         }
 
         $quizzes = $this->serializeQuizzes($quizSet->getQuizzes());
@@ -91,13 +91,13 @@ class QuizSetsController extends AbstractController
         $quizSet = $entityManager->getRepository(QuizSets::class)->find($id);
 
         if (!$quizSet) {
-            return $this->json('No quiz set found for id ' . $id, 404);
+            return $this->json(['message' => 'No quiz set found for id ' . $id], 404);
         }
 
         $requestData = json_decode($request->getContent(), true);
 
         if (!isset($requestData['type']) || !isset($requestData['question']) || !isset($requestData['rightAnswer']) || !isset($requestData['wrongAnswer'])) {
-            return $this->json('Invalid request. Type, question, rightAnswer, and wrongAnswer are required.', 400);
+            return $this->json(['message' => 'Invalid request. Type, question, rightAnswer, and wrongAnswer are required.'], 400);
         }
 
         $quiz = new Quiz();
