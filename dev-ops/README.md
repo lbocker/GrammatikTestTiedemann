@@ -66,6 +66,6 @@ php bin/console doctrine:schema:update --force
 
 Access to projects
 ------------------
-Symfony: http://127.0.0.1:8080 <- (only api is accessible: /api/quiz)
+Symfony: http://127.0.0.1:8080 
 
 Angular: http://127.0.0.1:8081
