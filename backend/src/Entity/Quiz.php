@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\QuizRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,7 +26,7 @@ class Quiz
     #[ORM\Column(type: Types::JSON, nullable: true)]
     private mixed $wrongAnswer = null;
 
-    #[ORM\ManyToOne(inversedBy: 'quizzes', targetEntity: QuizSets::class)]
+    #[ORM\ManyToOne(targetEntity: QuizSets::class, inversedBy: 'quizzes')]
     private ?QuizSets $quizSet;
 
     public function getId(): ?int

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\API;
 
 use App\Entity\Course;
 use App\Entity\QuizSets;
@@ -148,7 +148,7 @@ class CourseController extends AbstractController
         return $this->json($quizSet, 201);
     }
 
-    private function serializeQuizSets($quizSets)
+    private function serializeQuizSets($quizSets): array
     {
         $serializedQuizSets = [];
 
@@ -164,7 +164,7 @@ class CourseController extends AbstractController
         return $serializedQuizSets;
     }
 
-    private function serializeQuizzes($quizzes)
+    private function serializeQuizzes($quizzes): array
     {
         $serializedQuizzes = [];
 

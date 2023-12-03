@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\API;
 
 use App\Entity\Quiz;
 use App\Entity\QuizSets;
@@ -113,23 +113,7 @@ class QuizSetsController extends AbstractController
         return $this->json($quiz, 201);
     }
 
-    private function serializeQuizSets($quizSets)
-    {
-        $serializedQuizSets = [];
-
-        foreach ($quizSets as $quizSet) {
-            $serializedQuizSets[] = [
-                'id' => $quizSet->getId(),
-                'title' => $quizSet->getTitle(),
-                'description' => $quizSet->getDescription(),
-                'quizzes' => $this->serializeQuizzes($quizSet->getQuizzes()),
-            ];
-        }
-
-        return $serializedQuizSets;
-    }
-
-    private function serializeQuizzes($quizzes)
+    private function serializeQuizzes($quizzes): array
     {
         $serializedQuizzes = [];
 

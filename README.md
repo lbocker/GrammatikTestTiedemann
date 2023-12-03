@@ -4,7 +4,7 @@
 
 ### [API-Controller README](./src/Controller/README.md)
 
-For details on the API-Controllers, refer to the [API-Controller README](./backend/src/Controller/README.md).
+For details on the API-Controllers, refer to the [API-Controller README](backend/src/Controller/API/README.md).
 
 ## Docker Environment
 
