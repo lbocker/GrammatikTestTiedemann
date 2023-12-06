@@ -7,28 +7,17 @@
   position: relative;
 }
 
-.defaultFlex() {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
 .hr {
   margin-bottom: 3px;
 }
 
+.container {
+  .defaultFlex();
+}
+
 .headerContainer {
   .defaultFlex();
-
-  & .headerNavigation {
-
-  }
-
-  & .headerLogin {
-
-  }
+  background-color: @primary-color-900;
 }
 
 .header {
@@ -37,7 +26,7 @@
   justify-content: space-between;
   width: auto;
   background: var(--gray-800);
-  padding: 0 10px;
+  padding: 10px 15px;
   color: var(--gray-50);
   margin-bottom: 15px;
 
