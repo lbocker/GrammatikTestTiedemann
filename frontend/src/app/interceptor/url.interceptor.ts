@@ -10,8 +10,7 @@ import { CourseServiceService } from '../services/course/course-service.service'
 
 @Injectable()
 export class URLInterceptor implements HttpInterceptor {
-  public URL = 'http://localhost:8000';
-
+  public URL = 'httpS://api.lukas-boecker.de';
   constructor(private readonly service: CourseServiceService) {
   }
 

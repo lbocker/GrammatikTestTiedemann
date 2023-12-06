@@ -1,12 +1,12 @@
 <div class="header">
   <span class="material-icons" (click)="toggleSidebar()">menu</span>
-  <h1>Grammatik Test</h1>
+  <a routerLink="/"><h1>Grammatik Test</h1></a>
   <a routerLink="login" *ngIf="!user">Login/Register</a>
   <span *ngIf="!!user" (click)="op.toggle($event)" class="avatar">
     <p-avatar
       [label]="user.image ? undefined : userInitials"
       [image]="user.image"
-      size="normal"
+      size="large"
     ></p-avatar>
   </span>
 </div>
@@ -28,8 +28,8 @@
     </p-accordionTab>
   </p-accordion>
 </p-sidebar>
-<router-outlet></router-outlet>
 
+<router-outlet></router-outlet>
 
 <p-overlayPanel #op>
   <ng-template pTemplate="content">
