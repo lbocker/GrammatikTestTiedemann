@@ -15,8 +15,8 @@ jobs:
       - name: Deploy main site
         uses: appleboy/ssh-action@master
         with:
-          host: 155.133.23.21
-          username: root
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
