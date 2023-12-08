@@ -22,10 +22,10 @@ class QuizSets
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'quizSets', targetEntity: Course::class)]
+    #[ORM\ManyToOne(targetEntity: Course::class, inversedBy: 'quizSets')]
     private ?Course $course;
 
-    #[ORM\OneToMany(mappedBy: 'quizSet', targetEntity: Quiz::class)]
+    #[ORM\OneToMany(mappedBy: 'quizSet', targetEntity: Quiz::class, cascade: ["persist"])]
     private Collection $quizzes;
 
     public function __construct()
@@ -80,6 +80,16 @@ class QuizSets
     }
 
     public function setQuiz(Quiz $quiz): static
+    {
+        if (!$this->quizzes->contains($quiz)) {
+            $this->quizzes[] = $quiz;
+            $quiz->setQuizSet($this);
+        }
+
+        return $this;
+    }
+
+    public function addQuiz(Quiz $quiz): static
     {
         if (!$this->quizzes->contains($quiz)) {
             $this->quizzes[] = $quiz;

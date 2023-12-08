@@ -29,11 +29,17 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            custom_authenticator: App\Security\CustomAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                target: admin
 
     access_control:
         - { path: ^/api/register, roles: PUBLIC_ACCESS }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }
 
 when@test:
     security:
