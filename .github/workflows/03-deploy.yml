@@ -6,18 +6,34 @@ on:
       - main
 
 jobs:
-  deploy:
-    name: Deploy
+  build:
     runs-on: ubuntu-latest
-    environment: production
 
     steps:
-      - name: deploy main site
-        uses: appleboy/ssh-action@v1.0.0
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      #- name: Install Node.js
+      #  uses: actions/setup-node@v3
+      #  with:
+      #    node-version: '16.x'
+
+      #- name: Install npm Dependencies
+      #  run: npm install
+
+      #- name: Run Build Task
+      #  run: npm run build --if-present
+
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@main
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ${{ secrets.REMOTE_TARGET }}
+          SCRIPT_BEFORE: |
             whoami
+            ls -al
+          SCRIPT_AFTER: |
+            whoami
+            ls -al
