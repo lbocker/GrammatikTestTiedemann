@@ -9,7 +9,6 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: main
 
     steps:
       - name: Deploy main site
@@ -20,6 +19,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: 22
           script: |
-            cd /var/www/html/grammerjourney.lukas-boecker.de && git pull origin main --no-rebase --autostash
+            cd /var/www/html/grammerjourney.lukas-boecker.de 
+            git pull origin main --no-rebase --autostash
             cp -R /var/www/html/grammerjourney.lukas-boecker.de/frontend/ /root/grammerjourney.lukas-boecker.de/html/
             cp -R /var/www/html/grammerjourney.lukas-boecker.de/backend/ /root/grammerjourney.lukas-boecker.de/html/
