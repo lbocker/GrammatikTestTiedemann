@@ -20,16 +20,11 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [MessageService],
   styleUrls: ['./app.component.less']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   value = '';
   courses: CourseGroup[] = []
 
-  protected user: false | User = {
-    name: 'Lennard Ortmeyer',
-    password: '!Ich bin der Beste123!',
-    image: 'https://picsum.photos/80/80',
-    score: 250
-  };
+  protected user: false | User = false;
   protected userInitials: string = ''
   protected sidebar: boolean = false;
   protected showMenu = false;
@@ -38,25 +33,6 @@ export class AppComponent implements OnInit {
 
   constructor(private readonly router: Router, private readonly courseService: CourseServiceService) {
     this.courseService.user = this.user ? this.user : undefined;
-  }
-
-  ngOnInit(): void {
-    // TODO ausbauen wenn Login implementiert ist
-    const subscription = this.router.events.subscribe(() => {
-      if (this.router.url == '/login') {
-        subscription.unsubscribe()
-
-        this.user = {
-          name: 'Lennard Ortmeyer',
-          password: '!Ich bin der Beste123!',
-          image: 'https://picsum.photos/80/80',
-          score: 187
-        }
-        this.userInitials = this.getUserInitials(this.user.name)
-        this.courseService.user = this.user;
-        this.router.navigate([''])
-      }
-    })
   }
 
   getCourses(): void {
