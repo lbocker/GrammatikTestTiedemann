@@ -22,7 +22,7 @@ class Course
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'course', targetEntity: QuizSets::class)]
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: QuizSets::class, cascade: ["persist"])]
     private Collection $quizSets;
 
     public function __construct()
@@ -64,7 +64,7 @@ class Course
         return $this->quizSets;
     }
 
-    public function setQuizSet(QuizSets $quizSet): static
+    public function addQuizSet(QuizSets $quizSet): static
     {
         if (!$this->quizSets->contains($quizSet)) {
             $this->quizSets[] = $quizSet;
