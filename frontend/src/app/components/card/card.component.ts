@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { GrammarCourses } from '../../models/grammar-courses';
+import { GrammarCourses } from '../../models/grammar-courses.model';
 import { Router } from '@angular/router';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatCardModule, NgOptimizedImage],
+  imports: [CommonModule, NgOptimizedImage, CardModule, ButtonModule],
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.less']
 })

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DragDropGroup, Task } from '../../../models/grammar-courses';
+import { DragDropGroup, Task } from '../../../models/task.model';
 import { PRIMENG_BARREL } from '../../../barrel/primeng.barrel';
 import { DialogService } from 'primeng/dynamicdialog';
 import { DragGroupModalComponent } from './drag-group-modal/drag-group-modal.component';
@@ -16,7 +16,7 @@ export class DragDropGroupComponent implements OnInit {
   @Input() task!: Task;
   protected editedTask?: DragDropGroup;
   protected undraggedItems: string[] = [];
-  private dragingItem: { index: number; text: string; origin: number | 'undragged' } | null = null;
+  private draggingItem: { index: number; text: string; origin: number | 'undragged' } | null = null;
 
   constructor(private readonly dialogService: DialogService) {
   }
@@ -35,14 +35,14 @@ export class DragDropGroupComponent implements OnInit {
   }
 
   drop(groupIndex: number): void {
-    if (this.dragingItem && this.editedTask) {
-      this.editedTask.group[groupIndex].items.push(this.dragingItem!.text)
-      if (this.dragingItem.origin == 'undragged') {
-        this.undraggedItems.splice(this.dragingItem!.index, 1);
+    if (this.draggingItem && this.editedTask) {
+      this.editedTask.group[groupIndex].items.push(this.draggingItem!.text)
+      if (this.draggingItem.origin == 'undragged') {
+        this.undraggedItems.splice(this.draggingItem!.index, 1);
       } else {
-        this.editedTask.group[this.dragingItem.origin].items.splice(this.dragingItem!.index, 1);
+        this.editedTask.group[this.draggingItem.origin].items.splice(this.draggingItem!.index, 1);
       }
-      this.dragingItem = null;
+      this.draggingItem = null;
     }
   }
 
@@ -51,11 +51,11 @@ export class DragDropGroupComponent implements OnInit {
   }
 
   dragStart(item: string, index: number, origin: number | 'undragged'): void {
-    this.dragingItem = {text: item, index: index, origin: origin};
+    this.draggingItem = {text: item, index: index, origin: origin};
   }
 
   dragEnd(): void {
-    this.dragingItem = null;
+    this.draggingItem = null;
   }
 
   showModal(successful: boolean): void {

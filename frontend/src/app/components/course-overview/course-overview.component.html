@@ -1,5 +1,4 @@
-<div *ngIf="course">
-  <h1 *ngIf="activeIndex != 0">{{course.title}}</h1>
+<div class="wrapper" *ngIf="course">
   <p-steps
     class="task-bar"
     [model]="tasks"
@@ -7,17 +6,15 @@
     [activeIndex]="activeIndex"
     (activeIndexChange)="indexChange($event)"
   ></p-steps>
+  <div class="title">
+    <h1>{{course.title}}</h1>
+  </div>
+  <p-panel header="Beschreibung" class="description" *ngIf="course && activeIndex == 0">
+    {{course.description}}
+  </p-panel>
   <app-drag-drop-group class="task" *ngIf="activeTask && activeTask?.type == 'DragDropGroup'" [task]="activeTask"></app-drag-drop-group>
   <app-drag-drop-words class="task" *ngIf="activeTask?.type === 'DragDropWords'"></app-drag-drop-words>
   <app-type-missing-words class="task" *ngIf="activeTask?.type === 'TypeMissingWords'"></app-type-missing-words>
   <app-find-wrong-words class="task" *ngIf="activeTask?.type === 'FindWrongWords'"></app-find-wrong-words>
   <app-multiple-choice class="task" *ngIf="activeTask && activeTask?.type === 'MultipleChoice'" [task]="activeTask"></app-multiple-choice>
-</div>
-<div class="wrapper" *ngIf="course && activeIndex == 0">
-  <div class="title">
-    <h1>{{course.title}}</h1>
-  </div>
-  <p-panel header="Beschreibung" class="description">
-    {{course.description}}
-  </p-panel>
 </div>

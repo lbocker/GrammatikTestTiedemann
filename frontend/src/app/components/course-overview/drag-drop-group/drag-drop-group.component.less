@@ -1,10 +1,9 @@
 @import "~src/variables.less";
 
 .wrapper {
-  display: flex;
+  .defaultFlex();
   justify-content: space-evenly;
-  align-items: stretch;
-  flex-wrap: wrap;
+  padding: 1rem;
 }
 
 .item {
@@ -44,6 +43,8 @@
     align-items: center;
     width: 50%;
     min-height: 50px;
+    position: relative;
+    bottom: 0;
 
     background: lightgray;
     border-style: solid;

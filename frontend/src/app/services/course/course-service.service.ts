@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { CourseGroup, Task, User } from '../../models/grammar-courses';
+import { CourseGroup } from '../../models/course-group.model';
+import { Task } from '../../models/task.model';
+import { User } from '../../models/user.model';
 import { map, Observable, of, timer } from 'rxjs';
 
 @Injectable({
