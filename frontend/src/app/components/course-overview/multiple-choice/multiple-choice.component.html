@@ -1,1 +1,25 @@
-<p>multiple-choice works!</p>
+<form class="wrapper" *ngIf="_task && form" [formGroup]="form">
+  <div class="question">
+    <h1>{{_task.name}}</h1>
+  </div>
+  <div class="question-type">
+    <h5>Mehrfachauswahl</h5>
+  </div>
+  <div class="left">
+    <ng-container *ngFor="let choice of choices; let e = even; let i = index">
+      <div class="choice" *ngIf="e">
+        <input type="checkbox" [id]="'choice-'+i" [formControlName]="'choice-'+i">
+        <label [for]="'choice-'+i">{{choice}}</label>
+      </div>
+    </ng-container>
+  </div>
+  <div class="right">
+    <ng-container *ngFor="let choice of choices; let e = even; let i = index">
+      <div class="choice" *ngIf="!e">
+        <input type="checkbox" [id]="'choice-'+i" [formControlName]="'choice-'+i">
+        <label [for]="'choice-'+i">{{choice}}</label>
+      </div>
+    </ng-container>
+  </div>
+</form>
+<button pButton class="p-button-success checkBtn" label="Überprüfen" (click)="check()"></button>

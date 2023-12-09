@@ -1,0 +1,50 @@
+@import "~src/variables.less";
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 32px 40px repeat(3, 1fr);
+  grid-column-gap: 15px;
+  grid-row-gap: 0;
+  height: calc(100vh - 180px);
+}
+
+.question {
+  text-align: center;
+  font-weight: bold;
+  grid-area: 1 / 2 / 2 / 6;
+}
+.question-type {
+  text-align: center;
+  grid-area: 2 / 3 / 3 / 5;
+}
+.left {
+  align-items: center;
+  text-align: center;
+  grid-area: 3 / 3 / 6 / 4;
+}
+.right {
+  align-items: center;
+  text-align: center;
+  grid-area: 3 / 4 / 6 / 5;
+}
+
+
+.choice {
+  display: flex;
+  color: @text-color-900;
+  background: lightgray;
+  margin-bottom: 5px;
+  padding: 3px;
+  border-radius: 3px;
+  & label {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+.checkBtn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
