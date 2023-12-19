@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { GrammarCourses } from '../../models/grammar-courses.model';
 import { Router } from '@angular/router';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
+import { PRIMENG_BARREL } from '../../barrel/primeng.barrel';
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage, CardModule, ButtonModule],
+  imports: [CommonModule, NgOptimizedImage, PRIMENG_BARREL],
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.less']
 })
@@ -107,6 +106,10 @@ export class CardComponent {
   ];
 
   constructor(private readonly router: Router) {
+  }
+
+  trackByCourse(index: number, item: GrammarCourses): number {
+    return item.id;
   }
 
   openCourse(course: GrammarCourses): void {
