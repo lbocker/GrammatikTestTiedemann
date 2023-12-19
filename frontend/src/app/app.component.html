@@ -1,29 +1,46 @@
 <div class="header">
-  <span class="material-icons" (click)="toggleSidebar()">menu</span>
-  <a routerLink="/"><h1>Grammatik Test</h1></a>
-  <a routerLink="login" *ngIf="!user">Login/Register</a>
-  <span *ngIf="!!user" (click)="op.toggle($event)" class="avatar">
-    <p-avatar
-      [label]="user.image ? undefined : userInitials"
-      [image]="user.image"
-      size="large"
-    ></p-avatar>
-  </span>
+  <aside class="headerAside">
+    <span class="pi pi-bars" style="font-size: 1.5rem" (click)="toggleSidebar()"></span>
+  </aside>
+  <a
+    class="headerTitle"
+    routerLink="/"
+  >
+    <h1>Grammatik Test</h1>
+  </a>
+  <aside class="headerAside headerAsideRight">
+    <a
+      routerLink="login"
+      *ngIf="!user && !mobileWindow"
+    >Login/Register</a>
+    <span
+      class="avatar pi pi-user"
+      *ngIf="!user && mobileWindow" (click)="opLogin.toggle($event)"
+    ></span>
+    <span class="avatar" *ngIf="!!user" (click)="op.toggle($event)">
+      <p-avatar
+        [label]="user.image ? undefined : userInitials"
+        [image]="user.image"
+        size="large"
+      ></p-avatar>
+    </span>
+  </aside>
 </div>
 <p-toast></p-toast>
 <p-sidebar [(visible)]="sidebar" position="left">
   <h3>Kurse</h3>
   <p-accordion *ngIf="courses.length == 0">
     <p-accordionTab>
-      <p-header><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></p-header>
+      <p-header>
+        <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+      </p-header>
       <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
       <p-skeleton width="8rem" styleClass="mb-2"></p-skeleton>
       <p-skeleton width="12rem" styleClass="mb-2"></p-skeleton>
     </p-accordionTab>
   </p-accordion>
-<!-- Wenn daten da sind wird das angezeigt -->
   <p-accordion *ngIf="courses.length >= 1">
-    <p-accordionTab *ngFor="let course of courses" [header]="course.title">
+    <p-accordionTab *ngFor="let course of courses; trackBy: trackByCourse" [header]="course.title">
 
     </p-accordionTab>
   </p-accordion>
@@ -31,10 +48,19 @@
 
 <router-outlet></router-outlet>
 
+<p-overlayPanel #opLogin>
+  <ng-template pTemplate="content">
+    <a
+      class="login"
+      routerLink="login"
+    >Login/Register</a>
+  </ng-template>
+</p-overlayPanel>
+
 <p-overlayPanel #op>
   <ng-template pTemplate="content">
     <ng-container *ngIf="user">
-      {{user.name}}
+      {{ user.name }}
       <hr>
       <p-button
         label="Profil"
@@ -43,7 +69,8 @@
         type="button"
       ></p-button>
       <br>
-      Punkte: <p-badge [value]="user.score.toString()" severity="info"></p-badge>
+      Punkte:
+      <p-badge [value]="user.score.toString()" severity="info"></p-badge>
       <hr>
       <p-button
         label="Ausloggen"

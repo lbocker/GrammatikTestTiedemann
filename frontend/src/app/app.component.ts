@@ -20,19 +20,30 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [MessageService],
   styleUrls: ['./app.component.less']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   value = '';
   courses: CourseGroup[] = []
 
   protected user: false | User = false;
   protected userInitials: string = ''
   protected sidebar: boolean = false;
-  protected showMenu = false;
+  protected showMenu: boolean = false;
+  protected mobileWindow: boolean = false;
 
   protected readonly PrimeIcons = PrimeIcons;
 
   constructor(private readonly router: Router, private readonly courseService: CourseServiceService) {
     this.courseService.user = this.user ? this.user : undefined;
+  }
+
+  ngOnInit(): void {
+    if (window.screen.width <= 950) {
+      this.mobileWindow = true;
+    }
+  }
+
+  trackByCourse(index: number, course: CourseGroup): string|number {
+    return course.id;
   }
 
   getCourses(): void {
