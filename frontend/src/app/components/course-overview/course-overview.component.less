@@ -1,25 +1,41 @@
 @import '~src/variables.less';
 
+:host ::ng-deep {
+  .task-bar {
+    .defaultFlex();
+
+    width: 100%;
+    margin-bottom: 1rem;
+
+    & .p-steps {
+      .defaultFlex();
+
+      flex: 0 0 100%;
+
+      & ul {
+        flex: 0 0 100%;
+
+        @media (max-width: @max-screen-width-mobile) {
+          flex-direction: column;
+          gap: 8px;
+
+          & .p-steps-item:before {
+            content: none;
+          }
+        }
+      }
+    }
+  }
+}
+
 .wrapper {
   .defaultFlex();
+
   padding: 1rem;
 
   & .title {
     flex: 0 0 90%;
     margin-bottom: 1rem;
-  }
-
-  & .task-bar {
-    .defaultFlex();
-    flex: 0 0 90%;
-
-    .p-steps {
-      flex: 0 0 100%;
-    }
-
-    @media (max-width: @max-screen-width-default) {
-      flex-direction: column;
-    }
   }
 
   & .description {
@@ -28,6 +44,26 @@
 
     & div .p-toggleable-content {
       height: 100%;
+    }
+  }
+
+  & .taskContainer {
+    .defaultFlex();
+
+    width: 90%;
+
+    & .task {
+      .defaultFlex();
+      flex: 0 0 90%;
+      margin-bottom: 1rem;
+
+      & .p-steps {
+        flex: 0 0 100%;
+      }
+
+      @media (max-width: @max-screen-width-mobile) {
+        flex-direction: column;
+      }
     }
   }
 }

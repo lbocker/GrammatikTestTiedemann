@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MultipleChoice, Task } from '../../../models/grammar-courses';
+import { MultipleChoice, Task } from '../../../models/task.model';
 import { PRIMENG_BARREL } from '../../../barrel/primeng.barrel';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DragGroupModalComponent } from '../drag-drop-group/drag-group-modal/drag-group-modal.component';
@@ -22,6 +22,10 @@ export class MultipleChoiceComponent {
     private readonly formBuilder: FormBuilder,
     private readonly dialogService: DialogService
   ) {
+  }
+
+  trackByChoice(index: number, choice: string): string {
+    return choice;
   }
 
   @Input() set task(task: Task) {

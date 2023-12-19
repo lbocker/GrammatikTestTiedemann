@@ -34,6 +34,14 @@ export class DragDropGroupComponent implements OnInit {
     this.undraggedItems = this.shuffle(this.undraggedItems)
   }
 
+  trackByGroup(index: number, group: any): string {
+    return group.text;
+  }
+
+  trackByItem(index: number, item: any): string {
+    return item;
+  }
+
   drop(groupIndex: number): void {
     if (this.draggingItem && this.editedTask) {
       this.editedTask.group[groupIndex].items.push(this.draggingItem!.text)
