@@ -7,10 +7,11 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CourseServiceService } from '../services/course/course-service.service';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class URLInterceptor implements HttpInterceptor {
-  public URL = 'httpS://api.lukas-boecker.de';
+
   constructor(private readonly service: CourseServiceService) {
   }
 
@@ -20,7 +21,7 @@ export class URLInterceptor implements HttpInterceptor {
     console.log(header)
     const modifiedRequest = request.clone({
       headers: header,
-      url: this.URL + request.url.startsWith('/')?'':`/${  request.url}`
+      url: environment.apiURL + request.url.startsWith('/') ? '' : `/${ request.url }`
     });
 
     return next.handle(modifiedRequest);
