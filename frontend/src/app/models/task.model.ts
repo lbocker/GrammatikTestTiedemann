@@ -1,4 +1,7 @@
-import { TaskDefault } from './task-default.model';
+export interface TaskDefault {
+  name: string;
+  status: 'Fertig' | 'In Bearbeitung' | 'Offen';
+}
 
 export interface MultipleChoice extends TaskDefault {
   type: 'MultipleChoice';
