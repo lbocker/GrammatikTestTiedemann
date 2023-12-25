@@ -6,7 +6,8 @@
     "start": "npm install && ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -30,15 +31,18 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.0.6",
-    "@angular-eslint/eslint-plugin": "^17.1.0",
-    "@angular-eslint/eslint-plugin-template": "^17.1.0",
-    "@angular-eslint/template-parser": "^17.1.0",
+    "@angular-eslint/builder": "17.1.1",
+    "@angular-eslint/eslint-plugin": "17.1.1",
+    "@angular-eslint/eslint-plugin-template": "17.1.1",
+    "@angular-eslint/schematics": "17.1.1",
+    "@angular-eslint/template-parser": "17.1.1",
     "@angular/cli": "^17.0.7",
     "@angular/compiler-cli": "^17.0.0",
     "@angular/localize": "^17.0.0",
     "@types/jasmine": "~5.1.4",
-    "@typescript-eslint/eslint-plugin": "^6.12.0",
-    "eslint": "^8.55.0",
+    "@typescript-eslint/eslint-plugin": "6.13.1",
+    "@typescript-eslint/parser": "6.13.1",
+    "eslint": "^8.54.0",
     "eslint-config-semistandard": "^17.0.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-config-standard-with-typescript": "^42.0.0",

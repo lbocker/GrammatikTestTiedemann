@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PRIMENG_BARREL } from "../../barrel/primeng.barrel";
-import { RippleModule } from "primeng/ripple";
+import { PRIMENG_BARREL } from '../../barrel/primeng.barrel';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
   selector: 'app-login',
