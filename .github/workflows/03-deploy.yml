@@ -1,41 +1,26 @@
 name: Deploy grammerjourney
-
 on:
   push:
     branches:
       - main
-
 jobs:
-  build:
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
+    environment: main
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      #- name: Install Node.js
-      #  uses: actions/setup-node@v3
-      #  with:
-      #    node-version: '16.x'
-
-      #- name: Install npm Dependencies
-      #  run: npm install
-
-      #- name: Run Build Task
-      #  run: npm run build --if-present
-
-      - name: Deploy to Server
-        uses: easingthemes/ssh-deploy@main
+      - name: Deploy main site
+        uses: appleboy/ssh-action@master
         with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          REMOTE_PORT: 22
-          ARGS: "-rlgoDzvc -i"
-          SSH_CMD_ARGS: "-o StrictHostKeyChecking=no"
-          SCRIPT_BEFORE: |
-            whoami
-            ls -al
-          SCRIPT_AFTER: |
-            whoami
-            ls -al
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: 22
+          script: |
+            cd /var/www/html/grammerjourney.lukas-boecker.de && git pull origin main --no-rebase --autostash
+            cd /var/www/html/grammerjourney.lukas-boecker.de && git pull --no-rebase --autostash
+            cd /var/www/html/grammerjourney.lukas-boecker.de/frontend && npm install && npm run build --aot --build-optimizer --common-chunk --vendor-chunk --optimization --progress --configuration=production
+            cp -R /var/www/html/grammerjourney.lukas-boecker.de/frontend/dist /root/grammerjourney.lukas-boecker.de/html/
+            cp -R /var/www/html/grammerjourney.lukas-boecker.de/backend/ /root/api-grammerjourney.lukas-boecker.de/html/
+            
