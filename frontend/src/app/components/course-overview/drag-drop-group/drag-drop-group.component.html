@@ -1,25 +1,42 @@
 <div class="wrapper" *ngIf="task.type=='DragDropGroup' && editedTask">
-  <span *ngFor="let group of editedTask.group; let i = index" class="item" pDroppable (onDrop)="drop(i)">
-    <h3 class="groupHeadline">{{group.text}}</h3>
-    <div *ngFor="let item of group.items; let n = index">
+  <div class="question">
+    <h1>{{ task.name }}</h1>
+  </div>
+  <div class="question-type">
+    <h3>Drag and Drop</h3>
+  </div>
+  <span
+    pDroppable
+    class="item"
+    *ngFor="let group of editedTask.group; let i = index; trackBy: trackByGroup"
+    (onDrop)="drop(i)"
+  >
+    <h3 class="groupHeadline">{{ group.text }}</h3>
+    <div *ngFor="let item of group.items; let n = index; trackBy: trackByItem">
       <span
-        class="draggableItem"
         pDraggable
+        class="draggableItem"
         (onDragStart)="dragStart(item, n, i)"
         (onDragEnd)="dragEnd()"
-      >{{item}}</span>
+      >{{ item }}</span>
     </div>
   </span>
+  <button
+    pButton
+    class="p-button-success checkBtn"
+    label="Überprüfen"
+    *ngIf="undraggedItems.length == 0"
+    (click)="check()"
+  ></button>
+  <section class="undraggedItems">
+    <div class="pickZone">
+      <span
+        pDraggable
+        class="draggableItem"
+        *ngFor="let item of undraggedItems; let i = index; trackBy: trackByItem"
+        (onDragStart)="dragStart(item, i, 'undragged')"
+        (onDragEnd)="dragEnd()"
+      >{{ item }}</span>
+    </div>
+  </section>
 </div>
-<div *ngIf="task.type=='DragDropGroup' && editedTask" class="undraggedItems">
-  <div class="pickZone">
-    <span
-      *ngFor="let item of undraggedItems; let i = index;"
-      pDraggable
-      (onDragStart)="dragStart(item, i, 'undragged')"
-      (onDragEnd)="dragEnd()"
-      class="draggableItem"
-    >{{item}}</span>
-  </div>
-</div>
-<button pButton class="p-button-success checkBtn" label="Überprüfen" *ngIf="undraggedItems.length == 0" (click)="check()"></button>

@@ -1,16 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {CourseGroup, DragDropGroup, Task} from '../../models/grammar-courses';
-import {CourseServiceService} from '../../services/course/course-service.service';
-import {ActivatedRoute} from '@angular/router';
-import {switchMap} from 'rxjs';
-import {PRIMENG_BARREL} from '../../barrel/primeng.barrel';
-import {MenuItem} from 'primeng/api';
-import {MultipleChoiceComponent} from './multiple-choice/multiple-choice.component';
-import {DragDropGroupComponent} from './drag-drop-group/drag-drop-group.component';
-import {DragDropWordsComponent} from './drag-drop-words/drag-drop-words.component';
-import {TypeMissingWordsComponent} from './type-missing-words/type-missing-words.component';
-import {FindWrongWordsComponent} from './find-wrong-words/find-wrong-words.component';
+import { CourseGroup } from '../../models/course-group.model';
+import { DragDropGroup, Task } from '../../models/task.model';
+import { CourseServiceService } from '../../services/course/course-service.service';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs';
+import { PRIMENG_BARREL } from '../../barrel/primeng.barrel';
+import { MenuItem } from 'primeng/api';
+import { MultipleChoiceComponent } from './multiple-choice/multiple-choice.component';
+import { DragDropGroupComponent } from './drag-drop-group/drag-drop-group.component';
+import { DragDropWordsComponent } from './drag-drop-words/drag-drop-words.component';
+import { TypeMissingWordsComponent } from './type-missing-words/type-missing-words.component';
+import { FindWrongWordsComponent } from './find-wrong-words/find-wrong-words.component';
 
 @Component({
   selector: 'app-course-overview',
@@ -53,11 +54,11 @@ export class CourseOverviewComponent implements OnInit {
       this.activeTask = undefined
       return;
     }
-    this.activeTask = this.course!.options[this.activeIndex-1]
+    this.activeTask = this.course!.options[this.activeIndex - 1]
   }
 
   typeOf(activeTask: Task, type: string): DragDropGroup | Task {
-    switch(type) {
+    switch (type) {
       case 'DragDropGroup':
         return activeTask as DragDropGroup
     }

@@ -1,0 +1,65 @@
+@import "~src/variables.less";
+
+.wrapper {
+  .defaultFlex();
+
+  flex: 0 0 100%;
+  justify-content: space-evenly;
+  gap: 8px;
+
+  @media (max-width: @max-screen-width-mobile) {
+    flex-direction: column;
+  }
+
+  & .question,
+  & .question-type {
+    text-align: center;
+    flex: 0 0 100%
+  }
+
+  & .choice {
+    .defaultFlex();
+
+    text-align: center;
+    flex: 0 0 45%;
+    min-width: 200px;
+    max-width: 650px;
+    min-height: 100px;
+    color: @text-color-900;
+    background: lightgray;
+    margin-bottom: 8px;
+    padding: 8px;
+    border-radius: 3px;
+
+    & .checkbox {
+      flex: 0 0 7.5%;
+      min-width: 30px;
+      min-height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    & label {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      flex: 1;
+      font-size: 2rem;
+      user-select: none;
+    }
+  }
+
+  .checkBtn {
+    min-height: 10%;
+    min-width: 25%;
+    font-size: 2rem;
+    position: absolute;
+    bottom: 10%;
+
+    @media (max-width: @max-screen-width-mobile) {
+      position: relative;
+      bottom: 5%;
+    }
+  }
+}
