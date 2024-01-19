@@ -1,23 +1,69 @@
-.wrapper {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
+@import '~src/variables.less';
 
-  width: 100vw;
-  height: calc(100% - 55px - 92px);
-}
+:host ::ng-deep {
+  .task-bar {
+    .defaultFlex();
 
-.title {
-  display: flex;
-  justify-content: center;
-  grid-area: 1 / 1 / 2 / 6;
-}
-.description {
-  grid-area: 2 / 2 / 4 / 5;
-  & div .p-toggleable-content {
-    height: 100%;
+    width: 100%;
+    margin-bottom: 1rem;
+
+    & .p-steps {
+      .defaultFlex();
+
+      flex: 0 0 100%;
+
+      & ul {
+        flex: 0 0 100%;
+
+        @media (max-width: @max-screen-width-mobile) {
+          flex-direction: column;
+          gap: 8px;
+
+          & .p-steps-item:before {
+            content: none;
+          }
+        }
+      }
+    }
   }
 }
 
+.wrapper {
+  .defaultFlex();
+
+  padding: 1rem;
+
+  & .title {
+    flex: 0 0 90%;
+    margin-bottom: 1rem;
+  }
+
+  & .description {
+    flex: 0 0 90%;
+    min-height: 60%;
+
+    & div .p-toggleable-content {
+      height: 100%;
+    }
+  }
+
+  & .taskContainer {
+    .defaultFlex();
+
+    width: 90%;
+
+    & .task {
+      .defaultFlex();
+      flex: 0 0 90%;
+      margin-bottom: 1rem;
+
+      & .p-steps {
+        flex: 0 0 100%;
+      }
+
+      @media (max-width: @max-screen-width-mobile) {
+        flex-direction: column;
+      }
+    }
+  }
+}
