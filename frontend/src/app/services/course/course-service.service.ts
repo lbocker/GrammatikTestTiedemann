@@ -33,7 +33,7 @@ export class CourseServiceService {
       name: 'Task 3',
       status: 'Fertig',
       type: 'DragDropWords',
-      text: 'Lorem ipsum dolor sit %_%, consetetur sadipscing elitr, sed %_% nonumy eirmod tempor invidunt ut labore et dolore magna %_% erat, sed diam voluptua. At vero eos et %_% et justo duo dolores et ea',
+      text: 'Lorem ipsum dolor sit %WORD:0%, consetetur sadipscing elitr, sed %WORD:1% nonumy eirmod tempor invidunt ut labore et dolore magna %WORD:2% erat, sed diam voluptua. At vero eos et %WORD:3% et justo duo dolores et ea',
       fillTexts: [
         'amet', 'diam', 'aliquyam', 'accusam'
       ]
