@@ -1,18 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { GrammarCourses } from '../../models/grammar-courses';
+import { GrammarCourses } from '../../models/grammar-courses.model';
 import { Router } from '@angular/router';
+import { PRIMENG_BARREL } from '../../barrel/primeng.barrel';
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatCardModule, NgOptimizedImage],
+  imports: [CommonModule, NgOptimizedImage, PRIMENG_BARREL],
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.less']
 })
 export class CardComponent {
+  @Input()
   grammarCourses: GrammarCourses[] = [
     {
       id: 0,
@@ -107,6 +107,10 @@ export class CardComponent {
   ];
 
   constructor(private readonly router: Router) {
+  }
+
+  trackByCourse(index: number, item: GrammarCourses): number {
+    return item.id;
   }
 
   openCourse(course: GrammarCourses): void {

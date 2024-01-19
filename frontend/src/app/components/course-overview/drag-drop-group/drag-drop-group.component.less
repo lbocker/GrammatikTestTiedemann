@@ -1,72 +1,90 @@
 @import "~src/variables.less";
 
 .wrapper {
-  display: flex;
+  .defaultFlex();
+
+  flex: 0 0 100%;
   justify-content: space-evenly;
-  align-items: stretch;
-  flex-wrap: wrap;
-}
+  padding: 1rem;
+  height: 100%;
 
-.item {
-  color: gray;
-  background: lightgray;
-  border-style: solid;
-  border-width: 2px;
-  border-color: gray;
-  border-radius: 15px;
-  width: 30%;
-  min-height: 150px;
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  flex: 0 0 30%;
-  margin: 0.5rem;
-
-  & .groupHeadline {
-    flex: 0 0 100%;
+  & .question,
+  & .question-type {
+    text-align: center;
+    flex: 0 0 100%
   }
-}
 
-.undraggedItems {
-  display: flex;
-  justify-content: space-around;
-  position: absolute;
-  bottom: 0;
-  width: 100vw;
+  & .item {
+    .defaultFlex();
 
-  & .pickZone {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    align-items: center;
-    width: 50%;
-    min-height: 50px;
-
+    flex: 1 0 30%;
+    color: gray;
     background: lightgray;
-    border-style: solid;
-    border-width: 2px;
-    border-color: gray;
-    border-radius: 15px 15px 0 0;
+    border: 1px solid gray;
+    border-radius: 15px;
+    min-height: 250px;
+    text-align: center;
+    max-width: 650px;
+    margin: 0.5rem;
+
+    @media (max-width: @max-screen-width-mobile) {
+      flex: 1 0 100%;
+      flex-direction: column;
+    }
+
+    & .groupHeadline {
+      flex: 0 0 100%;
+    }
   }
-}
 
-.draggableItem {
-  display: block;
-  cursor: move;
-  color: @text-color;
-  background: @secondary-color;
-  width: 150px;
-  border-radius: 1rem;
-  text-align: center;
-  margin: 0.25rem;
-  padding: 0.25rem;
-}
+  & .undraggedItems {
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    position: absolute;
+    bottom: 0;
 
-.checkBtn {
-  position: absolute;
-  right: 0;
-  bottom: 0;
+    @media (max-width: @max-screen-width-mobile) {
+      position: relative;
+    }
+
+    & .pickZone {
+      display: flex;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+      align-items: center;
+      width: 100%;
+      min-height: 75px;
+      background: lightgray;
+      border-style: solid;
+      border-width: 2px;
+      border-color: gray;
+      border-radius: 15px 15px 0 0;
+    }
+  }
+
+  .draggableItem {
+    display: block;
+    cursor: move;
+    color: @text-color;
+    background: @secondary-color;
+    width: 150px;
+    border-radius: 1rem;
+    text-align: center;
+    margin: 0.25rem;
+    padding: 0.25rem;
+  }
+
+  & .checkBtn {
+    min-height: 10%;
+    min-width: 25%;
+    font-size: 2rem;
+    position: absolute;
+    bottom: 10%;
+
+    @media (max-width: @max-screen-width-mobile) {
+      position: relative;
+      top: 100%;
+    }
+  }
 }
