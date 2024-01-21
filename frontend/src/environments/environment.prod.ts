@@ -1,4 +1,4 @@
-export const environment = {
-  production: false,
+export const environmentProd = {
+  production: true,
   apiURL: 'https://api-grammerjourney.lukas-boecker.de/api/'
 };
