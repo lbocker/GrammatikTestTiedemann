@@ -21,7 +21,7 @@ jobs:
             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            nvm install 20.1.0
+            nvm install 20.9.0
             cd /var/www/html/grammerjourney.lukas-boecker.de && git pull origin main --no-rebase --autostash
             cd /var/www/html/grammerjourney.lukas-boecker.de && git pull --no-rebase --autostash
             cd /var/www/html/grammerjourney.lukas-boecker.de/frontend && npm install && npm run build --aot --build-optimizer --common-chunk --vendor-chunk --optimization --progress --configuration=production
