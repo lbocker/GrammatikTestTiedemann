@@ -1,1 +1,27 @@
-<p>registration works!</p>
+<form class="p-fluid p-formgrid p-grid" [formGroup]="form">
+  <div class="p-field p-col">
+    <label for="email">E-Mail</label>
+    <input id="email" type="email" email="true" pInputText formControlName="email" />
+  </div>
+  <div class="p-field p-col">
+    <label for="password">Passwort</label>
+    <input id="password" type="password" pPassword formControlName="password" autocomplete="on"/>
+  </div>
+
+  <div class="text-center mb-5">
+    <span class=""> Du hast bereits ein Account?</span>
+    <a routerLink="/login" style="color:green;"> Einloggen</a>
+  </div>
+
+  <p-checkbox formControlName="stayLoggedIn" label="Eingelogged bleiben"></p-checkbox>
+  <div class="p-field p-col-12">
+    <button
+        [disabled]="form.invalid"
+        pButton
+        type="submit"
+        label="Registrieren"
+        (click)="register()"
+        [loading]="loading"
+    ></button>
+  </div>
+</form>
