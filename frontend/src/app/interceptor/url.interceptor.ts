@@ -8,6 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { CourseServiceService } from '../services/course/course-service.service';
 import { environment } from '../../environments/environment';
+import { Cookies } from 'typescript-cookie';
 
 @Injectable()
 export class URLInterceptor implements HttpInterceptor {
@@ -16,14 +17,23 @@ export class URLInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let header: HttpHeaders = request.headers.set('username', this.service.user?.name ?? 'unset')
-    header = header.set('password', this.service.user?.password ?? 'unset')
-    console.log(header)
+    let header: HttpHeaders = request.headers;
+
+    if (!request.url.includes('register')) {
+      header = header.set('token', this.getToken());
+    }
+
+    console.log(environment.apiURL, request.url);
+
     const modifiedRequest = request.clone({
       headers: header,
-      url: environment.apiURL + request.url.startsWith('/') ? '' : `/${ request.url }`
+      url: environment.apiURL + (request.url.startsWith('/') ? '' : '/') + request.url
     });
 
     return next.handle(modifiedRequest);
+  }
+
+  private getToken(): string {
+    return `bearer ${  Cookies.get('token') ?? ''}`;
   }
 }
