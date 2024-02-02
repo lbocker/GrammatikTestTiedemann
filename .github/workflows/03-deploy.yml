@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+
 jobs:
   deploy:
     name: Deploy
@@ -10,21 +11,38 @@ jobs:
     environment: main
 
     steps:
-      - name: Deploy main site
+      - name: Set up SSH
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          script: |
-            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            nvm install 20.9.0
-            cd /var/www/html/grammerjourney.lukas-boecker.de && git pull origin main --no-rebase --autostash
-            cd /var/www/html/grammerjourney.lukas-boecker.de && git pull --no-rebase --autostash
-            cd /var/www/html/grammerjourney.lukas-boecker.de/frontend && npm install && npm run build --aot --build-optimizer --common-chunk --vendor-chunk --optimization --progress --configuration=production
-            cp -R /var/www/html/grammerjourney.lukas-boecker.de/frontend/dist /root/grammerjourney.lukas-boecker.de/html/
-            cp -R /var/www/html/grammerjourney.lukas-boecker.de/backend/ /root/api-grammerjourney.lukas-boecker.de/html/
-            
+
+      - name: Install NVM and Node.js
+        run: |
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          nvm install 20.9.0
+
+      - name: Install Composer dependencies
+        run: |
+          docker exec -ti php-fpm bash
+          composer install --no-dev --optimize-autoloader
+
+      - name: Clear Symfony cache and update schema
+        run: |
+          php bin/console cache:clear --env=prod --no-debug
+          php bin/console migrations:migrate --no-interaction
+
+      - name: Install and build frontend
+        run: |
+          cd /var/www/html/grammerjourney.lukas-boecker.de/frontend
+          npm install
+          npm run build --aot --build-optimizer --common-chunk --vendor-chunk --optimization --progress --configuration=production
+
+      - name: Copy frontend and backend
+        run: |
+          cp -R /var/www/html/grammerjourney.lukas-boecker.de/frontend/dist /root/grammerjourney.lukas-boecker.de/html/
+          cp -R /var/www/html/grammerjourney.lukas-boecker.de/backend/ /root/api-grammerjourney.lukas-boecker.de/html/
