@@ -1,6 +1,8 @@
 @import "~src/variables.less";
 
-
+.container {
+  .defaultFlex();
+}
 
 .surface-card {
   background-color: @primary-color-100;
@@ -14,7 +16,7 @@
 }
 
 .h-screen {
-  height: 100vh;
+  height: 80vh;
 }
 
 .w-full {
@@ -25,3 +27,11 @@
   font-size: 1.875rem;
 }
 
+.text-4xl {
+  font-size: 2.25rem;
+}
+
+.loginPasswordShow:hover {
+  cursor: pointer;
+  background-color: @primary-color-200;
+}
