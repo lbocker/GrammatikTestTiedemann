@@ -1,52 +1,73 @@
-<form class="container h-screen w-full flex justify-content-center align-items-center" [formGroup]="form">
-  <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+<form
+  class="container h-screen flex justify-content-center align-items-center"
+  [formGroup]="form"
+
+>
+  <div
+    class="surface-card p-4 shadow-2 border-round lg:w-6"
+    [class]="mobileWindow ? 'w-full' : 'w-50'"
+  >
     <div class="text-center mb-5">
-      <div class="text-3xl mb-3"> Login</div>
+      <div class="text-4xl mb-3"> Login</div>
     </div>
-
     <div>
-      <label for="email1" class="block mb-2"> Email </label><br>
-      <input
-          id="email1"
-          formControlName="email"
-          type="email"
-          email="true"
-          name="email"
-          placeholder="email"
-          pInputText
-          class="w-full mb-3"
-      >
-      <br>
-      <label for="password1" class="block mb-2"> Password </label><br>
-      <input
-          id="password1"
-          formControlName="password"
-          type="password"
-          placeholder="password"
-          pInputText
-          autocomplete="on"
-          class="w-full mb-3"
-      >
+      <div class="field-group p-grid">
+        <p-inputGroup class="mb-3">
+          <p-inputGroupAddon>
+            <i class="pi pi-envelope"></i>
+          </p-inputGroupAddon>
+          <input
+            id="email1"
+            formControlName="email"
+            type="email"
+            email="true"
+            name="email"
+            placeholder="email"
+            pInputText
+            class="w-full p-inputtext"
+          >
+        </p-inputGroup>
 
-      <div class="text-center mb-5">
+        <p-inputGroup>
+          <p-inputGroupAddon><i class="pi pi-lock"></i></p-inputGroupAddon>
+          <input
+            id="password1"
+            formControlName="password"
+            placeholder="password"
+            pInputText
+            autocomplete="on"
+            class="w-full p-password"
+            [type]="fieldTextType ? 'text' : 'password'"
+          />
+          <p-inputGroupAddon
+            class="loginPasswordShow"
+            (click)="toggleFieldTextType()">
+            <i class="pi"
+               [ngClass]="{
+            'pi-eye-slash': !fieldTextType,
+            'pi-eye': fieldTextType
+          }"></i>
+          </p-inputGroupAddon>
+        </p-inputGroup>
+      </div>
+
+      <div class="text-center mb-4 mt-5">
         <span class=""> Keinen Account? Erstellen sie sich einen </span>
         <a routerLink="/register" style="color:green;"> Registrieren</a>
       </div>
 
-      <p-checkbox name="remember" label="Remember me" class="mb-3" formControlName="stayLoggedIn"></p-checkbox>
       <button
-          [disabled]="form.invalid"
-          pButton
-          pRipple
-          label="Login"
-          icon="pi pi-user"
-          class="w-full"
-          (click)="login()"
-          [loading]="loading"
+        [disabled]="form.invalid"
+        pButton
+        pRipple
+        label="Login"
+        icon="pi pi-user"
+        class="w-full"
+        (click)="login()"
+        [loading]="loading"
       ></button>
+
+      <p-checkbox name="remember" label="Remember me" class="mt-3" formControlName="stayLoggedIn"></p-checkbox>
     </div>
   </div>
 </form>
-
-
-
