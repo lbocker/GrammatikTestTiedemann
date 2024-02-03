@@ -65,4 +65,8 @@ export class LoginComponent implements OnInit {
   toggleFieldTextType(): void {
     this.fieldTextType = !this.fieldTextType;
   }
+
+  setFocus(element: string): void {
+    document.getElementById(element)?.focus();
+  }
 }
