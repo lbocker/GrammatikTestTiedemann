@@ -13,7 +13,7 @@ import { DragGroupModalComponent } from './drag-group-modal/drag-group-modal.com
   styleUrls: ['./drag-drop-group.component.less']
 })
 export class DragDropGroupComponent implements OnInit {
-  @Input() task!: Task;
+  @Input() _task!: DragDropGroup;
   protected editedTask?: DragDropGroup;
   protected undraggedItems: string[] = [];
   private draggingItem: { index: number; text: string; origin: number | 'undragged' } | null = null;
@@ -21,32 +21,40 @@ export class DragDropGroupComponent implements OnInit {
   constructor(private readonly dialogService: DialogService) {
   }
 
-  ngOnInit(): void {
-    if (this.task.type !== 'DragDropGroup') {
-      console.error('Type has to be type DragDropGroup')
+  @Input() set task(task: Task): void {
+    if (!this.isDragDropGroun(task)) {
+      console.error('Type has to be type DragDropGroup');
+      return;
     }
-    this.editedTask = JSON.parse(JSON.stringify(this.task)) as DragDropGroup;
+    this._task = task;
+  }
+
+  ngOnInit() {
+    if (!this.isDragDropGroun(this.task)) {
+      console.error('Type has to be type DragDropGroup');
+      return;
+    }
+    this.editedTask = this.task;
     for (const group of (this.editedTask as DragDropGroup).group) {
-      this.undraggedItems.push(...group.items)
+      this.undraggedItems.push(...group.items);
       group.items = []
     }
 
     this.undraggedItems = this.shuffle(this.undraggedItems)
   }
 
-  trackByGroup(index: number, group: any): string {
-    return group.text;
+  isDragDropGroun(task: Task): task is DragDropGroup {
+    if (!task) {
+      throw new Error('task undefined');
+    }
+    return task.type === 'DragDropGroup';
   }
 
-  trackByItem(index: number, item: any): string {
-    return item;
-  }
-
-  drop(groupIndex: number): void {
-    if (this.draggingItem && this.editedTask) {
-      this.editedTask.group[groupIndex].items.push(this.draggingItem!.text)
-      if (this.draggingItem.origin == 'undragged') {
-        this.undraggedItems.splice(this.draggingItem!.index, 1);
+  drop(groupIndex: number) {
+    if (this.dragingItem && this.editedTask) {
+      this.editedTask.group[groupIndex].items.push(this.dragingItem!.text)
+      if (this.dragingItem.origin == 'undragged') {
+        this.undraggedItems.splice(this.dragingItem!.index, 1);
       } else {
         this.editedTask.group[this.draggingItem.origin].items.splice(this.draggingItem!.index, 1);
       }
