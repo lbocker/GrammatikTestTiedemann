@@ -16,15 +16,16 @@
   >
     {{ course.description }}
   </p-panel>
-  <div class="taskContainer">
+  <div class="taskContainer" *ngIf="activeTask">
     <app-drag-drop-group
       class="task"
-      *ngIf="activeTask && activeTask?.type == 'DragDropGroup'"
+      *ngIf="activeTask?.type == 'DragDropGroup'"
       [task]="activeTask"
     ></app-drag-drop-group>
     <app-drag-drop-words
       class="task"
       *ngIf="activeTask?.type === 'DragDropWords'"
+      [task]="activeTask"
     ></app-drag-drop-words>
     <app-type-missing-words
       class="task"
@@ -36,7 +37,7 @@
     ></app-find-wrong-words>
     <app-multiple-choice
       class="task"
-      *ngIf="activeTask && activeTask?.type === 'MultipleChoice'"
+      *ngIf="activeTask?.type === 'MultipleChoice'"
       [task]="activeTask"
     ></app-multiple-choice>
   </div>

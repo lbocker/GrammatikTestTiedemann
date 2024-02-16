@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DragDropGroup, DragDropWords, Task } from '../../../models/grammar-courses';
+import { DragDropWords, Task } from '../../../models/grammar-courses';
 import { PRIMENG_BARREL } from '../../../barrel/primeng.barrel';
 
 @Component({
@@ -25,9 +25,6 @@ export class DragDropWordsComponent implements OnInit {
     this._task = task;
   }
 
-  constructor() {
-  }
-
   ngOnInit(): void {
     this.splittedWords = this._task.text.split('%');
     this.shuffledWords = this.shuffle([...this._task.fillTexts]);
@@ -37,19 +34,19 @@ export class DragDropWordsComponent implements OnInit {
     return task.type === 'DragDropWords';
   }
 
-  shuffle (array: string[])  {
+  shuffle (array: string[]): string[]  {
     return array.sort(() => Math.random() - 0.5);
-  };
+  }
 
-  startDrag(index: number, text: string, origin: number|'undragged') {
+  startDrag(index: number, text: string, origin: number|'undragged'): void {
     this.draggingItem = {index: index, text: text, origin: origin};
   }
 
-  dragEnd() {
+  dragEnd(): void {
     this.draggingItem = null;
   }
 
-  drop(index: number) {
+  drop(index: number): void {
     if (!this.draggingItem) {
       return
     }
@@ -59,14 +56,14 @@ export class DragDropWordsComponent implements OnInit {
         this.splittedWords[index] = this.draggingItem.text;
         this.shuffledWords.splice(this.draggingItem.index, 1);
       } else {
-        let item = this.splittedWords[index];
+        const item = this.splittedWords[index];
         this.splittedWords[index] = this.draggingItem.text;
         this.shuffledWords[this.draggingItem.index] = item;
       }
       return
     }
 
-    let item = this.splittedWords[index];
+    const item = this.splittedWords[index];
     this.splittedWords[index] = this.draggingItem.text;
     this.splittedWords[this.draggingItem.origin] = item;
   }
@@ -74,12 +71,12 @@ export class DragDropWordsComponent implements OnInit {
   check(): void {
     let index = 0;
     let success = true;
-    for (let item of this._task.text.split('%')) {
+    for (const item of this._task.text.split('%')) {
       if (index%2 != 0) {
-        let shouldIndex = item.replace('WORD:', '');
-        let shouldItem = this._task.fillTexts[parseInt(shouldIndex)];
+        const shouldIndex = item.replace('WORD:', '');
+        const shouldItem = this._task.fillTexts[parseInt(shouldIndex)];
 
-        let isItem = this.splittedWords[index];
+        const isItem = this.splittedWords[index];
         if (isItem != shouldItem) {
           success = false;
         }
