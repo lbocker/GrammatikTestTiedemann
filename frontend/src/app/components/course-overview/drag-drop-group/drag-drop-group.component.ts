@@ -21,7 +21,7 @@ export class DragDropGroupComponent implements OnInit {
   constructor(private readonly dialogService: DialogService) {
   }
 
-  @Input() set task(task: Task): void {
+  @Input() set task(task: Task) {
     if (!this.isDragDropGroun(task)) {
       console.error('Type has to be type DragDropGroup');
       return;
@@ -29,7 +29,11 @@ export class DragDropGroupComponent implements OnInit {
     this._task = task;
   }
 
-  ngOnInit() {
+  get task(): DragDropGroup {
+    return this._task;
+  }
+
+  ngOnInit(): void {
     if (!this.isDragDropGroun(this.task)) {
       console.error('Type has to be type DragDropGroup');
       return;
@@ -43,6 +47,14 @@ export class DragDropGroupComponent implements OnInit {
     this.undraggedItems = this.shuffle(this.undraggedItems)
   }
 
+  trackByGroup(index: number, group: any): string {
+    return group.text;
+  }
+
+  trackByItem(index: number, item: any): string {
+    return item;
+  }
+
   isDragDropGroun(task: Task): task is DragDropGroup {
     if (!task) {
       throw new Error('task undefined');
@@ -50,11 +62,11 @@ export class DragDropGroupComponent implements OnInit {
     return task.type === 'DragDropGroup';
   }
 
-  drop(groupIndex: number) {
-    if (this.dragingItem && this.editedTask) {
-      this.editedTask.group[groupIndex].items.push(this.dragingItem!.text)
-      if (this.dragingItem.origin == 'undragged') {
-        this.undraggedItems.splice(this.dragingItem!.index, 1);
+  drop(groupIndex: number): void {
+    if (this.draggingItem && this.editedTask) {
+      this.editedTask.group[groupIndex].items.push(this.draggingItem!.text)
+      if (this.draggingItem.origin == 'undragged') {
+        this.undraggedItems.splice(this.draggingItem!.index, 1);
       } else {
         this.editedTask.group[this.draggingItem.origin].items.splice(this.draggingItem!.index, 1);
       }
