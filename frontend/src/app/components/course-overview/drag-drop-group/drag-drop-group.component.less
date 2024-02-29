@@ -46,19 +46,21 @@
 
     @media (max-width: @max-screen-width-mobile) {
       position: relative;
+      width: 100%;
     }
 
     & .pickZone {
-      display: flex;
+      @media (max-width: @max-screen-width-mobile) {
+        border-radius: 15px;
+      }
+
+      .defaultFlex();
+
       justify-content: space-evenly;
-      flex-wrap: wrap;
-      align-items: center;
       width: 100%;
       min-height: 75px;
       background: lightgray;
-      border-style: solid;
-      border-width: 2px;
-      border-color: gray;
+      border: 2px solid gray;
       border-radius: 15px 15px 0 0;
     }
   }

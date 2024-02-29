@@ -30,6 +30,10 @@ export class DragDropWordsComponent implements OnInit {
     this.shuffledWords = this.shuffle([...this._task.fillTexts]);
   }
 
+  get task(): DragDropWords {
+    return this._task;
+  }
+
   isDragDropWords(task: Task): task is DragDropWords {
     return task.type === 'DragDropWords';
   }

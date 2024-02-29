@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (window.screen.width <= 950) {
+    if (window.screen.width <= 767) {
       this.mobileWindow = true;
     }
   }

@@ -1,30 +1,103 @@
-.droppable {
-  display: inline-block;
-  width: 5rem;
-  height: 1rem;
-  background: white;
-  border-radius: 4px;
-  color: black;
-  text-align: center;
-  cursor: pointer;
-}
+@import "~src/variables.less";
 
-.dragZone {
-  position: absolute;
-  bottom: 0;
-  left: auto;
-  right: auto;
-
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-  & span {
-    cursor: pointer;
+.wrapper {
+  @media (max-width: @max-screen-width-mobile) {
+    font-size: 1rem;
   }
-}
 
-.checkBtn {
-  position: absolute;
-  right: 0;
-  bottom: 0;
+  .defaultFlex();
+
+  font-size: 1.5rem;
+  word-wrap: break-word;
+  flex: 0 0 100%;
+  justify-content: space-evenly;
+  padding: 1rem;
+  height: 100%;
+
+  & .question,
+  & .question-type {
+    text-align: center;
+    flex: 0 0 100%;
+
+  }
+
+  & .dropZone {
+    .defaultFlex();
+    justify-content: flex-start;
+
+    @media (max-width: @max-screen-width-mobile) {
+      flex: 1 0 100%;
+      flex-direction: column;
+    }
+
+    & .item {
+      .defaultFlex();
+
+      /*width: 100%;*/
+      min-width: 100px;
+      min-height: 32px;
+      flex: 0 0 100%;
+      border-bottom: 1px solid gray;
+      text-align: center;
+      padding: 0 0.5rem;
+
+      @media (max-width: @max-screen-width-mobile) {
+        flex: 1 0 100%;
+        flex-direction: column;
+      }
+    }
+  }
+
+  & .undraggedItems {
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    position: absolute;
+    bottom: 0;
+
+    @media (max-width: @max-screen-width-mobile) {
+      position: relative;
+      width: 100%;
+    }
+
+    & .pickZone {
+      @media (max-width: @max-screen-width-mobile) {
+        border-radius: 15px;
+      }
+
+      .defaultFlex();
+
+      justify-content: space-evenly;
+      width: 100%;
+      min-height: 75px;
+      background: lightgray;
+      border: 2px solid gray;
+      border-radius: 15px 15px 0 0;
+    }
+
+    & .draggableItem {
+      display: block;
+      cursor: move;
+      color: @text-color;
+      background: @secondary-color;
+      width: 150px;
+      border-radius: 1rem;
+      text-align: center;
+      margin: 0.25rem;
+      padding: 0.25rem;
+    }
+  }
+
+  & .checkBtn {
+    min-height: 10%;
+    min-width: 25%;
+    font-size: 2rem;
+    position: absolute;
+    bottom: 10%;
+
+    @media (max-width: @max-screen-width-mobile) {
+      position: relative;
+      top: 100%;
+    }
+  }
 }
