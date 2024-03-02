@@ -10,7 +10,7 @@ export class HttpService {
   private headers = new HttpHeaders();
 
   constructor(private readonly httpClient: HttpClient) {
-    this.headers = this.headers.append('Access-Control-Allow-Origin', 'http://127.0.0.1:4200');
+    this.headers = this.headers.append('Access-Control-Allow-Origin', location.origin);
     this.headers = this.headers.append('Access-Control-Allow-Methods', 'DELETE, POST, GET, OPTIONS');
     this.headers = this.headers.append('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
   }
