@@ -109,6 +109,10 @@
             },
             "staging": {
               "buildTarget": "frontend:build:staging"
+            },
+            "options": {
+              "browserTarget": "frontend:build",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

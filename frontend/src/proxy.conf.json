@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "https://api-grammerjourney.lukas-boecker.de",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

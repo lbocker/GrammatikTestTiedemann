@@ -22,7 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class AppComponent implements OnInit {
   value = '';
-  courses: CourseGroup[] = []
+  courses: CourseGroup[] = [];
 
   protected user: false | User = false;
   protected userInitials: string = ''
@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
   }
 
   getCourses(): void {
-    this.courseService.getCourseGroups().subscribe(response => this.courses = response)
+    this.courseService.getCourseGroups().subscribe((response: CourseGroup[]) => this.courses = response)
   }
 
   toggleSidebar(): void {

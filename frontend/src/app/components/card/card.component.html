@@ -1,13 +1,11 @@
 <div class="cardContainer">
   <p-card
     class="card"
-    header="{{ course.name }}"
-    subheader="{{ course.assignment }}"
+    header="{{ course.title }}"
     *ngFor="let course of grammarCourses; trackBy: trackByCourse"
     (click)="openCourse(course)"
   >
     <ng-template pTemplate="header">
-      <img [src]="course.image" alt="Photo of a {{ course.name }}"/>
     </ng-template>
     <p class="card__description">
       {{ course.description }}

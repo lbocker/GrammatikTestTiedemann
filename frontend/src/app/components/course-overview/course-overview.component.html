@@ -16,6 +16,14 @@
   >
     {{ course.description }}
   </p-panel>
+
+  <p-panel
+    class="description"
+    [header]="bigTask.title"
+    *ngIf="bigTask && !activeTask"
+  >
+    {{ bigTask.description }}
+  </p-panel>
   <div class="taskContainer" *ngIf="activeTask">
     <app-drag-drop-group
       class="task"
