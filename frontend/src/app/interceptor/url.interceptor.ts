@@ -25,10 +25,6 @@ export class URLInterceptor implements HttpInterceptor {
     header = header.append('Access-Control-Allow-Origin', '*');
     header = header.append('Access-Control-Allow-Methods', 'DELETE, POST, GET, OPTIONS');
     header = header.append('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
-    console.log(request.headers.keys());
-
-    console.log(environment.apiURL, request.url);
-
 
     return next.handle(request);
   }

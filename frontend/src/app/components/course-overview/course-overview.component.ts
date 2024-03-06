@@ -71,11 +71,9 @@ export class CourseOverviewComponent implements OnInit {
       let firstIndex = Number(title[0])-1;
       let lastIndex = Number(title[1])-1;
 
-      console.log(firstIndex, lastIndex);
       this.bigTask = this.course!.quizSets[firstIndex];
       this.activeTask = this.bigTask.quizzes[Number(lastIndex)];
     } else {
-      console.log('B');
 
       this.activeTask = undefined;
 
