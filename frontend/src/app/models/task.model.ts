@@ -35,4 +35,10 @@ export interface FindWrongWords extends TaskDefault {
   wordIndex: number[]
 }
 
+export interface BigTask {
+  title: string;
+  description: string;
+  quizzes: Task[];
+}
+
 export type Task = MultipleChoice | DragDropGroup | DragDropWords | TypeMissingWords | FindWrongWords;

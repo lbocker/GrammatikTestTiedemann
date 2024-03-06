@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CourseGroup } from '../../models/course-group.model';
-import { DragDropGroup, Task } from '../../models/task.model';
+import { BigTask, DragDropGroup, Task } from '../../models/task.model';
 import { CourseServiceService } from '../../services/course/course-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
@@ -25,6 +25,7 @@ export class CourseOverviewComponent implements OnInit {
   tasks: MenuItem[] = [];
   activeIndex: number = 0;
   activeTask?: Task;
+  bigTask?: BigTask;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -34,34 +35,55 @@ export class CourseOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.pipe(switchMap((params: any) => {
-      return this.courseService.getCourse(params.id)
+      return this.courseService.getCourse(params.courseId)
     })).subscribe(courses => {
       this.course = courses;
       this.tasks = [{
         label: 'Beschreibung'
-      }]
-      for (const task of this.course?.options ?? []) {
+      }];
+      let index = 0;
+      for (const task of this.course?.quizSets ?? []) {
         this.tasks.push({
-          label: task.name
-        })
+          label: task.title
+        });
+        index ++;
+
+        for (const subTask in task.quizzes) {
+          this.tasks.push({
+            label: `${index}.${Number(subTask)+1}`
+          })
+        }
       }
     })
   }
 
+
+
   indexChange(event: number): void {
     this.activeIndex = event;
     if (this.activeIndex == 0) {
-      this.activeTask = undefined
+      this.activeTask = undefined;
       return;
     }
-    this.activeTask = this.course!.options[this.activeIndex - 1]
-  }
 
-  typeOf(activeTask: Task, type: string): DragDropGroup | Task {
-    switch (type) {
-      case 'DragDropGroup':
-        return activeTask as DragDropGroup
+    if (!isNaN(Number(this.tasks[this.activeIndex].label))) {
+      let title = this.tasks[this.activeIndex].label!.split('.');
+      let firstIndex = Number(title[0])-1;
+      let lastIndex = Number(title[1])-1;
+
+      console.log(firstIndex, lastIndex);
+      this.bigTask = this.course!.quizSets[firstIndex];
+      this.activeTask = this.bigTask.quizzes[Number(lastIndex)];
+    } else {
+      console.log('B');
+
+      this.activeTask = undefined;
+
+      // find BigTask
+
+      let title = this.tasks[this.activeIndex+1].label!.split('.');
+      let firstIndex = Number(title[0])-1;
+      this.bigTask = this.course!.quizSets[firstIndex];
     }
-    return activeTask;
   }
 }
