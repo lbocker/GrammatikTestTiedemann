@@ -67,9 +67,6 @@ export class MultipleChoiceComponent {
       maximizable: false
     });
 
-    ref.onClose.subscribe(() => {
-      console.log('Closed')
-    });
   }
 
   check(): void {
@@ -89,7 +86,6 @@ export class MultipleChoiceComponent {
       }
     }
 
-    console.log(correct, checkedAnswers, this._task.right);
     this.showModal(correct)
   }
 }

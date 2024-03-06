@@ -98,9 +98,6 @@ export class DragDropGroupComponent implements OnInit {
       maximizable: false
     });
 
-    ref.onClose.subscribe(() => {
-      console.log('Closed')
-    });
   }
 
   check(): void {
