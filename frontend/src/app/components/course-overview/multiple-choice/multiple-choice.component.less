@@ -20,6 +20,10 @@
   & .choice {
     .defaultFlex();
 
+    @media (max-height: @max-screen-width-tablet) {
+      max-height: 50px;
+    }
+
     text-align: center;
     flex: 0 0 45%;
     min-width: 200px;
@@ -51,15 +55,14 @@
   }
 
   .checkBtn {
+    @media (max-width: @max-screen-width-mobile) {
+      width: 100%;
+    }
+
     min-height: 10%;
     min-width: 25%;
     font-size: 2rem;
-    position: absolute;
-    bottom: 10%;
-
-    @media (max-width: @max-screen-width-mobile) {
-      position: relative;
-      bottom: 5%;
-    }
+    align-self: flex-end;
+    margin-top: auto;
   }
 }
