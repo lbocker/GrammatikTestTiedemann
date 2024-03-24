@@ -2,28 +2,27 @@
 
 namespace App\Entity;
 
-use App\Repository\CourseRepository;
+use App\Repository\CoursesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CourseRepository::class)]
-class Course
+#[ORM\Entity(repositoryClass: CoursesRepository::class)]
+class Courses
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: false)]
     private ?string $title = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'course', targetEntity: QuizSets::class, cascade: ["persist"])]
-    private Collection $quizSets;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
 
     public function __construct()
     {
@@ -52,13 +51,38 @@ class Course
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(?string $description): static
     {
         $this->description = $description;
 
         return $this;
     }
 
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'image' => $this->image,
+        ];
+    }
+
+    /**
+     * @return Collection<int, QuizSets>
+     */
     public function getQuizSets(): Collection
     {
         return $this->quizSets;
@@ -67,8 +91,8 @@ class Course
     public function addQuizSet(QuizSets $quizSet): static
     {
         if (!$this->quizSets->contains($quizSet)) {
-            $this->quizSets[] = $quizSet;
-            $quizSet->setCourse($this);
+            $this->quizSets->add($quizSet);
+            $quizSet->setCourses($this);
         }
 
         return $this;
@@ -78,8 +102,8 @@ class Course
     {
         if ($this->quizSets->removeElement($quizSet)) {
             // set the owning side to null (unless already changed)
-            if ($quizSet->getCourse() === $this) {
-                $quizSet->setCourse(null);
+            if ($quizSet->getCourses() === $this) {
+                $quizSet->setCourses(null);
             }
         }
 

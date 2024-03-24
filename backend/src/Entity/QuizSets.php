@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\QuizSetsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: QuizSetsRepository::class)]
@@ -16,21 +15,19 @@ class QuizSets
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $title = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(targetEntity: Course::class, inversedBy: 'quizSets')]
-    private ?Course $course;
-
-    #[ORM\OneToMany(mappedBy: 'quizSet', targetEntity: Quiz::class, cascade: ["persist"])]
+    #[ORM\OneToMany(mappedBy: 'quizSets', targetEntity: Quiz::class, cascade: ["persist"])]
     private Collection $quizzes;
 
     public function __construct()
     {
         $this->quizzes = new ArrayCollection();
+        $this->courses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -43,7 +40,7 @@ class QuizSets
         return $this->title;
     }
 
-    public function setTitle(string $title): static
+    public function setTitle(?string $title): static
     {
         $this->title = $title;
 
@@ -55,45 +52,38 @@ class QuizSets
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(?string $description): static
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getCourse(): ?Course
+    public function getCourses(): ?Courses
     {
-        return $this->course;
+        return $this->courses;
     }
 
-    public function setCourse(?Course $course): static
+    public function setCourses(?Courses $courses): static
     {
-        $this->course = $course;
+        $this->courses = $courses;
 
         return $this;
     }
 
+    /**
+     * @return Collection<int, Quiz>
+     */
     public function getQuizzes(): Collection
     {
         return $this->quizzes;
     }
 
-    public function setQuiz(Quiz $quiz): static
-    {
-        if (!$this->quizzes->contains($quiz)) {
-            $this->quizzes[] = $quiz;
-            $quiz->setQuizSet($this);
-        }
-
-        return $this;
-    }
-
     public function addQuiz(Quiz $quiz): static
     {
         if (!$this->quizzes->contains($quiz)) {
-            $this->quizzes[] = $quiz;
-            $quiz->setQuizSet($this);
+            $this->quizzes->add($quiz);
+            $quiz->setQuizSets($this);
         }
 
         return $this;
@@ -103,9 +93,28 @@ class QuizSets
     {
         if ($this->quizzes->removeElement($quiz)) {
             // set the owning side to null (unless already changed)
-            if ($quiz->getQuizSet() === $this) {
-                $quiz->setQuizSet(null);
+            if ($quiz->getQuizSets() === $this) {
+                $quiz->setQuizSets(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function addCourse(Courses $course): static
+    {
+        if (!$this->courses->contains($course)) {
+            $this->courses->add($course);
+            $course->addQuizSet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourse(Courses $course): static
+    {
+        if ($this->courses->removeElement($course)) {
+            $course->removeQuizSet($this);
         }
 
         return $this;
