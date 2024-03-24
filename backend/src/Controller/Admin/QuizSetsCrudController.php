@@ -5,6 +5,9 @@ namespace App\Controller\Admin;
 use App\Entity\QuizSets;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class QuizSetsCrudController extends AbstractCrudController
@@ -14,12 +17,14 @@ class QuizSetsCrudController extends AbstractCrudController
         return QuizSets::class;
     }
 
+
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('title');
-        yield TextField::new('description');
+        yield TextareaField::new('description');
         yield CollectionField::new('quizzes')->useEntryCrudForm(
             QuizCrudController::class,
         );
     }
+
 }
