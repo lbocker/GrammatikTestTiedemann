@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\QuizRepository;
-use Doctrine\DBAL\Types\Types;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: QuizRepository::class)]
@@ -15,35 +15,24 @@ class Quiz
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $type = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
     private ?string $question = null;
 
-    #[ORM\Column(type: Types::JSON, nullable: true)]
-    private mixed $rightAnswer = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $rightAnswer = null;
 
-    #[ORM\Column(type: Types::JSON, nullable: true)]
-    private mixed $wrongAnswer = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $wrongAnswer = null;
 
-    #[ORM\ManyToOne(targetEntity: QuizSets::class, inversedBy: 'quizzes')]
-    private ?QuizSets $quizSet;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $type = null;
+
+    #[ORM\ManyToOne(inversedBy: 'quizzes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?QuizSets $quizSets = null;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): static
-    {
-        $this->type = $type;
-
-        return $this;
     }
 
     public function getQuestion(): ?string
@@ -51,46 +40,60 @@ class Quiz
         return $this->question;
     }
 
-    public function setQuestion(?string $question): static
+    public function setQuestion(?string $question): void
     {
         $this->question = $question;
-
-        return $this;
     }
 
-    public function getRightAnswer(): mixed
+    public function getRightAnswer(): ?string
     {
         return $this->rightAnswer;
     }
 
-    public function setRightAnswer(mixed $rightAnswer): static
+    public function setRightAnswer(?string $rightAnswer): void
     {
         $this->rightAnswer = $rightAnswer;
-
-        return $this;
     }
 
-    public function getWrongAnswer(): mixed
+    public function getWrongAnswer(): ?string
     {
         return $this->wrongAnswer;
     }
 
-    public function setWrongAnswer(mixed $wrongAnswer): static
+    public function setWrongAnswer(?string $wrongAnswer): void
     {
         $this->wrongAnswer = $wrongAnswer;
-
-        return $this;
     }
 
-    public function getQuizSet(): ?QuizSets
+    public function getType(): ?string
     {
-        return $this->quizSet;
+        return $this->type;
     }
 
-    public function setQuizSet(?QuizSets $quizSet): static
+    public function setType(?string $type): void
     {
-        $this->quizSet = $quizSet;
+        $this->type = $type;
+    }
 
-        return $this;
+    public function getQuizSets(): ?QuizSets
+    {
+        return $this->quizSets;
+    }
+
+    public function setQuizSets(?QuizSets $quizSets): void
+    {
+        $this->quizSets = $quizSets;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'question' => $this->question,
+            'rightAnswer' => $this->rightAnswer,
+            'wrongAnswer' => $this->wrongAnswer,
+            'type' => $this->type,
+            'quizSets' => $this->quizSets?->toArray()
+        ];
     }
 }

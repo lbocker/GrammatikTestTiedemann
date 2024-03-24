@@ -4,5 +4,18 @@ controllers:
         namespace: App\Controller
     type: attribute
 
+app_logout:
+    path:
+        en: /logout
+        de: /abmelden
+        br: /sair
+    methods: [GET]
+
+#config/routes.yaml
+app.swagger_ui:
+    path: /api/doc
+    methods: GET
+    defaults: { _controller: nelmio_api_doc.controller.swagger_ui }
+
 api_login_check:
     path: /api/login_check
