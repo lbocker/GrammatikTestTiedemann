@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { GrammarCourses } from '../../models/grammar-courses.model';
 import { Router } from '@angular/router';
 import { PRIMENG_BARREL } from '../../barrel/primeng.barrel';
 import { CourseServiceService } from '../../services/course/course-service.service';
 import { CourseGroup } from '../../models/grammar-courses';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-card',
@@ -16,6 +16,7 @@ import { CourseGroup } from '../../models/grammar-courses';
 export class CardComponent implements OnInit {
   @Input()
   grammarCourses: CourseGroup[] = [ ];
+  baseUrl = environment.apiURL + '/uploads/images/courses/';
 
   ngOnInit(): void {
     this.courseService.getCourseGroups()

@@ -7,7 +7,6 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CourseServiceService } from '../services/course/course-service.service';
-import { environment } from '../../environments/environment';
 import { Cookies } from 'typescript-cookie';
 
 @Injectable()
