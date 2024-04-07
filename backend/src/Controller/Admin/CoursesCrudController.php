@@ -25,7 +25,7 @@ class CoursesCrudController extends AbstractCrudController
         yield TextField::new('title', t('courses.title'))->setRequired(true);
 
         yield TextareaField::new('description', t('courses.description'))->setMaxLength(255);
-        yield ImageField::new('image', t('courses.image'))->setUploadDir('public/uploads/images/courses')->setBasePath('courses')->setUploadedFileNamePattern('[year]-[month]-[day]-[timestamp]-[slug]-[contenthash].[extension]');
+        yield ImageField::new('image', t('courses.image'))->setUploadDir('public/uploads/images/courses')->setBasePath('public/uploads/images/courses')->setUploadedFileNamePattern('[year]-[month]-[day]-[timestamp]-[slug]-[contenthash].[extension]');
         yield CollectionField::new('quizSets', t('courses.quiz_sets'))->useEntryCrudForm(
             QuizSetsCrudController::class, 'new_quiz_sets_page', 'edit_quiz_sets_page',
         );

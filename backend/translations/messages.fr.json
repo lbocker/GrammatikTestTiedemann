@@ -68,6 +68,7 @@
         "CONTENT_MANAGER": "Gestionnaire de contenu",
         "USER": "Utilisateur"
       }
-    }
+    },
+    "password_confirmation": "Confirmation du mot de passe"
   }
 }
