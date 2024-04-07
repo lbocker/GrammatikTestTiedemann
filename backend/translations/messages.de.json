@@ -69,6 +69,7 @@
         "USER": "User"
       }
     },
-    "password_confirmation": "Passwort bestätigen"
+    "password_confirmation": "Passwort bestätigen",
+    "back_to_list": "Zurück zur Liste"
   }
 }

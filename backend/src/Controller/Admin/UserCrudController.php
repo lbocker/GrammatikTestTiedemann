@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use function Symfony\Component\Translation\t;
 
@@ -39,7 +40,7 @@ class UserCrudController extends AbstractCrudController
                 'user.roles.options.USER' => 'ROLE_USER',
                 'user.roles.options.CONTENT_MANAGER' => 'ROLE_CONTENT',
                 'user.roles.options.ADMINISTRATOR' => 'ROLE_ADMIN',
-            ])->allowMultipleChoices()->setRequired(true),
+            ])->allowMultipleChoices()->setRequired(true)->setPermission('ROLE_ADMIN'),
             TextField::new('password', t('user.password'))
                 ->setFormType(RepeatedType::class)
                 ->setFormTypeOptions([
@@ -77,7 +78,20 @@ class UserCrudController extends AbstractCrudController
             })
             ->update(Crud::PAGE_EDIT, Action::SAVE_AND_CONTINUE, function (Action $action) {
                 return $action->setLabel('user.save_and_continue');
-            });
+            })
+            ->update(Crud::PAGE_DETAIL, Action::INDEX, function (Action $action) {
+                return $action->setLabel('user.back_to_list');
+            })
+            ->setPermission(Action::INDEX, 'ROLE_ADMIN');
+    }
+
+    protected function getRedirectResponseAfterSave(AdminContext $context, string $action): RedirectResponse
+    {
+        if ($action === Action::SAVE_AND_RETURN) {
+            return parent::getRedirectResponseAfterSave($context, $action);
+        }
+
+        return $this->redirect('/admin/{_locale}');
     }
 
     public function createNewFormBuilder(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormBuilderInterface
@@ -109,7 +123,6 @@ class UserCrudController extends AbstractCrudController
             if ($password === '' || $password === null) {
                 return;
             }
-
 
             $hash = $this->userPasswordHasher->hashPassword($this->getUser(), $password);
             $form->getData()->setPassword($hash);

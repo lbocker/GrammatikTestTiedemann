@@ -69,6 +69,7 @@
         "USER": "User"
       }
     },
-    "password_confirmation": "Password Confirmation"
+    "password_confirmation": "Password Confirmation",
+    "back_to_list": "Back to list"
   }
 }

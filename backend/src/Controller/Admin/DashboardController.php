@@ -52,8 +52,6 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard(t('dashboard.courses'), 'fa fa-home', Courses::class);
-        yield MenuItem::linkToCrud(t('dashboard.quiz_sets'), 'fas fa-list', QuizSets::class);
-        yield MenuItem::linkToCrud(t('dashboard.quizzes'), 'fas fa-list', Quiz::class);
         yield MenuItem::linkToCrud(t('dashboard.user'), 'fas fa-user', User::class)->setPermission('ROLE_ADMIN');
         yield MenuItem::linkToUrl(t('dashboard.api_docs'), 'fas fa-book', '/api/doc')->setPermission('ROLE_ADMIN');
     }
@@ -64,11 +62,12 @@ class DashboardController extends AbstractDashboardController
 
         return UserMenu::new()
             ->setName($user->getUserIdentifier())
-            ->displayUserName(true)
-            ->displayUserAvatar(true)
+            ->displayUserName()
+            ->displayUserAvatar()
             ->setAvatarUrl($userImage ? '/uploads/images/user/' . $userImage : 'https://http.cat/status/404.jpg')
             ->addMenuItems([
                 MenuItem::linkToRoute(t('settings.home'), 'fas fa-home', 'dashboard'),
+                MenuItem::linkToCrud(t('dashboard.user'), 'fas fa-user', User::class)->setAction('detail')->setEntityId($user->getId()),
                 MenuItem::section(),
                 MenuItem::linkToLogout('settings.logout', 'fa fa-sign-out'),
             ]);

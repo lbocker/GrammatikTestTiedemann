@@ -69,6 +69,7 @@
         "USER": "Utilisateur"
       }
     },
-    "password_confirmation": "Confirmation du mot de passe"
+    "password_confirmation": "Confirmation du mot de passe",
+    "back_to_list": "Retour à la liste"
   }
 }
