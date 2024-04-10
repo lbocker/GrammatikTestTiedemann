@@ -6,6 +6,13 @@
     (click)="openCourse(course)"
   >
     <ng-template pTemplate="header">
+      <div class="card__image-container">
+        @if (course.image) {
+          <img class="card__image" [src]="baseUrl + course.image" alt="Photo of a {{ course.title }}"/>
+        } @else {
+          <img class="card__image" [src]="'https://http.cat/status/404.jpg'" alt="Photo of a hidden Cat"/>
+        }
+      </div>
     </ng-template>
     <p class="card__description">
       {{ course.description }}
