@@ -1,27 +1,73 @@
-<form class="p-fluid p-formgrid p-grid" [formGroup]="form">
-  <div class="p-field p-col">
-    <label for="email">E-Mail</label>
-    <input id="email" type="email" email="true" pInputText formControlName="email" />
-  </div>
-  <div class="p-field p-col">
-    <label for="password">Passwort</label>
-    <input id="password" type="password" pPassword formControlName="password" autocomplete="on"/>
-  </div>
+<form
+  class="container h-screen flex justify-content-center align-items-center"
+  [formGroup]="form"
+>
+  <div
+    class="surface-card p-4 shadow-2 border-round lg:w-6"
+    [class]="mobileWindow ? 'w-full' : 'w-50'"
+  >
+    <div class="text-center mb-5">
+      <div class="text-4xl mb-3">Registration</div>
+    </div>
+    <div>
+      <div class="field-group p-grid">
+        <p-inputGroup class="mb-3">
+          <p-inputGroupAddon (click)="setFocus('email1')">
+            <i class="pi pi-envelope"></i>
+          </p-inputGroupAddon>
+          <input
+            id="email1"
+            formControlName="email"
+            type="email"
+            email="true"
+            name="email"
+            placeholder="email"
+            pInputText
+            class="w-full p-inputtext"
+          >
+        </p-inputGroup>
 
-  <div class="text-center mb-5">
-    <span class=""> Du hast bereits ein Account?</span>
-    <a routerLink="/login" style="color:green;"> Einloggen</a>
-  </div>
+        <p-inputGroup>
+          <p-inputGroupAddon (click)="setFocus('password1')">
+            <i class="pi pi-lock"></i>
+          </p-inputGroupAddon>
+          <input
+            id="password1"
+            formControlName="password"
+            placeholder="password"
+            pInputText
+            autocomplete="on"
+            class="w-full p-password"
+            [type]="fieldTextType ? 'text' : 'password'"
+          />
+          <p-inputGroupAddon
+            class="registrationPasswordShow"
+            (click)="toggleFieldTextType()">
+            <i class="pi"
+               [ngClass]="{
+            'pi-eye-slash': !fieldTextType,
+            'pi-eye': fieldTextType
+          }"></i>
+          </p-inputGroupAddon>
+        </p-inputGroup>
+      </div>
 
-  <p-checkbox formControlName="stayLoggedIn" label="Eingelogged bleiben"></p-checkbox>
-  <div class="p-field p-col-12">
-    <button
+      <div class="text-center mb-4 mb-5">
+        <span class="">Du hast bereits ein Account?</span>
+        <a routerLink="/login" style="color:green;"> Einloggen</a>
+      </div>
+
+      <button
         [disabled]="form.invalid"
         pButton
-        type="submit"
+        pRipple
         label="Registrieren"
+        icon="pi pi-user"
+        class="w-full"
         (click)="register()"
         [loading]="loading"
-    ></button>
+      ></button>
+    </div>
   </div>
 </form>
+

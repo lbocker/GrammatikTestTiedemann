@@ -22,7 +22,7 @@ class CoursesController extends AbstractController
     {
         $courses = $this->coursesService->getAllCourses();
 
-        return $this->json($courses);
+        return new JsonResponse($courses);
     }
 
     #[Response(response: 200, description: 'Returns the course')]
@@ -32,6 +32,6 @@ class CoursesController extends AbstractController
     {
         $course = $this->coursesService->getCourse($id);
 
-        return $this->json($course->toArray());
+        return new JsonResponse($course->toArray());
     }
 }

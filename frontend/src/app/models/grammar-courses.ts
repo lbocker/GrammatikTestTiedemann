@@ -61,6 +61,7 @@ export type Task = MultipleChoice | DragDropGroup | DragDropWords | TypeMissingW
 export interface CourseGroup {
   id: number;
   title: string;
+  image: string;
   description: string;
   category: string;
   options: Task[]

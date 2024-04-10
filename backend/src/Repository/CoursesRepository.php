@@ -26,7 +26,10 @@ class CoursesRepository extends ServiceEntityRepository
 
     public function getAllCourses(): array
     {
-        return $this->findAll();
+        return $this->createQueryBuilder('courses')
+            ->select('courses.id', 'courses.title', 'courses.description', 'courses.image')
+            ->getQuery()
+            ->getArrayResult();
     }
 
     public function getCourse(int $courseId): ?Courses
