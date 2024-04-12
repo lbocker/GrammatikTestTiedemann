@@ -19,7 +19,7 @@ class Courses
     #[ORM\Column(type: TYPES::STRING, length: 255, nullable: false)]
     private ?string $title = null;
 
-    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, length: 65535, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
