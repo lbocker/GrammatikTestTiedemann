@@ -1,0 +1,73 @@
+{
+  "page_title": {
+    "index": "Dashboard",
+    "new": "Criar %entity_name%"
+  },
+  "user": {
+    "logged_in_as": "Logado como"
+  },
+  "settings": {
+    "locale": "Idioma",
+    "appearance": {
+      "label": "Aparência",
+      "light": "Claro",
+      "dark": "Escuro",
+      "auto": "Automático"
+    }
+  },
+  "action": {
+    "cancel": "Cancelar",
+    "search": "Buscar",
+    "delete": "Excluir",
+    "entity_actions": "Ações",
+    "create": "Criar",
+    "choose_file": "Escolher arquivo",
+    "remove_item": "Remover item",
+    "add_new_item": "Adicionar novo item",
+    "close": "Fechar",
+    "confirm": "Confirmar",
+    "batch_delete": "Excluir selecionados",
+    "save": "Salvar",
+    "save_and_continue": "Salvar e continuar",
+    "save_and_create": "Salvar e criar",
+    "save_and_edit": "Salvar e editar",
+    "save_and_return_to_list": "Salvar e voltar para a lista",
+    "save_and_close": "Salvar e fechar",
+    "view": "Visualizar",
+    "edit": "Editar",
+    "list": "Listar",
+    "show": "Mostrar",
+    "print": "Imprimir",
+    "export": "Exportar",
+    "history": "Histórico",
+    "back_to_list": "Voltar para a lista"
+  },
+  "datagrid": {
+    "no_results": "Nenhum resultado encontrado."
+  },
+  "delete_modal": {
+    "title": "Tem certeza de que deseja excluir este item?",
+    "content": "Não há como desfazer esta operação."
+  },
+  "batch_action_modal": {
+    "title": "Você vai aplicar a ação \"%action_name%\" a %num_items% item(s).",
+    "content": "Não há como desfazer esta operação.",
+    "action": "Prosseguir"
+  },
+  "paginator": {
+    "per_page": "Por página",
+    "previous": "Anterior",
+    "next": "Próximo",
+    "results": "%count% resultados"
+  },
+  "label": {
+    "null": "Nulo",
+    "empty": "Vazio"
+  },
+  "autocomplete": {
+    "no-results-found": "Nenhum resultado encontrado",
+    "no-more-results": "Não há mais resultados",
+    "loading-more-results": "Carregando mais resultados…"
+  },
+  "files": "Arquivos"
+}

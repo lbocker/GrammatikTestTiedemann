@@ -1,0 +1,75 @@
+{
+  "settings": {
+    "home": "Início",
+    "logout": "Sair"
+  },
+  "dashboard": {
+    "courses": "Cursos",
+    "quiz_sets": "Conjuntos de Quiz",
+    "quizzes": "Questões",
+    "user": "Usuário",
+    "api_docs": "Documentação da API"
+  },
+  "courses": {
+    "title": "Título do Curso",
+    "description": "Descrição do Curso",
+    "image": "Imagem do Curso",
+    "quiz_sets": "Conjuntos de Quiz",
+    "new_course": "Novo Curso",
+    "edit_course": "Editar",
+    "delete_course": "Excluir",
+    "save_and_add_another": "Salvar e Adicionar Outro",
+    "save_and_continue": "Salvar e continuar"
+  },
+  "quiz": {
+    "type": {
+      "name": "Tipo",
+      "options": {
+        "MULTIPLE_CHOICE": "Escolha Múltipla",
+        "DRAG_AND_DROP_GROUP": "Arrastar e Soltar Grupo",
+        "DRAG_AND_DROP_WORDS": "Arrastar e Soltar Palavras",
+        "TYPE_MISSING_WORDS": "Digite Palavras Faltantes",
+        "FIND_WRONG_WORDS": "Encontre Palavras Erradas"
+      }
+    },
+    "question": "Pergunta",
+    "right_answer": "Resposta Correta",
+    "wrong_answer": "Resposta Incorreta",
+    "new_quiz": "Nova Questão",
+    "edit_quiz": "Editar",
+    "delete_quiz": "Excluir",
+    "save_and_add_another": "Salvar e Adicionar Outro",
+    "save_and_continue": "Salvar e continuar"
+  },
+  "quiz_set": {
+    "title": "Título do Conjunto de Quiz",
+    "description": "Descrição do Conjunto de Quiz",
+    "quizzes": "Questionário",
+    "new_quiz_set": "Novo Conjunto de Quiz",
+    "edit_quiz_set": "Editar",
+    "delete_quiz_set": "Excluir",
+    "save_and_add_another": "Salvar e Adicionar Outro",
+    "save_and_continue": "Salvar e continuar"
+  },
+  "user": {
+    "email": "E-mail",
+    "password": "Senha",
+    "image": "Imagem",
+    "new_user": "Novo Usuário",
+    "edit_user": "Editar",
+    "delete_user": "Excluir",
+    "logged_in_as": "Logado como",
+    "save_and_add_another": "Salvar e Adicionar Outro",
+    "save_and_continue": "Salvar e continuar",
+    "roles": {
+      "name": "Função",
+      "options": {
+        "ADMINISTRATOR": "Administrador",
+        "CONTENT_MANAGER": "Gerenciador de conteúdo",
+        "USER": "Usuário"
+      }
+    },
+    "password_confirmation": "Confirmação de Senha",
+    "back_to_list": "Voltar para a lista de usuários"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "settings": {
+    "home": "Startseite",
+    "logout": "Abmelden"
+  },
+  "dashboard": {
+    "courses": "Kurse",
+    "quiz_sets": "Fragebogen-Sets",
+    "quizzes": "Fragen",
+    "user": "Benutzer",
+    "api_docs": "API-Dokumentation"
+  },
+  "courses": {
+    "title": "Kurstitel",
+    "description": "Kursbeschreibung",
+    "image": "Kursbild",
+    "quiz_sets": "Fragebogen-Sets",
+    "new_course": "Neuer Kurs",
+    "edit_course": "Bearbeiten",
+    "delete_course": "Löschen",
+    "save_and_add_another": "Speichern und weitere hinzufügen",
+    "save_and_continue": "Speichern und fortfahren"
+  },
+  "quiz": {
+    "type": {
+      "name": "Typ",
+      "options": {
+        "MULTIPLE_CHOICE": "Mehrfachauswahl",
+        "DRAG_AND_DROP_GROUP": "Gruppe ziehen und ablegen",
+        "DRAG_AND_DROP_WORDS": "Ziehen und Ablegen von Wörtern",
+        "TYPE_MISSING_WORDS": "Fehlende Wörter eingeben",
+        "FIND_WRONG_WORDS": "Falsche Wörter finden"
+      }
+    },
+    "question": "Frage",
+    "right_answer": "Richtige Antwort",
+    "wrong_answer": "Falsche Antwort",
+    "new_quiz": "Neue Frage",
+    "edit_quiz": "Bearbeiten",
+    "delete_quiz": "Löschen",
+    "save_and_add_another": "Speichern und weitere hinzufügen",
+    "save_and_continue": "Speichern und fortfahren"
+  },
+  "quiz_set": {
+    "title": "Titel des Fragebogen-Sets",
+    "description": "Beschreibung des Fragebogen-Sets",
+    "quizzes": "Fragen",
+    "new_quiz_set": "Neues Fragebogen-Set",
+    "edit_quiz_set": "Bearbeiten",
+    "delete_quiz_set": "Löschen",
+    "save_and_add_another": "Speichern und weitere hinzufügen",
+    "save_and_continue": "Speichern und fortfahren"
+  },
+  "user": {
+    "email": "E-Mail",
+    "password": "Passwort",
+    "image": "Bild",
+    "new_user": "Neuer Benutzer",
+    "edit_user": "Bearbeiten",
+    "delete_user": "Löschen",
+    "logged_in_as": "Angemeldet als",
+    "save_and_add_another": "Speichern und weitere hinzufügen",
+    "save_and_continue": "Speichern und fortfahren",
+    "roles": {
+      "name": "Rollen",
+      "options": {
+        "ADMINISTRATOR": "Administrator",
+        "CONTENT_MANAGER": "Content Manager",
+        "USER": "User"
+      }
+    },
+    "password_confirmation": "Passwort bestätigen",
+    "back_to_list": "Zurück zur Liste"
+  }
+}
