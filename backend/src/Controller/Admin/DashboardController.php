@@ -7,6 +7,7 @@ use App\Entity\Quiz;
 use App\Entity\QuizSets;
 use App\Entity\User;
 use App\Service\UserService;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
@@ -71,5 +72,10 @@ class DashboardController extends AbstractDashboardController
                 MenuItem::section(),
                 MenuItem::linkToLogout('settings.logout', 'fa fa-sign-out'),
             ]);
+    }
+
+    public function configureAssets(): Assets
+    {
+        return Assets::new()->addCssFile('css/admin.css');
     }
 }
