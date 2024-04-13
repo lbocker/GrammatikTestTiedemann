@@ -1,0 +1,13 @@
+@media screen and (min-width:768px) {
+    .col-md-8 {
+        flex: 0 0 auto;
+        width: 80%!important;
+    }
+}
+
+@media screen and (min-width:1400px) {
+    .col-xxl-5 {
+        flex: 0 0 auto;
+        width: 95%;
+    }
+}
