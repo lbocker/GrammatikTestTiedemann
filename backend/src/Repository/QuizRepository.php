@@ -25,12 +25,31 @@ class QuizRepository extends ServiceEntityRepository
 
     public function getAllQuizzes(): array
     {
-        return $this->findAll();
+        return $this->createQueryBuilder('quizzes')
+            ->select('quizzes.id', 'quizzes.title', 'quizzes.description', 'quizzes.image')
+            ->getQuery()
+            ->getArrayResult();
     }
 
     public function getAllQuizzesByQuizSet(int $quizSetId): array
     {
-        return $this->findBy(['quizSetId' => $quizSetId]);
+        return $this->createQueryBuilder('quiz')
+            ->select('quiz.id', 'quiz.question', 'quiz.rightAnswer', 'quiz.wrongAnswer', 'quiz.type', 'quiz.points')
+            ->where('quiz.quizSets = :quizSetId')
+            ->setParameter('quizSetId', $quizSetId)
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+    public function getAllQuizzesByCourse(int $courseId): array
+    {
+        return $this->createQueryBuilder('quiz')
+            ->select('quiz.id', 'quiz.question', 'quiz.rightAnswer', 'quiz.wrongAnswer', 'quiz.type', 'quiz.points')
+            ->join('quiz.quizSets', 'quizSets')
+            ->where('quizSets.courses = :courseId')
+            ->setParameter('courseId', $courseId)
+            ->getQuery()
+            ->getArrayResult();
     }
 
     public function getQuiz(int $quizId): ?Quiz

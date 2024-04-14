@@ -37,6 +37,17 @@ readonly class QuizService
         return $quizzes;
     }
 
+    public function getAllQuizzesByCourse(int $courseId): array
+    {
+        $quizzes = $this->quizRepository->getAllQuizzesByCourse($courseId);
+
+        if (!$quizzes) {
+            throw new HttpException(404, 'No quizzes found for course id ' . $courseId);
+        }
+
+        return $quizzes;
+    }
+
     public function getQuiz(int $quizId): ?Quiz
     {
         $quiz = $this->quizRepository->getQuiz($quizId);

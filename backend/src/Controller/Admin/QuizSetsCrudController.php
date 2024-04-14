@@ -26,7 +26,7 @@ class QuizSetsCrudController extends AbstractCrudController
         yield TextareaField::new('description', t('quiz_set.description'))->setRequired(true);
         yield CollectionField::new('quizzes', t('quiz_set.quizzes'))->useEntryCrudForm(
             QuizCrudController::class, 'new_quiz_sets_page', 'edit_quiz_sets_page',
-        );
+        )->setRequired(true)->setEntryIsComplex();
     }
 
     public function configureCrud(Crud $crud): Crud

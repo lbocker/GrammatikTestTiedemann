@@ -39,6 +39,6 @@ class RegisterController extends AbstractController
         $entityManager->persist($user);
         $entityManager->flush();
 
-        return $this->json(['message' => 'Registered Successfully']);
+        return new JsonResponse(['message' => 'Registered Successfully']);
     }
 }

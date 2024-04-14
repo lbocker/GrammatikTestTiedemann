@@ -8,7 +8,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use function Symfony\Component\Translation\t;
 
@@ -29,10 +31,11 @@ class QuizCrudController extends AbstractCrudController
                 }
                 return $types;
             }
-        )->autocomplete(true)->setRequired(true);
+        )->autocomplete()->setRequired(true);
         yield TextField::new('question', t('quiz.question'))->setRequired(true);
-        yield TextField::new('rightAnswer', t('quiz.right_answer'))->setRequired(true);
-        yield TextField::new('wrongAnswer', t('quiz.wrong_answer'))->setRequired(true);
+        yield ArrayField::new('rightAnswer', t('quiz.right_answer'))->setRequired(true);
+        yield ArrayField::new('wrongAnswer', t('quiz.wrong_answer'))->setRequired(true);
+        yield NumberField::new('points', t('quiz.points'))->setRequired(true);
     }
 
     public function configureCrud(Crud $crud): Crud
