@@ -22,18 +22,18 @@ class QuizSetsController extends AbstractController
     {
         $quizSets = $this->quizSetsService->getAllQuizSets();
 
-        return $this->json($quizSets);
+        return new JsonResponse($quizSets);
     }
 
-    /* Create a function that get All quizset that have the same course id */
+
     #[Response(response: 200, description: 'Returns the list of quiz sets')]
     #[Response(response: 404, description: 'No quiz sets found')]
-    #[Route('/quiz-sets/course/{id}', name: 'get_quiz_sets_by_course', methods: ['GET'])]
+    #[Route('/course/{id}/quiz-sets', name: 'get_quiz_sets_by_course', methods: ['GET'])]
     public function getQuizSetsByCourse(int $id): JsonResponse
     {
         $quizSets = $this->quizSetsService->getAllQuizSetsByCourse($id);
 
-        return $this->json($quizSets);
+        return new JsonResponse($quizSets);
     }
 
     #[Response(response: 200, description: 'Returns the quiz set')]
@@ -43,6 +43,6 @@ class QuizSetsController extends AbstractController
     {
         $quizSet = $this->quizSetsService->getQuizSet($id);
 
-        return $this->json($quizSet->toArray());
+        return new JsonResponse($quizSet->toArray());
     }
 }

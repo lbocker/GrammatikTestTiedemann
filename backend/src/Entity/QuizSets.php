@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\QuizSetsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: QuizSetsRepository::class)]
@@ -15,22 +16,32 @@ class QuizSets
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $title = null;
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: false)]
+    private string $title;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, length: 65535, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\OneToMany(targetEntity: Quiz::class, mappedBy: 'quizSets', cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: Quiz::class, mappedBy: 'quizSets', cascade: ['persist', 'remove', 'merge', 'detach', 'refresh', 'all'], orphanRemoval: true)]
     private Collection $quizzes;
 
-    #[ORM\ManyToOne(cascade: ["persist"], inversedBy: 'quizSets')]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove', 'merge', 'detach', 'refresh', 'all'], inversedBy: 'quizSets')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Courses $courses = null;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->quizzes = new ArrayCollection();
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'title' => $this->getTitle(),
+            'description' => $this->getDescription(),
+            'courses' => $this->getCourses()->toArray(),
+            'quizzes' => $this->getQuizzes()->toArray()
+        ];
     }
 
     public function getId(): ?int
@@ -38,12 +49,12 @@ class QuizSets
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function setTitle(?string $title): void
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
@@ -88,26 +99,13 @@ class QuizSets
         return $this;
     }
 
-    public function toArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-            'courses' => $this->courses->map(fn(Courses $course) => $course->toArray())->toArray(),
-            'quizzes' => $this->quizzes->map(fn(Quiz $quiz) => $quiz->toArray())->toArray()
-        ];
-    }
-
     public function getCourses(): ?Courses
     {
         return $this->courses;
     }
 
-    public function setCourses(?Courses $courses): static
+    public function setCourses(?Courses $courses): void
     {
         $this->courses = $courses;
-
-        return $this;
     }
 }

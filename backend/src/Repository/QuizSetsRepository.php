@@ -25,7 +25,10 @@ class QuizSetsRepository extends ServiceEntityRepository
 
     public function getAllQuizSets(): array
     {
-        return $this->findAll();
+        return $this->createQueryBuilder('quiz_sets')
+            ->select('quiz_sets.id', 'quiz_sets.title', 'quiz_sets.description', 'quiz_sets.image')
+            ->getQuery()
+            ->getArrayResult();
     }
 
     public function getAllQuizSetsByCourse(int $courseId): array

@@ -27,7 +27,7 @@ class CoursesCrudController extends AbstractCrudController
         yield ImageField::new('image', t('courses.image'))->setUploadDir('public/uploads/images/courses')->setBasePath('uploads/images/courses')->setUploadedFileNamePattern('[year]-[month]-[day]-[timestamp]-[slug]-[contenthash].[extension]');
         yield CollectionField::new('quizSets', t('courses.quiz_sets'))->useEntryCrudForm(
             QuizSetsCrudController::class, 'new_quiz_sets_page', 'edit_quiz_sets_page',
-        );
+        )->setEntryIsComplex();
     }
 
     public function configureCrud(Crud $crud): Crud

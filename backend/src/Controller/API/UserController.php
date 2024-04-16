@@ -24,7 +24,7 @@ class UserController extends AbstractController
     {
         $users = $this->userService->getAllUsers();
 
-        return $this->json($users);
+        return new JsonResponse($users);
     }
 
     #[Response(response: 201, description: 'Creates a new user')]
@@ -34,7 +34,6 @@ class UserController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $user = new User();
-        $user->setName($data['name']);
         $user->setEmail($data['email']);
         $user->setPassword($data['password']);
 
@@ -49,7 +48,6 @@ class UserController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $user = $this->userService->getUser($id);
-        $user->setName($data['name']);
         $user->setEmail($data['email']);
         $user->setPassword($data['password']);
 

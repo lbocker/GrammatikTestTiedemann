@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -16,8 +19,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180)]
-    private ?string $email = null;
+    #[ORM\Column(type: Types::STRING, length: 180)]
+    private string $email;
 
     /**
      * @var list<string> The user roles
@@ -28,21 +31,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      */
-    #[ORM\Column]
-    private ?string $password = null;
+    #[ORM\Column (type: Types::STRING, length: 255)]
+    private string $password;
 
-    #[ORM\Column]
-    private ?int $points = 0;
+    #[ORM\Column(type: Types::INTEGER, options: ['default' => 0])]
+    private int $points = 0;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image = null;
+    private ?string $image;
+
+    #[ORM\OneToMany(targetEntity: UserCoursesStatus::class, mappedBy: 'user_id', cascade: ['persist', 'remove', 'merge', 'detach', 'refresh', 'all'], orphanRemoval: true)]
+    private Collection $userCoursesStatuses;
+
+    public function __construct() {
+        $this->userCoursesStatuses = new ArrayCollection();
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'email' => $this->getEmail(),
+            'roles' => $this->getRoles(),
+            'points' => $this->getPoints(),
+            'image' => $this->getImage(),
+            'userCoursesStatuses' => $this->getUserCoursesStatuses()->toArray()
+        ];
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -92,12 +114,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
-    public function setPassword(?string $password): void
+    public function setPassword(string $password): void
     {
-        if ($password === null) {
-            return;
-        }
-
         $this->password = $password;
     }
 
@@ -115,11 +133,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->points;
     }
 
-    public function setPoints(int $points): static
+    public function setPoints(int $points): void
     {
         $this->points = $points;
-
-        return $this;
     }
 
     /**
@@ -130,10 +146,55 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->image;
     }
 
-    public function setImage(?string $image): static
+    public function setImage(?string $image): void
     {
         $this->image = $image;
+    }
+
+    /**
+     * @return Collection<int, UserCoursesStatus>
+     */
+    public function getUserCoursesStatuses(): Collection
+    {
+        return $this->userCoursesStatuses;
+    }
+
+    public function addUserCoursesStatus(UserCoursesStatus $userCoursesStatus): static
+    {
+        if (!$this->userCoursesStatuses->contains($userCoursesStatus)) {
+            $this->userCoursesStatuses->add($userCoursesStatus);
+            $userCoursesStatus->setUserId($this);
+        }
 
         return $this;
+    }
+
+    public function removeUserCoursesStatus(UserCoursesStatus $userCoursesStatus): static
+    {
+        if ($this->userCoursesStatuses->removeElement($userCoursesStatus)) {
+            // set the owning side to null (unless already changed)
+            if ($userCoursesStatus->getUserId() === $this) {
+                $userCoursesStatus->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setStatusOnCreate(): void
+    {
+        // Set the default status for a newly created user
+        // You can change this logic according to your requirements
+        $defaultStatus = CoursesStatus::OPEN;
+
+        // Create a UserCoursesStatus entity for the default status
+        $userCoursesStatus = new UserCoursesStatus();
+        $userCoursesStatus->setStatus($defaultStatus);
+
+        // Associate the UserCoursesStatus entity with the current user
+        $this->addUserCoursesStatus($userCoursesStatus);
     }
 }

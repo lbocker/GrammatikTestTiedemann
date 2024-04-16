@@ -25,14 +25,14 @@ class ApiLoginController extends AbstractController
     public function index(#[CurrentUser] ?User $user): JsonResponse
     {
         if (null === $user) {
-            return $this->json([
+            return new JsonResponse([
                 'message' => 'missing credentials',
             ], 401);
         }
 
         $token = $this->jwtManager->create($user);
 
-        return $this->json([
+        return new JsonResponse([
             'user' => $user->getUserIdentifier(),
             'token' => $token,
         ]);

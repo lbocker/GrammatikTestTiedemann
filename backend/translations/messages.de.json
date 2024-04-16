@@ -39,7 +39,8 @@
     "edit_quiz": "Bearbeiten",
     "delete_quiz": "Löschen",
     "save_and_add_another": "Speichern und weitere hinzufügen",
-    "save_and_continue": "Speichern und fortfahren"
+    "save_and_continue": "Speichern und fortfahren",
+    "points": "Punkte"
   },
   "quiz_set": {
     "title": "Titel des Fragebogen-Sets",

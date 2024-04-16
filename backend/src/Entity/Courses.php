@@ -17,22 +17,35 @@ class Courses
     private ?int $id = null;
 
     #[ORM\Column(type: TYPES::STRING, length: 255, nullable: false)]
-    private ?string $title = null;
+    private string $title;
+
+    #[ORM\Column(type: Types::TEXT, length: 65535, nullable: true)]
+    private ?string $description;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $description = null;
+    private ?string $image;
 
-    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $image = null;
-
-    #[ORM\OneToMany(targetEntity: QuizSets::class, mappedBy: 'courses', cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: QuizSets::class, mappedBy: 'courses', cascade: ['persist', 'remove', 'merge', 'detach', 'refresh', 'all', 'delete'], orphanRemoval: true)]
     private Collection $quizSets;
 
-    public function __construct()
-    {
+    #[ORM\OneToMany(targetEntity: UserCoursesStatus::class, mappedBy: 'courses_id', cascade: ['persist', 'remove', 'merge', 'detach', 'refresh', 'all'], orphanRemoval: true)]
+    private Collection $userCoursesStatuses;
+
+    public function __construct() {
         $this->quizSets = new ArrayCollection();
+        $this->userCoursesStatuses = new ArrayCollection();
     }
 
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'title' => $this->getTitle(),
+            'description' => $this->getDescription(),
+            'image' => $this->getImage(),
+            'coursesStatus' => $this->getUserCoursesStatuses()?->toArray(),
+        ];
+    }
 
     public function getId(): ?int
     {
@@ -69,16 +82,6 @@ class Courses
         $this->image = $image;
     }
 
-    public function toArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-            'image' => $this->image,
-        ];
-    }
-
     /**
      * @return Collection<int, QuizSets>
      */
@@ -103,6 +106,36 @@ class Courses
             // set the owning side to null (unless already changed)
             if ($quizSet->getCourses() === $this) {
                 $quizSet->setCourses(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserCoursesStatus>
+     */
+    public function getUserCoursesStatuses(): Collection
+    {
+        return $this->userCoursesStatuses;
+    }
+
+    public function addUserCoursesStatus(UserCoursesStatus $userCoursesStatus): static
+    {
+        if (!$this->userCoursesStatuses->contains($userCoursesStatus)) {
+            $this->userCoursesStatuses->add($userCoursesStatus);
+            $userCoursesStatus->setCoursesId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserCoursesStatus(UserCoursesStatus $userCoursesStatus): static
+    {
+        if ($this->userCoursesStatuses->removeElement($userCoursesStatus)) {
+            // set the owning side to null (unless already changed)
+            if ($userCoursesStatus->getCoursesId() === $this) {
+                $userCoursesStatus->setCoursesId(null);
             }
         }
 

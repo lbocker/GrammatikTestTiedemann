@@ -39,7 +39,8 @@
     "edit_quiz": "Editar",
     "delete_quiz": "Excluir",
     "save_and_add_another": "Salvar e Adicionar Outro",
-    "save_and_continue": "Salvar e continuar"
+    "save_and_continue": "Salvar e continuar",
+    "points": "Pontos"
   },
   "quiz_set": {
     "title": "Título do Conjunto de Quiz",
