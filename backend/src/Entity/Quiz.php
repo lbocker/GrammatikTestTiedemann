@@ -17,10 +17,10 @@ class Quiz
     #[ORM\Column(type: Types::STRING, length: 255, nullable: false)]
     private string $question;
 
-    #[ORM\Column(type: Types::SIMPLE_ARRAY, length: 255, nullable: false)]
+    #[ORM\Column(type: Types::TEXT, length: 65535, nullable: false)]
     private array $rightAnswer;
 
-    #[ORM\Column(type: Types::SIMPLE_ARRAY, length: 255, nullable: false)]
+    #[ORM\Column(type: Types::TEXT, length: 65535, nullable: false)]
     private array $wrongAnswer;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: false)]
