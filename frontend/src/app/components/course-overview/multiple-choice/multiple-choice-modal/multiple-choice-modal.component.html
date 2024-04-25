@@ -1,5 +1,18 @@
-<div *ngIf="successful">
-  Das hast du gut gemacht! Du hast alle Aufgaben gelöst.
-</div><div *ngIf="!successful">
-  Schade, du hast nicht alle Aufgaben richtig gelöst.
-</div>
+@if (successful)
+{
+    <div>
+        Das hast du gut gemacht! Du hast alle Aufgaben gelöst.<br>
+<br>
+        Dafür hast du {{ points }} Punkte bekommen.<br>
+      <img [src]="image" alt="Bild" width="500" height="500">
+    </div>
+}
+@else
+{
+    <div>
+        Schade, du hast nicht alle Aufgaben richtig gelöst.<br><br>
+      <img [src]="image" alt="Bild" width="500" height="500">
+    </div>
+}
+
+<p-button (click)="next()">Weiter</p-button>

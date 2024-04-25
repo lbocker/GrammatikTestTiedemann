@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DragDropWords, Task } from '../../../models/grammar-courses';
 import { PRIMENG_BARREL } from '../../../barrel/primeng.barrel';
+import { DragDropWords, Task } from '../../../models/task.model';
 
 @Component({
   selector: 'app-drag-drop-words',
@@ -11,7 +11,7 @@ import { PRIMENG_BARREL } from '../../../barrel/primeng.barrel';
   styleUrls: ['./drag-drop-words.component.less']
 })
 export class DragDropWordsComponent implements OnInit {
-  @Input() _task!: DragDropWords;
+  _task!: DragDropWords;
   protected splittedWords: string[] = [];
   protected shuffledWords: string[] = [];
 
@@ -22,11 +22,12 @@ export class DragDropWordsComponent implements OnInit {
       console.error('Type has to be type DragDropWords');
       return;
     }
+    console.log(task);
     this._task = task;
   }
 
   ngOnInit(): void {
-    this.splittedWords = this._task.text.split('%');
+    this.splittedWords = this._task.fillTexts;
     this.shuffledWords = this.shuffle([...this._task.fillTexts]);
   }
 
@@ -35,7 +36,7 @@ export class DragDropWordsComponent implements OnInit {
   }
 
   isDragDropWords(task: Task): task is DragDropWords {
-    return task.type === 'DragDropWords';
+    return task.type === 'DRAG_AND_DROP_WORDS';
   }
 
   shuffle (array: string[]): string[]  {
@@ -75,7 +76,8 @@ export class DragDropWordsComponent implements OnInit {
   check(): void {
     let index = 0;
     let success = true;
-    for (const item of this._task.text.split('%')) {
+    console.log(this._task)
+    for (const item of this._task.fillTexts) {
       if (index%2 != 0) {
         const shouldIndex = item.replace('WORD:', '');
         const shouldItem = this._task.fillTexts[parseInt(shouldIndex)];

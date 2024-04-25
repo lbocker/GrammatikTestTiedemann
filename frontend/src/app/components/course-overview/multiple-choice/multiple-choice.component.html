@@ -3,7 +3,7 @@
     <h1>{{ _task.name }}</h1>
   </div>
   <div class="question-type">
-    <h3>Mehrfachauswahl</h3>
+    <h3>{{ _task.question }}</h3>
   </div>
   <ng-container *ngFor="let choice of choices; let i = index; trackBy: trackByChoice">
     <div class="choice">
