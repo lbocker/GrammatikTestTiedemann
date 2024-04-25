@@ -14,13 +14,13 @@ class Quiz
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::STRING, length: 255, nullable: false)]
+    #[ORM\Column(type: Types::TEXT, length: 65535, nullable: false)]
     private string $question;
 
-    #[ORM\Column(type: Types::TEXT, length: 65535, nullable: false)]
+    #[ORM\Column(type: Types::JSON, length: 65535, nullable: false)]
     private array $rightAnswer;
 
-    #[ORM\Column(type: Types::TEXT, length: 65535, nullable: false)]
+    #[ORM\Column(type: Types::JSON, length: 65535, nullable: false)]
     private array $wrongAnswer;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: false)]
