@@ -1,36 +1,44 @@
 export interface TaskDefault {
   name: string;
+  title?: string;
   status: 'Fertig' | 'In Bearbeitung' | 'Offen';
+  points: number;
 }
 
 export interface MultipleChoice extends TaskDefault {
-  type: 'MultipleChoice';
-  right: string[];
-  wrong: string[];
+  type: 'MULTIPLE_CHOICE';
+  question: string;
+  rightAnswer: string[] | string;
+  wrongAnswer: string[] | string;
 }
 
 export interface DragDropGroup extends TaskDefault {
-  type: 'DragDropGroup';
+  type: 'DRAG_AND_DROP_GROUP';
   group: {
     text: string;
     items: string[];
   }[]
 }
 
+export interface Description {
+  title: string;
+  description: string;
+}
+
 export interface DragDropWords extends TaskDefault {
-  type: 'DragDropWords';
-  text: string;
+  type: 'DRAG_AND_DROP_WORDS';
+  question: string;
   fillTexts: string[];
 }
 
 export interface TypeMissingWords extends TaskDefault {
-  type: 'TypeMissingWords';
+  type: 'TYPE_MISSING_WORDS';
   text: string;
   fillWords: string[];
 }
 
 export interface FindWrongWords extends TaskDefault {
-  type: 'FindWrongWords';
+  type: 'FIND_WRONG_WORDS';
   text: string;
   wordIndex: number[]
 }

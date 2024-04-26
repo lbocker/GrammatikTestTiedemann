@@ -1,20 +1,21 @@
-<div class="wrapper" *ngIf="course">
+<div class="wrapper" *ngIf="tasksMenu && description">
   <p-steps
     class="task-bar"
-    [model]="tasks"
+    [model]="tasksMenu"
     [readonly]="false"
     [activeIndex]="activeIndex"
     (activeIndexChange)="indexChange($event)"
   ></p-steps>
   <div class="title">
-    <h1>{{ course.title }}</h1>
+    <h1>{{ description.title }}</h1>
   </div>
   <p-panel
     class="description"
     header="Beschreibung"
-    *ngIf="course && activeIndex == 0"
+    *ngIf="description && activeIndex == 0"
   >
-    {{ course.description }}
+    <pre [innerHTML]="description.description"></pre>
+    <p-button (click)="taskCompleted()">Next</p-button>
   </p-panel>
 
   <p-panel
@@ -27,25 +28,26 @@
   <div class="taskContainer" *ngIf="activeTask">
     <app-drag-drop-group
       class="task"
-      *ngIf="activeTask?.type == 'DragDropGroup'"
+      *ngIf="activeTask.type == 'DRAG_AND_DROP_GROUP'"
       [task]="activeTask"
     ></app-drag-drop-group>
     <app-drag-drop-words
       class="task"
-      *ngIf="activeTask?.type === 'DragDropWords'"
+      *ngIf="activeTask.type === 'DRAG_AND_DROP_WORDS'"
       [task]="activeTask"
     ></app-drag-drop-words>
     <app-type-missing-words
       class="task"
-      *ngIf="activeTask?.type === 'TypeMissingWords'"
+      *ngIf="activeTask.type === 'TYPE_MISSING_WORDS'"
     ></app-type-missing-words>
     <app-find-wrong-words
       class="task"
-      *ngIf="activeTask?.type === 'FindWrongWords'"
+      *ngIf="activeTask.type === 'FIND_WRONG_WORDS'"
     ></app-find-wrong-words>
     <app-multiple-choice
       class="task"
-      *ngIf="activeTask?.type === 'MultipleChoice'"
+      *ngIf="activeTask.type === 'MULTIPLE_CHOICE'"
+      (taskCompleted)="taskCompleted()"
       [task]="activeTask"
     ></app-multiple-choice>
   </div>

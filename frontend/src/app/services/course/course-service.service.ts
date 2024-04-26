@@ -23,4 +23,8 @@ export class CourseServiceService {
   getCourse(id: any): Observable<CourseGroup | undefined> {
     return this.httpService.get('/api/courses/' + id)
   }
+
+  getQuizSet(id: number): Observable<any> {
+    return this.httpService.get(`api/course/${id}/quizzes`)
+  }
 }

@@ -13,7 +13,7 @@ import { DragGroupModalComponent } from './drag-group-modal/drag-group-modal.com
   styleUrls: ['./drag-drop-group.component.less']
 })
 export class DragDropGroupComponent implements OnInit {
-  @Input() _task!: DragDropGroup;
+  _task!: DragDropGroup;
   protected editedTask?: DragDropGroup;
   protected undraggedItems: string[] = [];
   private draggingItem: { index: number; text: string; origin: number | 'undragged' } | null = null;
@@ -59,7 +59,7 @@ export class DragDropGroupComponent implements OnInit {
     if (!task) {
       throw new Error('task undefined');
     }
-    return task.type === 'DragDropGroup';
+    return task.type === 'DRAG_AND_DROP_GROUP';
   }
 
   drop(groupIndex: number): void {

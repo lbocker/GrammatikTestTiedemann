@@ -25,9 +25,13 @@ export class HttpService {
     )
   }
 
-  post(url: string, body: any, headers=true, ...args: any[]): Observable<any> {
+  post(url: string, body: any, headers=true, additionalHeaders: Record<string, string> = {}, ...args: any[]): Observable<any> {
     if (url !== '/api/register' && url !== '/api/login_check') {
       this.headers = this.headers.set('Authorization', this.getToken());
+    }
+
+    for (let header in additionalHeaders) {
+      this.headers = this.headers.set(header, additionalHeaders[header]);
     }
 
     return this.httpClient.post(

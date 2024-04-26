@@ -1,10 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MultipleChoice, Task } from '../../../models/task.model';
 import { PRIMENG_BARREL } from '../../../barrel/primeng.barrel';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DragGroupModalComponent } from '../drag-drop-group/drag-group-modal/drag-group-modal.component';
 import { DialogService } from 'primeng/dynamicdialog';
+import { UserService } from '../../../services/user/user.service';
+import { MultipleChoiceModalComponent } from './multiple-choice-modal/multiple-choice-modal.component';
 
 @Component({
   selector: 'app-multiple-choice',
@@ -14,13 +16,16 @@ import { DialogService } from 'primeng/dynamicdialog';
   styleUrls: ['./multiple-choice.component.less']
 })
 export class MultipleChoiceComponent {
+  @Output() taskCompleted = new EventEmitter<void>();
+
   protected _task!: MultipleChoice;
   protected choices!: string[];
   protected form!: FormGroup;
 
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly dialogService: DialogService
+    private readonly dialogService: DialogService,
+    private readonly userService: UserService
   ) {
   }
 
@@ -34,8 +39,14 @@ export class MultipleChoiceComponent {
       return;
     }
     this._task = task;
+    if (typeof this._task.rightAnswer === 'string') {
+      this._task.rightAnswer = this._task.rightAnswer.split(',');
+    }
+    if (typeof this._task.wrongAnswer === 'string') {
+      this._task.wrongAnswer = this._task.wrongAnswer.split(',');
+    }
 
-    this.choices = this.shuffle([...this._task.right, ...this._task.wrong]);
+    this.choices = this.shuffle([...this._task.rightAnswer, ...this._task.wrongAnswer]);
 
     this.form = this.formBuilder.group({});
     for (const choice in this.choices) {
@@ -52,14 +63,15 @@ export class MultipleChoiceComponent {
     if (!task) {
       throw new Error('task undefined');
     }
-    return task.type === 'MultipleChoice';
+    return task.type === 'MULTIPLE_CHOICE';
   }
 
   showModal(successful: boolean): void {
-    const ref = this.dialogService.open(DragGroupModalComponent, {
+    const ref = this.dialogService.open(MultipleChoiceModalComponent, {
       header: successful ? 'Gut gemacht!' : 'Leider Falsch',
       data: {
-        successful: successful
+        successful: successful,
+        points: this._task.points
       },
       width: '70%',
       contentStyle: {overflow: 'auto'},
@@ -67,6 +79,12 @@ export class MultipleChoiceComponent {
       maximizable: false
     });
 
+    if (successful) {
+      ref.onClose.subscribe(() => {
+        this.userService.increasePoints(this._task.points).subscribe();
+        this.taskCompleted.emit();
+      });
+    }
   }
 
   check(): void {
@@ -75,10 +93,10 @@ export class MultipleChoiceComponent {
       .filter(([_, value]) => value)
       .map(([key, _]) => this.choices[ parseInt(key.replace('choice-', '')) ] );
 
-    if (checkedAnswers.length !== this._task.right.length) {
+    if (checkedAnswers.length !== this._task.rightAnswer.length) {
       correct = false;
     } else {
-      for (const right of this._task.right) {
+      for (const right of this._task.rightAnswer) {
         if (!checkedAnswers.includes(right)) {
           correct = false;
           break;

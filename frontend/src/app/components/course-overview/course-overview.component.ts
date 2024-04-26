@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CourseGroup } from '../../models/course-group.model';
-import { BigTask, DragDropGroup, Task } from '../../models/task.model';
+import { BigTask, Description, DragDropGroup, Task } from '../../models/task.model';
 import { CourseServiceService } from '../../services/course/course-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
@@ -21,11 +21,13 @@ import { FindWrongWordsComponent } from './find-wrong-words/find-wrong-words.com
   styleUrls: ['./course-overview.component.less']
 })
 export class CourseOverviewComponent implements OnInit {
-  course?: CourseGroup;
-  tasks: MenuItem[] = [];
+  description?: Description;
+  tasksMenu: MenuItem[] = [];
   activeIndex: number = 0;
   activeTask?: Task;
   bigTask?: BigTask;
+  tasks!: Task[];
+
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -34,25 +36,27 @@ export class CourseOverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.pipe(switchMap((params: any) => {
-      return this.courseService.getCourse(params.courseId)
-    })).subscribe(courses => {
-      this.course = courses;
-      this.tasks = [{
+    this.route.params.pipe(
+      switchMap((params: any) => this.courseService.getCourse(params.courseId)),
+      switchMap((course: any) => {
+        this.description = course;
+
+        return this.courseService.getQuizSet(course.id)
+      })
+    ).subscribe(quizSet => {
+      this.tasks = quizSet;
+
+      console.log(quizSet);
+      let index = 0;
+      this.tasksMenu = [{
         label: 'Beschreibung'
       }];
-      let index = 0;
-      for (const task of this.course?.quizSets ?? []) {
-        this.tasks.push({
-          label: task.title
-        });
-        index ++;
 
-        for (const subTask in task.quizzes) {
-          this.tasks.push({
-            label: `${index}.${Number(subTask)+1}`
-          })
-        }
+      for (const task of quizSet) {
+        index++;
+        this.tasksMenu.push({
+          label: `Aufgabe ${index}`
+        });
       }
     })
   }
@@ -66,22 +70,10 @@ export class CourseOverviewComponent implements OnInit {
       return;
     }
 
-    if (!isNaN(Number(this.tasks[this.activeIndex].label))) {
-      let title = this.tasks[this.activeIndex].label!.split('.');
-      let firstIndex = Number(title[0])-1;
-      let lastIndex = Number(title[1])-1;
+    this.activeTask = this.tasks[this.activeIndex];
+  }
 
-      this.bigTask = this.course!.quizSets[firstIndex];
-      this.activeTask = this.bigTask.quizzes[Number(lastIndex)];
-    } else {
-
-      this.activeTask = undefined;
-
-      // find BigTask
-
-      let title = this.tasks[this.activeIndex+1].label!.split('.');
-      let firstIndex = Number(title[0])-1;
-      this.bigTask = this.course!.quizSets[firstIndex];
-    }
+  taskCompleted() {
+    this.indexChange(this.activeIndex + 1);
   }
 }
