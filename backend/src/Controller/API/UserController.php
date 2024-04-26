@@ -71,4 +71,27 @@ class UserController extends AbstractController
     {
         $this->userService->deleteUser($id);
     }
+
+    #[Response(response: 200, description: 'Returns the user by Email')]
+    #[Response(response: 404, description: 'No user found for email {email}')]
+    #[Route('/users/{email}', name: 'get_user_by_email', methods: ['GET'])]
+    public function getUserByEmail(string $email): User
+    {
+        return $this->userService->getUserByEmail($email);
+    }
+
+    #[Response(response: 200, description: 'Updates the user points by email')]
+    #[Response(response: 404, description: 'No user found for email {email}')]
+    #[Route('/user/updatePoints', name: 'update_user_points_by_email', methods: ['PUT'])]
+    public function updatePointsByUserEmail(Request $request): JsonResponse
+    {
+        $email = $request->headers->get('email');
+        $data = json_decode($request->getContent());
+
+        $points = $data->points;
+
+        $this->userService->updatePointsByUserEmail($email, $points);
+
+        return new JsonResponse(['message' => 'Points updated successfully']);
+    }
 }

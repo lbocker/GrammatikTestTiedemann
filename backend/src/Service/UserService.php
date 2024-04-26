@@ -59,6 +59,10 @@ readonly class UserService
     {
         $this->userRepository->updateUser($user);
 
+        if (!$user) {
+            throw new HttpException(404, 'No user found for id ' . $user->getId());
+        }
+
         return $user;
     }
 
@@ -84,5 +88,18 @@ readonly class UserService
         }
 
         $this->userRepository->deleteUser($user);
+    }
+
+    public function updatePointsByUserEmail(string $email, int $points): User
+    {
+        $user = $this->userRepository->getUserByEmail($email);
+
+        if (!$user) {
+            throw new HttpException(404, 'No user found for email ' . $email);
+        }
+
+        $this->userRepository->updateUserPointsByEmail($email, $points);
+
+        return $user;
     }
 }
