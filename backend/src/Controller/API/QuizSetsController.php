@@ -1,132 +1,48 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\API;
 
-use App\Entity\Quiz;
-use App\Entity\QuizSets;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Service\QuizSetsService;
+use OpenApi\Attributes\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/api', name: 'api_')]
+#[Route('/api', name: 'api_quiz_sets')]
 class QuizSetsController extends AbstractController
 {
-    #[Route('/quizsets/{id}', name: 'quizset_show', methods: ['GET'])]
-    public function showQuizSet(EntityManagerInterface $entityManager, int $id): JsonResponse
+    public function __construct(private readonly QuizSetsService $quizSetsService) {}
+
+    #[Response(response: 200, description: 'Returns the list of quiz sets')]
+    #[Response(response: 404, description: 'No quiz sets found')]
+    #[Route('/quiz-sets', name: 'get_quiz_sets', methods: ['GET'])]
+    public function getQuizSets(): JsonResponse
     {
-        $quizSet = $entityManager->getRepository(QuizSets::class)->find($id);
+        $quizSets = $this->quizSetsService->getAllQuizSets();
 
-        if (!$quizSet) {
-            return $this->json(['message' => 'No quiz set found for id ' . $id], 404);
-        }
-
-        $data = [
-            'id' => $quizSet->getId(),
-            'title' => $quizSet->getTitle(),
-            'description' => $quizSet->getDescription(),
-            'course' => $quizSet->getCourse()->getTitle(),
-            'quizzes' => $this->serializeQuizzes($quizSet->getQuizzes()),
-        ];
-
-        return $this->json($data);
+        return new JsonResponse($quizSets);
     }
 
-    #[Route('/quizsets/{id}', name: 'quizset_update', methods: ['PUT', 'PATCH'])]
-    public function updateQuizSet(Request $request, EntityManagerInterface $entityManager, int $id): JsonResponse
+
+    #[Response(response: 200, description: 'Returns the list of quiz sets')]
+    #[Response(response: 404, description: 'No quiz sets found')]
+    #[Route('/course/{id}/quiz-sets', name: 'get_quiz_sets_by_course', methods: ['GET'])]
+    public function getQuizSetsByCourse(int $id): JsonResponse
     {
-        $quizSet = $entityManager->getRepository(QuizSets::class)->find($id);
+        $quizSets = $this->quizSetsService->getAllQuizSetsByCourse($id);
 
-        if (!$quizSet) {
-            return $this->json(['message' => 'No quiz set found for id ' . $id], 404);
-        }
-
-        $requestData = json_decode($request->getContent(), true);
-
-        if (!isset($requestData['title']) || !isset($requestData['description'])) {
-            return $this->json(['message' => 'Invalid request. Title and description are required.'], 400);
-        }
-
-        $quizSet->setTitle($requestData['title']);
-        $quizSet->setDescription($requestData['description']);
-
-        $entityManager->flush();
-
-        return $this->json($quizSet);
+        return new JsonResponse($quizSets);
     }
 
-    #[Route('/quizsets/{id}', name: 'quizset_delete', methods: ['DELETE'])]
-    public function deleteQuizSet(EntityManagerInterface $entityManager, int $id): JsonResponse
+    #[Response(response: 200, description: 'Returns the quiz set')]
+    #[Response(response: 404, description: 'No quiz set found for id {id}')]
+    #[Route('/quiz-sets/{id}', name: 'get_quiz_set', methods: ['GET'])]
+    public function getQuizSet(int $id): JsonResponse
     {
-        $quizSet = $entityManager->getRepository(QuizSets::class)->find($id);
+        $quizSet = $this->quizSetsService->getQuizSet($id);
 
-        if (!$quizSet) {
-            return $this->json(['message' => 'No quiz set found for id ' . $id], 404);
-        }
-
-        $entityManager->remove($quizSet);
-        $entityManager->flush();
-
-        return $this->json('Deleted a quiz set successfully with id ' . $id);
-    }
-
-    #[Route('/quizsets/{id}/quizzes', name: 'quizset_quizzes', methods: ['GET'])]
-    public function getQuizzesForQuizSet(EntityManagerInterface $entityManager, int $id): JsonResponse
-    {
-        $quizSet = $entityManager->getRepository(QuizSets::class)->find($id);
-
-        if (!$quizSet) {
-            return $this->json(['message' => 'No quiz set found for id ' . $id], 404);
-        }
-
-        $quizzes = $this->serializeQuizzes($quizSet->getQuizzes());
-
-        return $this->json($quizzes);
-    }
-
-    #[Route('/quizsets/{id}/add-quiz', name: 'quizset_add_quiz', methods: ['POST'])]
-    public function addQuizToQuizSet(Request $request, EntityManagerInterface $entityManager, int $id): JsonResponse
-    {
-        $quizSet = $entityManager->getRepository(QuizSets::class)->find($id);
-
-        if (!$quizSet) {
-            return $this->json(['message' => 'No quiz set found for id ' . $id], 404);
-        }
-
-        $requestData = json_decode($request->getContent(), true);
-
-        if (!isset($requestData['type']) || !isset($requestData['question']) || !isset($requestData['rightAnswer']) || !isset($requestData['wrongAnswer'])) {
-            return $this->json(['message' => 'Invalid request. Type, question, rightAnswer, and wrongAnswer are required.'], 400);
-        }
-
-        $quiz = new Quiz();
-        $quiz->setType($requestData['type']);
-        $quiz->setQuestion($requestData['question']);
-        $quiz->setRightAnswer($requestData['rightAnswer']);
-        $quiz->setWrongAnswer($requestData['wrongAnswer']);
-        $quiz->setQuizSet($quizSet);
-
-        $entityManager->persist($quiz);
-        $entityManager->flush();
-
-        return $this->json($quiz, 201);
-    }
-
-    private function serializeQuizzes($quizzes): array
-    {
-        $serializedQuizzes = [];
-
-        foreach ($quizzes as $quiz) {
-            $serializedQuizzes[] = [
-                'id' => $quiz->getId(),
-                'type' => $quiz->getType(),
-                'question' => $quiz->getQuestion(),
-                'rightAnswer' => $quiz->getRightAnswer(),
-                'wrongAnswer' => $quiz->getWrongAnswer(),
-            ];
-        }
-
-        return $serializedQuizzes;
+        return new JsonResponse($quizSet->toArray());
     }
 }

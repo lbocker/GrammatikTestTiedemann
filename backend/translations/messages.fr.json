@@ -1,0 +1,76 @@
+{
+  "settings": {
+    "home": "Accueil",
+    "logout": "Déconnexion"
+  },
+  "dashboard": {
+    "courses": "Cours",
+    "quiz_sets": "Ensembles de quiz",
+    "quizzes": "Des questions",
+    "user": "Utilisateur",
+    "api_docs": "Documentation de l'API"
+  },
+  "courses": {
+    "title": "Titre du cours",
+    "description": "Description du cours",
+    "image": "Image du cours",
+    "quiz_sets": "Ensembles de quiz",
+    "new_course": "Nouveau cours",
+    "edit_course": "Modifier",
+    "delete_course": "Supprimer",
+    "save_and_add_another": "Enregistrer et ajouter un autre",
+    "save_and_continue": "Enregistrer et continuer"
+  },
+  "quiz": {
+    "type": {
+      "name": "Type",
+      "options": {
+        "MULTIPLE_CHOICE": "Choix multiples",
+        "DRAG_AND_DROP_GROUP": "Glisser-déposer - Groupe",
+        "DRAG_AND_DROP_WORDS": "Glisser-déposer - Mots",
+        "TYPE_MISSING_WORDS": "Taper les mots manquants",
+        "FIND_WRONG_WORDS": "Trouver les mots incorrects"
+      }
+    },
+    "question": "Question",
+    "right_answer": "Bonne réponse",
+    "wrong_answer": "Mauvaise réponse",
+    "new_quiz": "Nouveau quiz",
+    "edit_quiz": "Modifier",
+    "delete_quiz": "Supprimer",
+    "save_and_add_another": "Enregistrer et ajouter un autre",
+    "save_and_continue": "Enregistrer et continuer",
+    "points": "Points"
+  },
+  "quiz_set": {
+    "title": "Titre de l'ensemble de quiz",
+    "description": "Description de l'ensemble de quiz",
+    "quizzes": "Quiz",
+    "new_quiz_set": "Nouvel ensemble de quiz",
+    "edit_quiz_set": "Modifier",
+    "delete_quiz_set": "Supprimer",
+    "save_and_add_another": "Speichern und weitere hinzufügen",
+    "save_and_continue": "Speichern und fortfahren"
+  },
+  "user": {
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "image": "Image",
+    "new_user": "Nouvel utilisateur",
+    "edit_user": "Modifier",
+    "delete_user": "Supprimer",
+    "logged_in_as": "Connecté en tant que",
+    "save_and_add_another": "Enregistrer et ajouter un autre",
+    "save_and_continue": "Enregistrer et continuer",
+    "roles": {
+      "name": "Rôles",
+      "options": {
+        "ADMINISTRATOR": "Administrateur",
+        "CONTENT_MANAGER": "Gestionnaire de contenu",
+        "USER": "Utilisateur"
+      }
+    },
+    "password_confirmation": "Confirmation du mot de passe",
+    "back_to_list": "Retour à la liste"
+  }
+}

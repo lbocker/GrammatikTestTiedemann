@@ -1,0 +1,76 @@
+{
+  "settings": {
+    "home": "Home",
+    "logout": "Logout"
+  },
+  "dashboard": {
+    "courses": "Courses",
+    "quiz_sets": "Quiz Sets",
+    "quizzes": "Quizzes",
+    "user": "User",
+    "api_docs": "API Docs"
+  },
+  "courses": {
+    "title": "Course Title",
+    "description": "Course Description",
+    "image": "Course Image",
+    "quiz_sets": "Quiz Sets",
+    "new_course": "New Course",
+    "edit_course": "Edit",
+    "delete_course": "Delete",
+    "save_and_add_another": "Save and add another",
+    "save_and_continue": "Save and continue"
+  },
+  "quiz": {
+    "type": {
+      "name": "Type",
+      "options": {
+        "MULTIPLE_CHOICE": "Multiple Choice",
+        "DRAG_AND_DROP_GROUP": "Drag and Drop Group",
+        "DRAG_AND_DROP_WORDS": "Drag and Drop Words",
+        "TYPE_MISSING_WORDS": "Type Missing Words",
+        "FIND_WRONG_WORDS": "Find Wrong Words"
+      }
+    },
+    "question": "Question",
+    "right_answer": "Right Answer",
+    "wrong_answer": "Wrong Answer",
+    "new_quiz": "New Quiz",
+    "edit_quiz": "Edit",
+    "delete_quiz": "Delete",
+    "save_and_add_another": "Save and add another",
+    "save_and_continue": "Save and continue",
+    "points": "Points"
+  },
+  "quiz_set": {
+    "title": "Quiz Set Title",
+    "description": "Quiz Set Description",
+    "quizzes": "Quizzes",
+    "new_quiz_set": "New Quiz Set",
+    "edit_quiz_set": "Edit",
+    "delete_quiz_set": "Delete",
+    "save_and_add_another": "Speichern und weitere hinzufügen",
+    "save_and_continue": "Speichern und fortfahren"
+  },
+  "user": {
+    "email": "Email",
+    "password": "Password",
+    "image": "Image",
+    "new_user": "New User",
+    "edit_user": "Edit",
+    "delete_user": "Delete",
+    "logged_in_as": "Logged in as",
+    "save_and_add_another": "Save and add another",
+    "save_and_continue": "Save and continue",
+    "roles": {
+      "name": "Roles",
+      "options": {
+        "ADMINISTRATOR": "Administrator",
+        "CONTENT_MANAGER": "Content Manager",
+        "USER": "User"
+      }
+    },
+    "password_confirmation": "Password Confirmation",
+    "back_to_list": "Back to list"
+  }
+}

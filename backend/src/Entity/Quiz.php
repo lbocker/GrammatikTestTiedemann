@@ -14,83 +14,100 @@ class Quiz
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $type = null;
+    #[ORM\Column(type: Types::TEXT, length: 65535, nullable: false)]
+    private string $question;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $question = null;
+    #[ORM\Column(type: Types::JSON, length: 65535, nullable: false)]
+    private array $rightAnswer;
 
-    #[ORM\Column(type: Types::JSON, nullable: true)]
-    private mixed $rightAnswer = null;
+    #[ORM\Column(type: Types::JSON, length: 65535, nullable: false)]
+    private array $wrongAnswer;
 
-    #[ORM\Column(type: Types::JSON, nullable: true)]
-    private mixed $wrongAnswer = null;
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: false)]
+    private string $type;
 
-    #[ORM\ManyToOne(targetEntity: QuizSets::class, inversedBy: 'quizzes')]
-    private ?QuizSets $quizSet;
+    #[ORM\ManyToOne(inversedBy: 'quizzes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private QuizSets $quizSets;
+
+    #[ORM\Column(type: Types::INTEGER, options: ['default' => 0])]
+    private int $points = 0;
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'question' => $this->getQuestion(),
+            'rightAnswer' => $this->getRightAnswer(),
+            'wrongAnswer' => $this->getWrongAnswer(),
+            'type' => $this->getType(),
+            'points' => $this->getPoints(),
+            'quizSets' => $this->quizSets->toArray()
+        ];
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): static
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    public function getQuestion(): ?string
+    public function getQuestion(): string
     {
         return $this->question;
     }
 
-    public function setQuestion(?string $question): static
+    public function setQuestion(string $question): void
     {
         $this->question = $question;
-
-        return $this;
     }
 
-    public function getRightAnswer(): mixed
+    public function getRightAnswer(): array
     {
         return $this->rightAnswer;
     }
 
-    public function setRightAnswer(mixed $rightAnswer): static
+    public function setRightAnswer(array $rightAnswer): void
     {
         $this->rightAnswer = $rightAnswer;
-
-        return $this;
     }
 
-    public function getWrongAnswer(): mixed
+    public function getWrongAnswer(): array
     {
         return $this->wrongAnswer;
     }
 
-    public function setWrongAnswer(mixed $wrongAnswer): static
+    public function setWrongAnswer(array $wrongAnswer): void
     {
         $this->wrongAnswer = $wrongAnswer;
-
-        return $this;
     }
 
-    public function getQuizSet(): ?QuizSets
+    public function getType(): string
     {
-        return $this->quizSet;
+        return $this->type;
     }
 
-    public function setQuizSet(?QuizSets $quizSet): static
+    public function setType(string $type): void
     {
-        $this->quizSet = $quizSet;
+        $this->type = $type;
+    }
 
-        return $this;
+    public function getQuizSets(): QuizSets
+    {
+        return $this->quizSets;
+    }
+
+    public function setQuizSets(QuizSets $quizSets): void
+    {
+        $this->quizSets = $quizSets;
+    }
+
+    public function getPoints(): int
+    {
+        return $this->points;
+    }
+
+    public function setPoints(int $points): void
+    {
+        $this->points = $points;
     }
 }

@@ -12,8 +12,6 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 /**
  * @extends ServiceEntityRepository<User>
  *
- * @implements PasswordUpgraderInterface<User>
- *
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
@@ -40,28 +38,25 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
-//    /**
-//     * @return User[] Returns an array of User objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('u.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function getAllUsers(): array
+    {
+        return $this->findAll();
+    }
 
-//    public function findOneBySomeField($value): ?User
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function getUser(int $userId): ?User
+    {
+        return $this->find($userId);
+    }
+
+    public function getUserByEmail(string $userEmail): ?User {
+        return $this->findOneBy(['email' => $userEmail]);
+    }
+
+    public function updateUserPointsByEmail($email, $points): void
+    {
+        $user = $this->getUserByEmail($email);
+        $user->setPoints($points);
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
+    }
 }

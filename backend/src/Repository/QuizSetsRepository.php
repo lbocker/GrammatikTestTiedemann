@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\QuizSets;
@@ -21,28 +23,21 @@ class QuizSetsRepository extends ServiceEntityRepository
         parent::__construct($registry, QuizSets::class);
     }
 
-//    /**
-//     * @return QuizSets[] Returns an array of QuizSets objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('q')
-//            ->andWhere('q.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('q.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function getAllQuizSets(): array
+    {
+        return $this->createQueryBuilder('quiz_sets')
+            ->select('quiz_sets.id', 'quiz_sets.title', 'quiz_sets.description', 'quiz_sets.image')
+            ->getQuery()
+            ->getArrayResult();
+    }
 
-//    public function findOneBySomeField($value): ?QuizSets
-//    {
-//        return $this->createQueryBuilder('q')
-//            ->andWhere('q.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function getAllQuizSetsByCourse(int $courseId): array
+    {
+        return $this->findBy(['course' => $courseId]);
+    }
+
+    public function getQuizSet(int $quizSetId): ?QuizSets
+    {
+        return $this->find($quizSetId);
+    }
 }
