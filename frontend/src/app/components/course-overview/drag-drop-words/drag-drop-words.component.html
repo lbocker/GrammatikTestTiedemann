@@ -7,37 +7,43 @@
   </div>
 
   <p-panel class="dropZone">
-  <span *ngFor="let word of splittedWords; let i = index">
-    <span *ngIf="i % 2 == 0">{{ word }}</span>
-    <span
-      *ngIf="i % 2 == 1"
-      pDroppable
-      pDraggable
-      (onDragEnd)="dragEnd()"
-      (onDragStart)="startDrag(i, word, i)"
-      class="item"
-      (onDrop)="drop(i)"
-    > {{ this.splittedWords[ i ].includes('WORD') ? '' : this.splittedWords[ i ] }} </span>
+    @for (word of splittedWords; track splittedWords) {
+      <span>
+        @if ($index % 2 == 0) {
+          <span>{{ word }}</span>
+        } @else if ($index % 2 == 1) {
+          <span
+            pDroppable
+            pDraggable
+            (onDragEnd)="dragEnd()"
+            (onDragStart)="startDrag($index, word, $index)"
+            class="item"
+            (onDrop)="drop($index)"
+          > {{ this.splittedWords[ $index ].includes('WORD') ? '' : this.splittedWords[ $index ] }} </span>
+        }
   </span>
+    }
   </p-panel>
 
-  <button
-    pButton
-    class="p-button-success checkBtn"
-    label="Überprüfen"
-    *ngIf="shuffledWords.length == 0"
-    (click)="check()"
-  ></button>
+  @if (shuffledWords.length == 0) {
+    <button
+      pButton
+      class="p-button-success checkBtn"
+      label="Überprüfen"
+      (click)="check()"
+    ></button>
+  }
 
   <section class="undraggedItems">
     <section class="pickZone">
-    <span
-      class="draggableItem"
-      *ngFor="let item of shuffledWords; let i = index"
-      pDraggable
-      (onDragEnd)="dragEnd()"
-      (onDragStart)="startDrag(i, item, 'undragged')"
-    > {{ item }} </span>
+      @for (item of shuffledWords; track shuffledWords) {
+        <span
+          class="draggableItem"
+          pDraggable
+          (onDragEnd)="dragEnd()"
+          (onDragStart)="startDrag($index, item, 'undragged')"
+        > {{ item }} </span>
+      }
     </section>
   </section>
 </div>

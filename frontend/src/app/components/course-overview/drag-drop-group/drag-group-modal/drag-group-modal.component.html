@@ -1,5 +1,5 @@
-<div *ngIf="successful">
+@if (successful) {
   Das hast du gut gemacht! Du hast alle Aufgaben gelöst.
-</div><div *ngIf="!successful">
+} @else {
   Schade, du hast nicht alle Aufgaben richtig gelöst.
-</div>
+}

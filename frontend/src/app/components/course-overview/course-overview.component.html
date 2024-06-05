@@ -1,54 +1,67 @@
-<div class="wrapper" *ngIf="tasksMenu && description">
-  <p-steps
-    class="task-bar"
-    [model]="tasksMenu"
-    [readonly]="false"
-    [activeIndex]="activeIndex"
-    (activeIndexChange)="indexChange($event)"
-  ></p-steps>
-  <div class="title">
-    <h1>{{ description.title }}</h1>
-  </div>
-  <p-panel
-    class="description"
-    header="Beschreibung"
-    *ngIf="description && activeIndex == 0"
-  >
-    <pre [innerHTML]="description.description"></pre>
-    <p-button (click)="taskCompleted()">Next</p-button>
-  </p-panel>
+@if (tasksMenu && description) {
+  <div class="wrapper">
+    <p-steps
+      class="task-bar"
+      [model]="tasksMenu"
+      [readonly]="false"
+      [activeIndex]="activeIndex"
+      (activeIndexChange)="indexChange($event)"
+    ></p-steps>
+    <div class="title">
+      <h1>{{ description.title }}</h1>
+    </div>
+    @if (description && activeIndex == 0) {
+      <p-panel
+        class="description"
+        header="Beschreibung"
+      >
+        <pre [innerHTML]="description.description"></pre>
+        <p-button (click)="taskCompleted()">Next</p-button>
+      </p-panel>
+    }
 
-  <p-panel
-    class="description"
-    [header]="bigTask.title"
-    *ngIf="bigTask && !activeTask"
-  >
-    {{ bigTask.description }}
-  </p-panel>
-  <div class="taskContainer" *ngIf="activeTask">
-    <app-drag-drop-group
-      class="task"
-      *ngIf="activeTask.type == 'DRAG_AND_DROP_GROUP'"
-      [task]="activeTask"
-    ></app-drag-drop-group>
-    <app-drag-drop-words
-      class="task"
-      *ngIf="activeTask.type === 'DRAG_AND_DROP_WORDS'"
-      [task]="activeTask"
-    ></app-drag-drop-words>
-    <app-type-missing-words
-      class="task"
-      *ngIf="activeTask.type === 'TYPE_MISSING_WORDS'"
-    ></app-type-missing-words>
-    <app-find-wrong-words
-      class="task"
-      *ngIf="activeTask.type === 'FIND_WRONG_WORDS'"
-    ></app-find-wrong-words>
-    <app-multiple-choice
-      class="task"
-      *ngIf="activeTask.type === 'MULTIPLE_CHOICE'"
-      (taskCompleted)="taskCompleted()"
-      [task]="activeTask"
-    ></app-multiple-choice>
+    @if (bigTask && !activeTask) {
+      <p-panel
+        class="description"
+        [header]="bigTask.title"
+      >
+        {{ bigTask.description }}
+      </p-panel>
+    }
+    @if (activeTask) {
+      <div class="taskContainer">
+        @switch (activeTask.type) {
+          @case ('DRAG_AND_DROP_GROUP') {
+            <app-drag-drop-group
+              class="task"
+              [task]="activeTask"
+            ></app-drag-drop-group>
+          }
+          @case ('DRAG_AND_DROP_WORDS') {
+            <app-drag-drop-words
+              class="task"
+              [task]="activeTask"
+            ></app-drag-drop-words>
+          }
+          @case ('TYPE_MISSING_WORDS') {
+            <app-type-missing-words
+              class="task"
+            ></app-type-missing-words>
+          }
+          @case ('FIND_WRONG_WORDS') {
+            <app-find-wrong-words
+              class="task"
+            ></app-find-wrong-words>
+          }
+          @case ('MULTIPLE_CHOICE') {
+            <app-multiple-choice
+              class="task"
+              (taskCompleted)="taskCompleted()"
+              [task]="activeTask"
+            ></app-multiple-choice>
+          }
+        }
+      </div>
+    }
   </div>
-</div>
+}
