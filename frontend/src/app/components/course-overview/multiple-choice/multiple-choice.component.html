@@ -1,25 +1,27 @@
-<form class="wrapper" *ngIf="_task && form" [formGroup]="form">
-  <div class="question">
-    <h1>{{ _task.name }}</h1>
-  </div>
-  <div class="question-type">
-    <h3>{{ _task.question }}</h3>
-  </div>
-  <ng-container *ngFor="let choice of choices; let i = index; trackBy: trackByChoice">
-    <div class="choice">
-      <input
-        type="checkbox"
-        class="checkbox"
-        [id]="'choice-'+i"
-        [formControlName]="'choice-'+i"
-      />
-      <label [for]="'choice-'+i">{{ choice }}</label>
+@if (_task && form) {
+  <form class="wrapper" [formGroup]="form">
+    <div class="question">
+      <h1>{{ _task.name }}</h1>
     </div>
-  </ng-container>
-  <button
-    pButton
-    class="p-button-success checkBtn"
-    label="Überprüfen"
-    (click)="check()"
-  ></button>
-</form>
+    <div class="question-type">
+      <h3>{{ _task.question }}</h3>
+    </div>
+    @for (choice of choices; track trackByChoice) {
+      <div class="choice">
+        <input
+          type="checkbox"
+          class="checkbox"
+          [id]="'choice-'+$index"
+          [formControlName]="'choice-'+$index"
+        />
+        <label [for]="'choice-'+$index">{{ choice }}</label>
+      </div>
+    }
+    <button
+      pButton
+      class="p-button-success checkBtn"
+      label="Überprüfen"
+      (click)="check()"
+    ></button>
+  </form>
+}

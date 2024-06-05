@@ -1,21 +1,22 @@
 <div class="cardContainer">
-  <p-card
-    class="card"
-    header="{{ course.title }}"
-    *ngFor="let course of grammarCourses; trackBy: trackByCourse"
-    (click)="openCourse(course)"
-  >
-    <ng-template pTemplate="header">
-      <div class="card__image-container">
-        @if (course.image) {
-          <img class="card__image" [src]="baseUrl + course.image" alt="Photo of a {{ course.title }}"/>
-        } @else {
-          <img class="card__image" [src]="'https://http.cat/status/404.jpg'" alt="Photo of a hidden Cat"/>
-        }
-      </div>
-    </ng-template>
-    <p class="card__description">
-      {{ course.description }}
-    </p>
-  </p-card>
+  @for (course of grammarCourses; track trackByCourse) {
+    <p-card
+      class="card"
+      header="{{ course.title }}"
+      (click)="openCourse(course)"
+    >
+      <ng-template pTemplate="header">
+        <div class="card__image-container">
+          @if (course.image) {
+            <img class="card__image" [src]="baseUrl + course.image" alt="Photo of a {{ course.title }}" />
+          } @else {
+            <img class="card__image" [src]="'https://http.cat/status/404.jpg'" alt="Photo of a hidden Cat" />
+          }
+        </div>
+      </ng-template>
+      <p class="card__description">
+        {{ course.description }}
+      </p>
+    </p-card>
+  }
 </div>
